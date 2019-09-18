@@ -25,7 +25,7 @@ void set_SF(uint32_t result, size_t data_size)
 void set_PF(uint32_t result) { 
 	int num = 0;
 	for(int i = 0;i < 8; ++i){
-		if(result & 0x1) == 1)
+		if((result & 0x1) == 1)
 			++num;
 		result >> 1;
 	}
