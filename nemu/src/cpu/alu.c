@@ -27,7 +27,7 @@ void set_PF(uint32_t result) {
 	for(int i = 0;i < 8; ++i){
 		if((result & 0x1) == 1)
 			++num;
-		result >> 1;
+		result = result >> 1;
 	}
 	if(num % 2 == 0)
 		cpu.eflags.PF = 1;
@@ -76,9 +76,9 @@ uint32_t alu_add(uint32_t src, uint32_t dest, size_t data_size)
 	set_PF(res);
 	set_ZF(res, data_size);
 	set_SF(res, data_size);
-	set_OF_add(ress, src, dest, data_size);
+	set_OF_add(res, src, dest, data_size);
 
-	return res & (0xFFFFFFFF >> (32 - data_size)):
+	return res & (0xFFFFFFFF >> (32 - data_size));
 }
 
 uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
