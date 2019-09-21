@@ -147,7 +147,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
         set_PF(res);
         set_ZF(res, data_size);
         set_SF(res, data_size);
-        cpu.eflags.OF = (set_OF_adc(res, src + cpu.eflags.CF, dest, data_size) || set_OF_adc(src + cpu.eflags.CF, src,cpu.eflags.CF , data_size) || (set_OF_adc(src + dest, src, dest, data_size));
+        cpu.eflags.OF = (set_OF_adc(res, src + cpu.eflags.CF, dest, data_size) || set_OF_adc(src + cpu.eflags.CF, src,cpu.eflags.CF , data_size) || (set_OF_adc(src + dest, src, dest, data_size) || set_OF_adc(res, dest + cpu.eflags.CF, src, data_size) || set_OF_adc(dest + cpu.eflags.CF, dest,cpu.eflags.CF , data_size));
 
         return res & (0xFFFFFFFF >> (32 - data_size));
 
