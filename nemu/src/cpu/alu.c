@@ -303,13 +303,18 @@ int32_t alu_imod(int64_t src, int64_t dest)
 //********************AND****************
 uint32_t alu_and(uint32_t src, uint32_t dest, size_t data_size)
 {
+	uint32_t res = 0;
+        res = src & dest;
+
 	cpu.eflags.CF = 0;
 	cpu.eflags.OF = 0;
 	set_PF(res);
         set_ZF(res, data_size);
         set_SF(res, data_size);
 
-	return src & dest;
+	return res & (0xFFFFFFFF >> (32 - data_size));
+
+	
 }
 
 uint32_t alu_xor(uint32_t src, uint32_t dest, size_t data_size)
