@@ -154,7 +154,7 @@ void set_CF_sub(uint32_t src, uint32_t dest)
 	cpu.eflags.CF =  src > dest;
 }
 
-void set_OF_sub(uint32_t res, uint32_t src, uint32_t dest, size_t data_size)
+void set_OF_sub(uint32_t result, uint32_t src, uint32_t dest, size_t data_size)
 {
 	switch(data_size)
        	{
