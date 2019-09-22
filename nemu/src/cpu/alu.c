@@ -414,15 +414,46 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
 
 }
 
+//**********************SAR******************
+
 uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 {
-#ifdef NEMU_REF_ALU
-	return __ref_alu_sar(src, dest, data_size);
-#else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
-#endif
+	uint32_t res = 0;
+        res = dest;
+	for(int i = 0;i < src; ++i)
+	{
+		res = res >> 1;
+		switch(data_size)
+       		{
+		case 8:
+			if(res & 0x80 != 0x80)
+				res = res & 0xFFFFFF7F;
+			else
+				res = res | 0x80;
+			break;
+		case 16:
+			if(res & 0x8000 != 0x8000)
+				res = res & 0xFFFF7FFF;
+			else
+				res = res | 0x8000;
+						
+			break;
+		default:
+			if(res & 0x80000000 != 0x80000000)
+				res = res & 0x7FFFFFFF;
+			else
+				res = res | 0x80000000;
+			       
+			break;}
+
+	}	
+	set_CF_shr(src, dest, data_size);
+	set_PF(res);
+        set_ZF(res, data_size);
+        set_SF(res, data_size);
+
+	return res & (0xFFFFFFFF >> (32 - data_size));
+
 }
 
 //********************SAL***********************
