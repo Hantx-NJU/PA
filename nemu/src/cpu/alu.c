@@ -426,20 +426,20 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 		switch(data_size)
        		{
 		case 8:
-			if((res & 0x80) != 0x80)
+			if((res & 0x80) == 0)
 				res = res & 0xFFFFFF7F;
 			else
 				res = res | 0x80;
 			break;
 		case 16:
-			if((res & 0x8000) != 0x8000)
+			if((res & 0x8000) == 0)
 				res = res & 0xFFFF7FFF;
 			else
 				res = res | 0x8000;
 						
 			break;
 		default:
-			if((res & 0x80000000) != 0x80000000)
+			if((res & 0x80000000) == 0)
 				res = res & 0x7FFFFFFF;
 			else
 				res = res | 0x80000000;
