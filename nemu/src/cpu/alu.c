@@ -419,7 +419,7 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
 uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 {
 	uint32_t res = 0;
-        res = dest;
+        res = dest & (0xFFFFFFFF >> (32 - data_size));
 	for(int i = 0;i < src; ++i)
 	{
 		res = res >> 1;
