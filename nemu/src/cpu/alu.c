@@ -216,7 +216,7 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 	uint32_t res = 0;
         res = dest - src - cpu.eflags.CF;
 //	if(cpu.eflags.CF == 0){
-		set_OF_sub(res, src, dest, data_size);	
+	set_OF_sub(res, src, dest, data_size);	
 //	}
 //	else{
 			
