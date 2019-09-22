@@ -448,7 +448,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 		{
 			for(int i = 0;i < src; ++i)
 			{
-				res >> 1;
+				res = res >> 1;
 			switch(data_size)
        			{
 				case 8:
@@ -467,7 +467,7 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 		{
 			for(int i = 0;i < src; ++i)
 			{
-				res >> 1;
+				ress = res >> 1;
 			switch(data_size)
        			{
 				case 8:
