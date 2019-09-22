@@ -353,7 +353,6 @@ uint32_t alu_or(uint32_t src, uint32_t dest, size_t data_size)
 }
 
 //*********************SHL*********************
-hantx@debian:~/pa2019_fall/nemu/src/cpu$ vim alu.c
 
 void set_CF_shl(uint32_t src, uint32_t dest, size_t data_size)
 {
