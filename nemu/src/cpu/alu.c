@@ -393,14 +393,14 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
 		switch(data_size)
        		{
 		case 8:
-			res = res & 0xFFFFFFEF;
+			res = res & 0xFFFFFF7F;
 			break;
 		case 16:
-			res = res & 0xFFFFEFFF;
+			res = res & 0xFFFF7FFF;
 						
 			break;
 		default:
-			res = res & 0xEFFFFFFF;
+			res = res & 0x7FFFFFFF;
 			       
 			break;}
 
