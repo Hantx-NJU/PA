@@ -356,19 +356,8 @@ uint32_t alu_or(uint32_t src, uint32_t dest, size_t data_size)
 
 void set_CF_shl(uint32_t src, uint32_t dest, size_t data_size)
 {
-	switch(data_size)
-       	{
-		case 8:
-			dest = sign_ext(dest & 0xFF, 8);
-			break;
-		case 16:
-			dest = sign_ext(dest & 0xFFFF, 16);
-			break;
-		default: break;// do nothing
-}
-
-//	dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
-	cpu.eflags.CF = sign(dest << (src));
+	dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
+	cpu.eflags.CF = ~sign(dest << (src - 1));
 }
 
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
