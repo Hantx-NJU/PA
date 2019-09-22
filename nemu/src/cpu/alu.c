@@ -421,7 +421,6 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 	uint32_t res = 0;
         res = dest & (0xFFFFFFFF >> (32 - data_size));
 	for(int i = 0;i < src; ++i)
-	{
 		/*res = res >> 1;
 		switch(data_size)
        		{
@@ -447,38 +446,43 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
 			break;}*/
 		if(sign(res))
 		{
+			for(int i = 0;i < src; ++i)
+			{
+				res >> 1;
 			switch(data_size)
-       		{
-		case 8:
-			res = res | 0x80;
-			break;
-		case 16:
-			res = res | 0x8000;
+       			{
+				case 8:
+					res = res | 0x80;
+					break;
+				case 16:
+					res = res | 0x8000;
 						
-			break;
-		default:
-			res = res | 0x80000000;
+					break;
+				default:
+					res = res | 0x80000000;
 			       
-			break;}
+					break;}}
 		}
 		else
 		{
+			for(int i = 0;i < src; ++i)
+			{
+				res >> 1;
 			switch(data_size)
-       		{
-		case 8:
+       			{
+				case 8:
 			
-				res = res & 0x7F;
-				break;
-		case 16:
-				res = res & 0x7FFF;
-				break;
-		default:
-				res = res & 0x7FFFFFFF;
+					res = res & 0x7F;
+					break;
+				case 16:
+					res = res & 0x7FFF;
+					break;
+				default:
+					res = res & 0x7FFFFFFF;
 				       
-			break;}
+					break;}}
 		}
-
-	}	
+	
 	set_CF_shr(src, dest, data_size);
 	set_PF(res);
         set_ZF(res, data_size);
