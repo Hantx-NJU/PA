@@ -151,7 +151,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 
 void set_CF_sub(uint32_t src, uint32_t dest)
 {
-	cpu.eflags.CF =  src  > dest;
+	cpu.eflags.CF =  (src  > dest);
 	
 }
 
