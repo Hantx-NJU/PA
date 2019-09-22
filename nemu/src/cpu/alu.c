@@ -427,13 +427,13 @@ uint32_t alu_sar(uint32_t src, uint32_t dest, size_t data_size)
        		{
 		case 8:
 			if((res & 0x80) == 0)
-				res = res & 0xFFFFFF7F;
+				res = res & 0x7F;
 			else
 				res = res | 0x80;
 			break;
 		case 16:
 			if((res & 0x8000) == 0)
-				res = res & 0xFFFF7FFF;
+				res = res & 0x7FFF;
 			else
 				res = res | 0x8000;
 						
