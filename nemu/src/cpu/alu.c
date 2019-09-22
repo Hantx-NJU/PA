@@ -137,7 +137,7 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 //	if(cpu.eflags.CF == 1)
 //		cpu.eflags.OF = set_OF_adc(src + dest, src, dest, data_size) || set_OF_adc(res, src + dest , 1, data_size);
 //	else
-		cpu.eflags.OF =	set_OF_adc(res, src, dest, data_size);
+	cpu.eflags.OF =	set_OF_adc(res, src, dest, data_size);
         set_CF_adc(res, src, data_size);
         set_PF(res);
         set_ZF(res, data_size);
@@ -147,15 +147,48 @@ uint32_t alu_adc(uint32_t src, uint32_t dest, size_t data_size)
 
 }
 
+//*********************SUB******************
+
+set_CF_sub(uint32_t src, uint32_t dest)
+{
+	return src > dest;
+}
+
+set_OF_sub(unit32_t res, uint32_t src, uint32_t dest, size_t data_size)
+{
+	switch(data_size)
+       	{
+		case 8:
+			result = sign_ext(result & 0xFF, 8);
+			src = sign_ext(src & 0xFF, 8);
+			dest = sign_ext(dest & 0xFF, 8);
+			break;
+		case 16:
+			result = sign_ext(result & 0xFFFF, 16);
+			src = sign_ext(src & 0xFFFF, 16);
+			dest = sign_ext(dest & 0xFFFF, 16);
+			break;
+		default: break;// do nothing
+}
+	if(sign(src) != sign(dest)) {
+	if(sign(src) == sign(result))
+		cpu.eflags.OF = 1;
+	else
+		cpu.eflags.OF = 0;
+	} else {
+	cpu.eflags.OF = 0;
+}
+}
 uint32_t alu_sub(uint32_t src, uint32_t dest, size_t data_size)
 {
-#ifdef NEMU_REF_ALU
-	return __ref_alu_sub(src, dest, data_size);
-#else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
-#endif
+	uint32_t res = 0;
+        res = dest -src;
+	
+	set_CF_sub(src, dest);
+	set_PF(res);
+        set_ZF(res, data_size);
+        set_SF(res, data_size);
+
 }
 
 uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
