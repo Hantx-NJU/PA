@@ -389,7 +389,7 @@ uint32_t alu_shr(uint32_t src, uint32_t dest, size_t data_size)
         res = dest;
 	for(int i = 0;i < src; ++i)
 	{
-		res = (res >> 1) | (res | (0x1 << data_size))
+		res = (res >> 1) | (res | (0x1 << data_size));
 	}	
 	set_CF_shr(src, dest, data_size);
 	set_PF(res);
