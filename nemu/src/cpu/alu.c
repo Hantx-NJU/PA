@@ -356,9 +356,10 @@ uint32_t alu_or(uint32_t src, uint32_t dest, size_t data_size)
 
 void set_CF_shl(uint32_t src, uint32_t dest, size_t data_size)
 {
-	dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
+	//dest = sign_ext(dest & (0xFFFFFFFF >> (32 - data_size)), data_size);
 	cpu.eflags.CF = sign(dest << (src - 1));
 }
+
 uint32_t alu_shl(uint32_t src, uint32_t dest, size_t data_size)
 {
 	uint32_t res = 0;
