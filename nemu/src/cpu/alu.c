@@ -233,7 +233,7 @@ uint32_t alu_sbb(uint32_t src, uint32_t dest, size_t data_size)
 
 void set_CF_mul(uint64_t res, size_t data_size)
 {
-	res = sign_ext(res & (0xFFFFFFFFFFFFFFFF >> (64 - data_size * 2)), data_size * 2);
+	res = res & (0xFFFFFFFFFFFFFFFF >> (64 - data_size * 2));
 	switch(data_size)
        	{
 		case 8:
