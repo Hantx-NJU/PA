@@ -272,8 +272,15 @@ void set_CF_mul(uint64_t res, size_t data_size)
 
 uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 {
-	uint64_t res = src * dest;
-
+	uint64_t res = src;
+	for(int i = 0; i < data_size; ++i)
+	{
+		if((dest & 1) == 1)
+			res += src * 2;
+		else{}
+		dest = dest >> 1;
+		src = src * 2;
+	}
 	set_CF_mul(res, data_size);
 	set_PF(res);
         set_ZF(res, data_size);
