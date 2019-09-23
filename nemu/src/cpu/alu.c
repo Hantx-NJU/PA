@@ -237,7 +237,7 @@ void set_CF_mul(uint64_t res, size_t data_size)
 	switch(data_size)
        	{
 		case 8:
-			if(res & 0x00 == 0){
+			if((res & 0x00) == 0){
 				cpu.eflags.CF = 0;
 				cpu.eflags.OF = 0;
 			}
@@ -247,7 +247,7 @@ void set_CF_mul(uint64_t res, size_t data_size)
 			}
 			break;
 		case 16:
-			if(res & 0x0000 == 0){
+			if((res & 0x0000) == 0){
 				cpu.eflags.CF = 0;
 				cpu.eflags.OF = 0;
 			}
@@ -258,7 +258,7 @@ void set_CF_mul(uint64_t res, size_t data_size)
 			break;
 			
 		default:
-			if(res & 0x00000000 == 0){
+			if((res & 0x00000000) == 0){
 				cpu.eflags.CF = 0;
 				cpu.eflags.OF = 0;
 			}
