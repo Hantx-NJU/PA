@@ -306,13 +306,11 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 // need to implement alu_mod before testing
 uint32_t alu_div(uint64_t src, uint64_t dest, size_t data_size)
 {
-#ifdef NEMU_REF_ALU
-	return __ref_alu_div(src, dest, data_size);
-#else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
-#endif
+	if(src == 0)
+		exit(-1);
+	else{}
+	uint32_t res = dest / src;
+	return res;
 }
 
 // need to implement alu_imod before testing
@@ -320,7 +318,7 @@ int32_t alu_idiv(int64_t src, int64_t dest, size_t data_size)
 {
 #ifdef NEMU_REF_ALU
 	return __ref_alu_idiv(src, dest, data_size);
-#else
+#elseiii
 	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
 	assert(0);
 	return 0;
