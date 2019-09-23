@@ -294,13 +294,11 @@ uint64_t alu_mul(uint32_t src, uint32_t dest, size_t data_size)
 
 int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 {
-#ifdef NEMU_REF_ALU
-	return __ref_alu_imul(src, dest, data_size);
-#else
-	printf("\e[0;31mPlease implement me at alu.c\e[0m\n");
-	assert(0);
-	return 0;
-#endif
+	int64_t s =(int64_t)src;
+	int64_t d =(int64_t)dest;
+	int64_t res = s * d;
+	
+	return res & (0xFFFFFFFFFFFFFFFF >> (64 - data_size*2));
 }
 
 // need to implement alu_mod before testing
