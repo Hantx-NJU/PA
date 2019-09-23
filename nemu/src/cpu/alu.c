@@ -298,7 +298,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 	int64_t d =(int64_t)dest;
 	int64_t res = s * d;
 	
-	return res & (0xFFFFFFFFFFFFFFFF >> (64 - data_size*2));
+	return res;
 }
 
 // need to implement alu_mod before testing
