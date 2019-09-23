@@ -307,7 +307,7 @@ int64_t alu_imul(int32_t src, int32_t dest, size_t data_size)
 uint32_t alu_div(uint64_t src, uint64_t dest, size_t data_size)
 {
 	if(src == 0)
-		exit(-1);
+		return 0;
 	else{}
 	uint32_t res = dest / src;
 	return res;
