@@ -115,6 +115,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			if(sign)	return n_inf.val;
 			else	return p_inf.val;
 		}
+		sig_grs &= 0x7FFFFF;
 	}
 
 	FLOAT f;
