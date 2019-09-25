@@ -69,15 +69,23 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		while (((sig_grs >> (23 + 3)) == 0) && exp > 0)
 		{
 			/* TODO: shift left */
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			assert(0);
+			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+			//assert(0);
+			uint32_t f_sticky = sig_grs & 0x1;
+			sig_grs = sig_grs << 1;
+			--exp;
+			sig_grs = sig_grs | f_sticky;
+
 		}
 		if (exp == 0)
 		{
 			// denormal
 			/* TODO: shift right, pay attention to sticky bit*/
-			printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-			assert(0);
+			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+			//assert(0);
+			uint32_t f_sticky = sig_grs & 0x1;
+			sig_grs = sig_grs >> 1;
+			sig_grs = sig_grs | f_sticky;
 		}
 	}
 	else if (exp == 0 && sig_grs >> (23 + 3) == 1)
@@ -89,8 +97,24 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 	if (!overflow)
 	{
 		/* TODO: round up and remove the GRS bits */
-		printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
-		assert(0);
+		//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
+		//assert(0);
+		uint32_t grs = sig_grs & 0x7;
+		if(grs < 4)	sig_grs >>= 3;
+		else if( grs > 4)	{sig_grs >>= 3;	sig_grs++;}
+		else{
+			sig_grs >>= 3;
+			if(sig_grs & 0x1)	sig_grs++;
+			else	{}
+		}
+		if((sig_grs >> 23 > 1) && exp < 0xff){
+			sig_grs >>= 1;
+			++exp;	
+		}
+		if(exp >= 0xff){
+			if(sign)	return n_inf.val;
+			else	return p_inf.val;
+		}
 	}
 
 	FLOAT f;
