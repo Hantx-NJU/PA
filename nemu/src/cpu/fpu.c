@@ -24,7 +24,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			/* TODO: shift right, pay attention to sticky bit*/
 			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			//assert(0);
-			uint32_t f_sticky = sig_grs & 0x1;
+			uint32_64 f_sticky = sig_grs & 0x1;
 			sig_grs = sig_grs >> 1;
 			++exp;
 			sig_grs = sig_grs | f_sticky;
@@ -46,7 +46,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			/* TODO: shift right, pay attention to sticky bit*/
 			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			//assert(0);
-			uint32_t f_sticky = sig_grs & 0x1;
+			uint64_t f_sticky = sig_grs & 0x1;
 			sig_grs = sig_grs >> 1;
 			//++exp;
 			sig_grs = sig_grs | f_sticky;
@@ -71,7 +71,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			/* TODO: shift left */
 			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			//assert(0);
-			uint32_t f_sticky = sig_grs & 0x1;
+			uint64_t f_sticky = sig_grs & 0x1;
 			sig_grs = sig_grs << 1;
 			--exp;
 			sig_grs = sig_grs | f_sticky;
@@ -83,7 +83,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			/* TODO: shift right, pay attention to sticky bit*/
 			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			//assert(0);
-			uint32_t f_sticky = sig_grs & 0x1;
+			uint64_t f_sticky = sig_grs & 0x1;
 			sig_grs = sig_grs >> 1;
 			sig_grs = sig_grs | f_sticky;
 		}
@@ -99,7 +99,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 		/* TODO: round up and remove the GRS bits */
 		//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 		//assert(0);
-		uint32_t grs = sig_grs & 0x7;
+		uint64_t grs = sig_grs & 0x7;
 		if(grs < 4)	sig_grs >>= 3;
 		else if( grs > 4)	{sig_grs >>= 3;	sig_grs++;}
 		else{
