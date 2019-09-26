@@ -36,8 +36,8 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			//assert(0);
 			//overflow = true;
-			if(sign)	return n_inf.val;
-			else	return p_inf.val;
+			if(sign)	return N_INF_F;
+			else	return P_INF_F;
 		}
 		if (exp == 0)
 		{
@@ -52,8 +52,8 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sig_grs = sig_grs | f_sticky;
 			if(sig_grs>>2 == 0)
 			{
-				if(sign)	return n_zero.val;
-			else	return p_zero.val;
+				if(sign)	return N_ZERO_F;
+			else	return P_ZERO_F_;
 
 
 					}
@@ -65,8 +65,8 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			//printf("\e[0;31mPlease implement me at fpu.c\e[0m\n");
 			//assert(0);
 			//overflow = true;
-			if(sign)	return n_zero.val;
-			else	return p_zero.val;
+			if(sign)	return N_ZERO_F;
+			else	return P_ZERO_F;
 
 		}
 	}
@@ -119,8 +119,8 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			++exp;	
 		}
 		if(exp >= 0xff){
-			if(sign)	return n_inf.val;
-			else	return p_inf.val;
+			if(sign)	return N_INF_F;
+			else	return P_INF_F;
 		}
 		sig_grs &= 0x7FFFFF;
 	}
