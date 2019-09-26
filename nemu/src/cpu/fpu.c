@@ -81,7 +81,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			uint64_t f_sticky = sig_grs & 0x1;
 			sig_grs = sig_grs << 1;
 			--exp;
-			sig_grs = sig_grs | f_sticky;
+			//sig_grs = sig_grs | f_sticky;
 
 		}
 		if (exp == 0)
