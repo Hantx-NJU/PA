@@ -50,6 +50,13 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			sig_grs = sig_grs >> 1;
 			//++exp;
 			sig_grs = sig_grs | f_sticky;
+			if(sig_grs>>2 == 0)
+			{
+				if(sign)	return n_zero.val;
+			else	return p_zero.val;
+
+
+					}
 
 		}
 		if (exp < 0)
