@@ -53,7 +53,7 @@ inline uint32_t internal_normalize(uint32_t sign, int32_t exp, uint64_t sig_grs)
 			if(sig_grs>>2 == 0)
 			{
 				if(sign)	return N_ZERO_F;
-			else	return P_ZERO_F_;
+			else	return P_ZERO_F;
 
 
 					}
