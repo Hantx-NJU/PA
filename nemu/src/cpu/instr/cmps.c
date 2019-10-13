@@ -38,3 +38,5 @@ make_instr_func(cmps_b)
 	print_asm_0("cmps (%%edi), (%%esi)", "", 1);
 	return 1;
 }
+
+//make_instr_func(cmp_i2
