@@ -23,5 +23,5 @@ extern uint8_t data_size;
 #include "cpu/instr/x87.h"
 
 /* TODO: add more instructions here */
-#include "cmp.h"
+#include "cpu/instr/cmp.h"
 #endif
