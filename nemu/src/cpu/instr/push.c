@@ -2,12 +2,13 @@
 
 static void instr_execute_1op()
 {
+	OPERAND temp;
 	operand_read(&opr_src);
 	cpu.esp -= data_size / 8;
-	opr_dest.type=OPR_MEM;
-	opr_dest.val = opr_src.val;
-	opr_dest.addr = cpu.esp;
-	operand_write(&opr_dest);
+	temp.type=OPR_MEM;
+	temp.val = opr_src.val;
+	temp.addr = cpu.esp;
+	operand_write(&temp);
 }
 
 make_instr_impl_1op(push,r,v);
