@@ -2,5 +2,5 @@
 
 make_instr_func(test_r2rm_v)
 {
-	return 0;
+	return 1+data_size/8;
 }
