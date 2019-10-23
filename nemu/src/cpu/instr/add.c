@@ -7,7 +7,7 @@ static void instr_execute_2op()
 	opr_src.val = sign_ext(opr_src.val, opr_src.data_size);
 	opr_src.dest = sign_ext(opr_dest.val, opr_dest.data_size);
 	opr_dest.val = alu_add(opr_src.val, opr_dest.val, data_size);
-	opr_write(&opr_dest);
+	operand_write(&opr_dest);
 }
 
 make_instr_impl_2op(add, i, rm, v);
