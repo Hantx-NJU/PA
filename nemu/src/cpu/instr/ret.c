@@ -9,7 +9,7 @@ make_instr_func(ret_near)
 	temp.addr = cpu.esp;
 	operand_read(&temp);
 	cpu.esp += data_size/8;
-	temp.addr = cpu.eip;
-	operand_write(&temp);
+	cpu.eip = temp.val;
+	//operand_write(&temp);
 	return 1+data_size/8;
 }
