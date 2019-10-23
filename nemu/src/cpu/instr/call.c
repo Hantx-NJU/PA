@@ -9,6 +9,7 @@ make_instr_func(call_near)
 	rel.data_size = data_size;
 	operand_read(&rel);
 	cpu.esp -= data_size / 8;
+	
 
 	temp.val=cpu.ip;
 	cpu.esp-=data_size / 8;
