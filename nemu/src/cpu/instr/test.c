@@ -1,6 +1,8 @@
 #include "cpu/instr.h"
 
-make_instr_func(test_r2rm_v)
+static void instr_execute_2op()
 {
-	return 1;
-}
+	operand_read(&opr_src);
+	operand_read(&opr_dest);
+
+
