@@ -2,10 +2,13 @@
 
 make_instr_func(lea)
 {
-	operand_read(&opr_src);
-	operand_read(&opr_dest);
-	opr_dest.val = opr_src.addr;
-	opr_dest.val = sign_ext(opr_dest.val, opr_dest.data_size);
-	operand_write(&opr_dest);
-	return 1 + data_size / 8;
+	OPERAND r, m;
+	r.data_size = data_size;
+	int len = 1;
+	len += modrm_rm(eip + 1, &r);
+	len += modrm_rm(eip + len, &m);
+	r.val = m.addr;
+	r.val = sign_ext(r.val, r.data_size);
+	operand_write(&r);
+	return len;
 }
