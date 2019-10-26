@@ -6,7 +6,7 @@ make_instr_func(lea)
 	r.data_size = data_size;
 	int len = 1;
 	len += modrm_rm(eip + 1, &r);
-	len += modrm_rm(eip + len, &m);
+	len += modrm_rm(eip + 2, &m);
 	r.val = m.addr;
 	r.val = sign_ext(r.val, r.data_size);
 	operand_write(&r);
