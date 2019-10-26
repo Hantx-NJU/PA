@@ -36,5 +36,5 @@ make_instr_func(je_short)
 
         	cpu.eip += offset;
 	}
-	return 3;
+	return 1+data_size/8;
 }
