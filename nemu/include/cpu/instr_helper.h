@@ -215,7 +215,7 @@ static inline bool inv_cc();
 	cpu.eflags.SF != cpu.eflags.OF
 
 #define condition_le \
-	(cpu.eflags.ZF == 1 && cpu.eflags.SF 1= cpu.eflags.OF)
+	(cpu.eflags.ZF == 1 && cpu.eflags.SF != cpu.eflags.OF)
 
 #define condition_ecxz \
 	cpu.ecx == 0
