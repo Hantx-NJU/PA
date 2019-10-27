@@ -54,7 +54,7 @@ make_instr_func(jmp_near_indirect)
 
         cpu.eip = offset;
 
-        return 0;
+        return 1;
 }
 
 
