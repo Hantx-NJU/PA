@@ -3,7 +3,7 @@
 static void instr_execute_1op()
 {
 	OPERAND temp;
-	modrm_rm(eip+1, &temp);
+	modrm_rm(cpu.eip+1, &temp);
 	temp.data_size = data_size;
 	operand_read(&temp);
 	temp.val = ~temp.val;
