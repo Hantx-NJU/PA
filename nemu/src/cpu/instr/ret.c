@@ -13,7 +13,7 @@ make_instr_func(ret_near)
 	return 0;
 }
 
-make_instr_func(ret_near)
+make_instr_func(ret_near_imm16)
 {
 	//EIP <- POP()
 	OPERAND temp;
