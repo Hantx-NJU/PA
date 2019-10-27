@@ -41,12 +41,13 @@ make_instr_func(jmp_short)
 make_instr_func(jmp_near_indirect)
 {
         OPERAND rel;
-        rel.type = OPR_IMM;
+        //rel.type = OPR_IMM;
         rel.sreg = SREG_CS;
         rel.data_size = data_size;
-        rel.addr = eip + 1;
-
-        operand_read(&rel);
+        //rel.addr = eip + 1;
+	modrm_rm(eip + 1, &rel);
+	
+	operand_read(&rel);
 
         int offset = sign_ext(rel.val, data_size);
         // thank Ting Xu from CS'17 for finding this bug
