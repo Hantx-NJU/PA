@@ -29,7 +29,7 @@ make_instr_func(jmp_short)
 
         operand_read(&rel);
 
-        int offset = sign_ext(rel.val, data_size);
+        int offset = sign_ext(rel.val, 8);
         // thank Ting Xu from CS'17 for finding this bug
         print_asm_1("jmp", "", 1 + 8 / 8, &rel);
 
