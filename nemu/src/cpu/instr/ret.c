@@ -28,6 +28,6 @@ make_instr_func(ret_near_imm16)
 	modrm_rm(cpu.eip+1, &imm);
 	imm.data_size = data_size;
 	operand_read(&imm);
-	cpu.esp += imm;
+	cpu.esp += imm.val;
 	return 0;
 }
