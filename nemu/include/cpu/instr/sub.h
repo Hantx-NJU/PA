@@ -3,6 +3,7 @@
 
 make_instr_func(sub_i2rm_bv);
 make_instr_func(sub_rm2r_v);
+make_instr_func(sub_r2rm_v);
 
 
 
