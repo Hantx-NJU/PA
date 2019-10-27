@@ -13,5 +13,5 @@ make_instr_func(leave)
 	operand_read(&temp);
 	cpu.esp += data_size/8;
 	cpu.ebp = temp.val;
-	return 1+ data_size/8;
+	return 1;
 }
