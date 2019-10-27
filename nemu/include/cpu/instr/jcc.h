@@ -15,6 +15,6 @@ make_instr_func(jle_near);
 make_instr_func(je_near);
 make_instr_func(ja_near);
 make_instr_func(js_near);
-
+make_instr_func(jne_near);
 
 #endif
