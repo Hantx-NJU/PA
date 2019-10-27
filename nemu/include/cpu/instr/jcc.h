@@ -9,6 +9,7 @@ make_instr_func(jna_short_);
 make_instr_func(jl_short_);
 make_instr_func(jge_short_);
 make_instr_func(jae_short_);
+make_instr_func(ja_short_);
 
 
 
