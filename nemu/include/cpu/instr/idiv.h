@@ -1,5 +1,5 @@
-#ifndef __INSTR_IMUL_H__
-#define __INSTR_IMUL_H__
+#ifndef __INSTR_IDIV_H__
+#define __INSTR_IDIV_H__
 
 make_instr_func(idiv_rm2a_v);
 
