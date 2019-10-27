@@ -24,10 +24,10 @@ make_instr_func(ret_near_imm16)
 	cpu.esp += data_size/8;
 	cpu.eip = temp.val;
 
-	OPERAND temp;
-	modrm_rm(cpu.eip+1, &temp);
-	temp.data_size = data_size;
-	operand_read(&temp);
-	cpu.esp += temp.val;
+	OPERAND imm;
+	modrm_rm(cpu.eip+1, &imm);
+	imm.data_size = data_size;
+	operand_read(&imm);
+	cpu.esp += imm;
 	return 0;
 }
