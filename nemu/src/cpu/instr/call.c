@@ -25,26 +25,22 @@ make_instr_func(call_near)
 
 make_instr_func(call_near_indirect)
 {
-	//PUSH(EIP)
-	OPERAND rel, mem;
-	//modrm_rm(eip+1,&rel);	
-	rel.data_size = data_size;
-	modrm_rm(eip+1,&rel);
-	operand_read(&rel);
-	cpu.esp -= data_size / 8;
-	
-	mem.type = OPR_MEM;
-	mem.data_size = data_size;
-	mem.val = cpu.eip + 1 + data_size / 8;
-	mem.addr = cpu.esp;
-	operand_write(&mem);
-
-	//EIP <- rel
-	//int rel_s = sign_ext(rel.val, data_size);
-	if(data_size == 16)	rel.val&=0xFFFF;
-
-	cpu.eip = rel.val;
-
-	return 0 ;
+	OPERAND rm;
+    rm.data_size=data_size;
+    modrm_rm(eip+1,&rm);
+    operand_read(&rm);
+    cpu.gpr[4].val-=data_size/8;
+    OPERAND mem;
+    mem.type=OPR_MEM;
+    mem.data_size=data_size;
+    mem.val=cpu.eip+1+data_size/8;
+    mem.sreg=SREG_SS;
+    mem.addr=cpu.gpr[4].val;
+    operand_write(&mem);
+    if(data_size==16)
+    rm.val&=0xFFFF;
+    print_asm_1("call","",1+data_size/8,&rm);
+    cpu.eip=rm.val;
+    return 0;
 }
 
