@@ -27,8 +27,7 @@ make_instr_func(call_near_indirect)
 {
 	//PUSH(EIP)
 	OPERAND rel, mem;
-	rel.type = OPR_IMM;
-	rel.addr = cpu.eip + 1;
+	modrm_rm(eip+1,&rel);	
 	rel.data_size = data_size;
 	operand_read(&rel);
 	cpu.esp -= data_size / 8;
