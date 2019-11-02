@@ -43,6 +43,6 @@ make_instr_func(call_near_indirect)
 	int rel_s = sign_ext(rel.val, data_size);
 	cpu.eip = rel_s;
 
-	return 1 + data_size / 8;
+	return 1 ;
 }
 
