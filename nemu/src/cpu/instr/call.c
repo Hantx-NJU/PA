@@ -35,11 +35,11 @@ make_instr_func(call_near_indirect)
 	
 	mem.type = OPR_MEM;
 	mem.data_size = data_size;
-	mem.val = cpu.eip + 1 + data_size / 8;
+	mem.val = cpu.eip + data_size / 8;
 	mem.addr = cpu.esp;
 	operand_write(&mem);
 
-	//EIP <- EIP + rel
+	//EIP <- rel
 	int rel_s = sign_ext(rel.val, data_size);
 	cpu.eip = rel_s;
 
