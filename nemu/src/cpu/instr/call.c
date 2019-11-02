@@ -37,7 +37,7 @@ make_instr_func(call_near_indirect)
 	mem.val = cpu.eip + 1 + data_size / 8;
 	mem.addr = cpu.esp;
 	operand_write(&mem);
-	int rel_s = sign_ext(rel.val, data_size);
+	int rel_s = sign_ext(rm.val, data_size);
 	cpu.eip = rel_s;
 
         return 0;
