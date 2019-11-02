@@ -40,9 +40,11 @@ make_instr_func(call_near_indirect)
 	operand_write(&mem);
 
 	//EIP <- rel
-	int rel_s = sign_ext(rel.val, data_size);
-	cpu.eip = rel_s;
+	//int rel_s = sign_ext(rel.val, data_size);
+	if(data_size == 16)	rel.val&=0xFFFF;
 
-	return 1 ;
+	cpu.eip = rel.val;
+
+	return 0 ;
 }
 
