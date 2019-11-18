@@ -149,7 +149,7 @@ static bool make_token(char *e)
 
 extern uint32_t look_up_symtab(char * sym, bool * success);
 
-static bool  check_parentheses(int e,int s,bool *success)
+static bool  check_parentheses(int s,int e,bool *success)
 {
 	int c = 0;
 	bool flag = true;
@@ -170,7 +170,7 @@ static bool  check_parentheses(int e,int s,bool *success)
 	return flag;
 }
 
-uint32_t eval(int e,int s, bool *success)
+uint32_t eval(int s,int e, bool *success)
 {
 	if (s > e) {
 		*success = false;
@@ -208,8 +208,8 @@ uint32_t eval(int e,int s, bool *success)
 			return i;
 		}
 	}
-	else if (check_parentheses(e, s, success) == true)
-		return eval(e - 1 ,s + 1, success);
+	else if (check_parentheses(s, e, success) == true)
+		return eval(s + 1, e - 1, success);
 	else {
 		int pm = -1, mul = -1, c = 0, i;
 		for (i = s; i < e; i++) {
@@ -230,8 +230,8 @@ uint32_t eval(int e,int s, bool *success)
 				op = pm;
 			else
 				op = mul;
-			int val1 = eval(op - 1, s, success);
-			int val2 = eval(e, op + 1,  success);
+			int val1 = eval(s, op - 1, success);
+			int val2 = eval(op + 1, e, success);
 			switch(tokens[op].type) {
 				case '+': return val1 + val2;
 				case '-': return val1 - val2;
@@ -241,7 +241,7 @@ uint32_t eval(int e,int s, bool *success)
 		}
 		else {
 			if (tokens[s].type == NEG)
-				return (-eval(e, s + 1, success));
+				return (-eval(s + 1, e, success));
 			else if (tokens[s].type == DER)
 				return vaddr_read(eval(s + 1, e, success), SREG_DS, 4);
 			else
@@ -275,5 +275,5 @@ uint32_t expr(char *e, bool *success)
 		}
 	}
 
-		return eval(0, nr_token, success);
+	return eval(0, nr_token, success);
 }
