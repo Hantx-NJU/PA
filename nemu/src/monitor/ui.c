@@ -233,7 +233,7 @@ static struct
 	/* TODO: Add more commands */
 	{"si", "Single Step Execution", cmd_si},
 	{"info", "Print register and watch point info", cmd_info},
-
+	{ "x", "Scan memory.", cmd_x},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -328,4 +328,47 @@ void ui_mainloop(bool autorun)
 			break;
 		}
 	}
+}
+cmd_handler(cmd_x) {
+	int n;
+	char * exprs;
+	vaddr_t addr;
+	char *p = args;
+	if(args == NULL) { 
+		puts("Command format: \"x/Nx ADDR\"");
+		return 0;
+	}
+	if(sscanf(p, "%d", &n) == 1) {
+		exprs = strtok(NULL, " ");
+		exprs = strtok(NULL, " ");
+		printf("n = %d, expr = %s\n", n, exprs);
+		if(exprs == NULL) {
+			puts("Command format: \"x/Nx ADDR\"");
+			return 0;
+		}
+
+		bool success;
+		addr = expr(exprs, &success);
+		if(!success) {
+			printf("invalid expression: %s\n", exprs);
+		} else {
+			while(n > 0) {
+				printf("0x%08x:\t", addr);
+				int i;
+				for(i = 0; i < 4; i ++) {
+					if(n == 0) { break; }
+					else {
+						printf("0x%08x ", vaddr_read(addr + 4 * i, SREG_DS, 4));
+						n --;
+					}
+				}
+				addr += 16;
+				printf("\n");
+			}
+		}
+	} else {
+		puts("Command format: \"x/Nx ADDR\"");
+		return 0;
+	}
+	return 0;
 }
