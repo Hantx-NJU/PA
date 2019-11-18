@@ -112,6 +112,14 @@ static bool make_token(char *e)
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
+				
+
+				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
+				position += substr_len;
+
+				/* TODO: Now a new token is recognized with rules[i]. 
+				 * Add codes to perform some actions with this token.
+				 */
 				if(rules[i].token_type!=NOTYPE)
 				{
 					for(int i=0;i<substr_len;++i)
@@ -120,14 +128,7 @@ static bool make_token(char *e)
 						tokens[nr_token].str[substr_len]='\0';
 					}
 				}
-
-				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
-				position += substr_len;
-
-				/* TODO: Now a new token is recognized with rules[i]. 
-				 * Add codes to perform some actions with this token.
-				 */
-
+				
 				switch (rules[i].token_type)
 				{
 				default:
