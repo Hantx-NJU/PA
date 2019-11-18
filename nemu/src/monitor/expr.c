@@ -169,7 +169,86 @@ static bool  check_parentheses(int e,int s,bool *success)
 	return flag;
 }
 
-uint32_t eval(int e,int s)
+uint32_t eval(int e,int s, bool *success)
+{
+	if (s > e) {
+		*success = false;
+		return 0;
+	}
+	else if (s == e) {
+		if (tokens[s].type == NUM)
+			return atoi(tokens[s].str);
+		else if (tokens[s].type == REG) {
+			if ((strcmp(tokens[s].str, "$eax") == 0) || (strcmp(tokens[s].str, "$EAX") == 0))
+					return cpu.eax;
+			else if (strcmp(tokens[s].str, "ecx") == 0)
+				return cpu.ecx;
+			else if (strcmp(tokens[s].str, "edx") == 0)
+				return cpu.edx;
+			else if (strcmp(tokens[s].str, "ebx") == 0)
+				return cpu.ebx;
+			else if (strcmp(tokens[s].str, "esp") == 0)
+				return cpu.esp;
+			else if (strcmp(tokens[s].str, "ebp") == 0)
+				return cpu.ebp;
+			else if (strcmp(tokens[s].str, "esi") == 0)
+				return cpu.esi;
+			else if (strcmp(tokens[s].str, "edi") == 0)
+				return cpu.edi;
+			else
+				*success = false;
+		}
+		else if (tokens[s].type == SYMB) {
+			return look_up_symtab(tokens[s].str, success);
+		}
+		else if (tokens[s].type == HEX) {
+			uint32_t i;
+			sscanf(tokens[s].str, "%x", &i);
+			return i;
+		}
+	}
+	else if (check_parentheses(e, s, success) == true)
+		return eval(e - 1 ,s + 1, success);
+	else {
+		int pm = -1, mul = -1, c = 0, i;
+		for (i = s; i < e; i++) {
+			if (tokens[i].type == '(')
+				c++;
+			else if (tokens[i].type == ')')
+				c--;
+			if (c == 0) {
+				if (tokens[i].type == '+' || tokens[i].type == '-')
+					pm = i;
+				else if (tokens[i].type == '*')
+					mul = i;
+			}
+		}
+		if (pm != -1 || mul != -1) {
+			int op;
+			if (pm != -1)
+				op = pm;
+			else
+				op = mul;
+			int val1 = eval(op - 1, s, success);
+			int val2 = eval(e, op + 1,  success);
+			switch(tokens[op].type) {
+				case '+': return val1 + val2;
+				case '-': return val1 - val2;
+				case '*': return val1 * val2;
+				default: assert(0);
+			}
+		}
+		else {
+			if (tokens[s].type == NEG)
+				return (-eval(s + 1, e, success));
+			else if (tokens[s].type == DER)
+				return vaddr_read(eval(s + 1, e, success), SREG_DS, 4);
+			else
+				assert(0);
+		}
+	}
+	return 0;
+}
 
 uint32_t expr(char *e, bool *success)
 {
