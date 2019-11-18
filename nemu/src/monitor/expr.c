@@ -15,7 +15,7 @@
 
 enum
 {
-		NOTYPE = 256, EQ = 257, NUM = 259, NEG = 260, DEREF = 261, REG = 262, SYM = 263, HEX = 264
+		NOTYPE = 256, EQ = 257, NUM = 259, NEG = 260, DER = 261, REG = 262, SYMB = 263, HEX = 264
 
 	/*NOTYPE = 256,
 	EQ = 257,
