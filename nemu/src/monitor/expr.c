@@ -257,25 +257,25 @@ uint32_t eval(int s,int e, bool *success)
 uint32_t expr(char *e, bool *success)
 {
 	init_token();
-	/*if (!make_token(e))
+	if (!make_token(e))
 	{
 		*success = false;
 		return 0;
-	}*/
+	}
 
 	for(int i=0;i<32;++i)
 	{
-		if (tokens[i].type == '*') {
-			if (i == 0)
-				tokens[i].type = DER;
-			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
-				tokens[i].type = DER;
-		}
-		else if (tokens[i].type == '-') {
+		if (tokens[i].type == '-') {
 			if (i == 0)
 				tokens[i].type = NEG;
 			else if ((tokens[i-1].type != ')') || (tokens[i].type != NUM ) || (tokens[i].type != HEX))
 				tokens[i].type = NEG;
+		}
+		else if (tokens[i].type == '*') {
+			if (i == 0)
+				tokens[i].type = DER;
+			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
+				tokens[i].type = DER;
 		}
 	}
 
