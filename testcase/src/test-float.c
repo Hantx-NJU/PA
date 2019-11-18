@@ -1,5 +1,5 @@
 #include "trap.h"
-
+#include <stdio.h>
 int main()
 {
 
