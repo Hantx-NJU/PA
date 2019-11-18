@@ -83,6 +83,14 @@ typedef struct token
 Token tokens[32];
 int nr_token;
 
+void init_token()
+{
+	for(int i=0;i<32;++i)
+	{
+		tokens[i].str[0]='\0';
+		tokens[i].type=NOTYPE;
+	}
+}
 static bool make_token(char *e)
 {
 	int position = 0;
