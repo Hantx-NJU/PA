@@ -134,9 +134,10 @@ static bool make_token(char *e)
 
 				switch (rules[i].token_type)
 				{
-				default:
-					tokens[nr_token].type = rules[i].token_type;
-					nr_token++;
+					case NOTYPE: break;
+					default:
+						tokens[nr_token].type = rules[i].token_type;
+						nr_token++;
 				}
 
 				break;
