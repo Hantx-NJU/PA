@@ -117,7 +117,7 @@ static bool make_token(char *e)
 						tokens[nr_token].str[substr_len]='\0';
 					}
 				}
-				
+
 				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
@@ -144,6 +144,30 @@ static bool make_token(char *e)
 	}
 
 	return true;
+}
+
+extern uint32_t look_up_symtab(char * sym, bool * success);
+
+static bool check(int e,int s,bool **success)
+{
+	int c = 0;
+	bool flag = true;
+	int i;
+	for (i = s; i < e; i++) {
+		if (tokens[i].type == '(')
+			c++;
+		else if (tokens[i].type == ')') {
+			c--;
+			flag = false;
+		}
+		if (c < 0)
+			*success = false;
+	}
+	if (tokens[e].type == ')')
+		c--;
+	if (c != 0)
+		*success = false;
+	return flag;
 }
 
 uint32_t expr(char *e, bool *success)
