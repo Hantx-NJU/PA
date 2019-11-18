@@ -128,7 +128,7 @@ static bool make_token(char *e)
 						tokens[nr_token].str[substr_len]='\0';
 					}
 				}
-				
+
 				switch (rules[i].token_type)
 				{
 				default:
@@ -256,6 +256,7 @@ uint32_t eval(int s,int e, bool *success)
 
 uint32_t expr(char *e, bool *success)
 {
+	init_token();
 	if (!make_token(e))
 	{
 		*success = false;
