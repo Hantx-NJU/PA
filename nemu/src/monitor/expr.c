@@ -148,7 +148,7 @@ static bool make_token(char *e)
 
 extern uint32_t look_up_symtab(char * sym, bool * success);
 
-static bool check(int e,int s,bool *success)
+static bool  check_parentheses(int e,int s,bool *success)
 {
 	int c = 0;
 	bool flag = true;
@@ -168,6 +168,8 @@ static bool check(int e,int s,bool *success)
 		*success = false;
 	return flag;
 }
+
+uint32_t eval(int e,int s)
 
 uint32_t expr(char *e, bool *success)
 {
