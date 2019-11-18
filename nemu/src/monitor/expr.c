@@ -13,10 +13,13 @@
 enum
 {
 	NOTYPE = 256,
-	EQ,
-	NUM,
-	REG,
-	SYMB
+	EQ = 257,
+	NUM = 258,
+	REG = 259,
+	SYMB = 260,
+	NEG = 261,
+	DER = 262,
+	HEX = 263
 
 	/* TODO: Add more token types */
 
