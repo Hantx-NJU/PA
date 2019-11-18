@@ -1,17 +1,17 @@
 #include "trap.h"
-#include <stdio.h>
+//#include <stdio.h>
 int main()
 {
 
 	float a = 1.2, b = 1;
 	float c = a + b;
-	printf("a + b = %f\n",c);
+//	printf("a + b = %f\n",c);
 	if (c == 2.2)
 		;
 	else
 		HIT_BAD_TRAP;
 	c = a * b;
-	printf("a + b = %f\n",c);
+//	printf("a + b = %f\n",c);
 
 	if (c == 1.2)
 		;
@@ -19,7 +19,7 @@ int main()
 		HIT_BAD_TRAP;
 
 	c = a / b;
-	printf("a + b = %f\n",c);
+//	printf("a + b = %f\n",c);
 
 	if (c == 1.2)
 		;
@@ -27,7 +27,7 @@ int main()
 		HIT_BAD_TRAP;
 
 	c = a - b;
-	printf("a + b = %f\n",c);
+//	printf("a + b = %f\n",c);
 
 	if (c == 0.2) // this will fail, and also fails for native program, interesting, can be used as a quiz
 		;
