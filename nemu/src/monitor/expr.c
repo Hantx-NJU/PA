@@ -162,16 +162,16 @@ static bool  check_parentheses(int s,int e,bool *success)
 	bool flag = true;
 	for (int i = s; i < e; i++) {
 		if (tokens[i].type == '(')
-			c++;
+			++c;
 		else if (tokens[i].type == ')') {
-			c--;
+			--c;
 			flag = false;
 		}
 		if (c < 0)
 			*success = false;
 	}
 	if (tokens[e].type == ')')
-		c--;
+		--c;
 	if (c != 0)
 		*success = false;
 	return flag;
