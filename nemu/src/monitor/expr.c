@@ -96,6 +96,7 @@ void init_token()
 		tokens[i].type=NOTYPE;
 	}
 }
+
 static bool make_token(char *e)
 {
 	int position = 0;
@@ -116,7 +117,7 @@ static bool make_token(char *e)
 
 				
 
-				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
+				//printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
 				/* TODO: Now a new token is recognized with rules[i]. 
