@@ -15,7 +15,9 @@
 
 enum
 {
-	NOTYPE = 256,
+		NOTYPE = 256, EQ = 257, NUM = 259, NEG = 260, DEREF = 261, REG = 262, SYM = 263, HEX = 264
+
+	/*NOTYPE = 256,
 	EQ = 257,
 	NUM = 258,
 	REG = 259,
@@ -265,17 +267,17 @@ uint32_t expr(char *e, bool *success)
 
 	for(int i=0;i<32;++i)
 	{
-		if (tokens[i].type == '-') {
-			if (i == 0)
-				tokens[i].type = NEG;
-			else if ((tokens[i-1].type != ')') || (tokens[i].type != NUM ) || (tokens[i].type != HEX))
-				tokens[i].type = NEG;
-		}
-		else if (tokens[i].type == '*') {
+		if (tokens[i].type == '*') {
 			if (i == 0)
 				tokens[i].type = DER;
 			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
 				tokens[i].type = DER;
+		}
+		else if (tokens[i].type == '-') {
+			if (i == 0)
+				tokens[i].type = NEG;
+			else if ((tokens[i-1].type != ')') || (tokens[i].type != NUM ) || (tokens[i].type != HEX))
+				tokens[i].type = NEG;
 		}
 	}
 
