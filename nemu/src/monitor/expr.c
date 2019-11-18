@@ -240,7 +240,7 @@ uint32_t eval(int e,int s, bool *success)
 		}
 		else {
 			if (tokens[s].type == NEG)
-				return (-eval(s + 1, e, success));
+				return (-eval(e, s + 1, success));
 			else if (tokens[s].type == DER)
 				return vaddr_read(eval(s + 1, e, success), SREG_DS, 4);
 			else
@@ -258,8 +258,21 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-	printf("\nPlease implement expr at expr.c\n");
-	assert(0);
+	for(int i=0;i<32;++i)
+	{
+		if (tokens[i].type == '*') {
+			if (i == 0)
+				tokens[i].type = DER;
+			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
+				tokens[i].type = DER;
+		}
+		else if (tokens[i].type == '-') {
+			if (i == 0)
+				tokens[i].type = NEG;
+			else if ((tokens[i-1].type != ')') || (tokens[i].type != NUM ) || (tokens[i].type != HEX))
+				tokens[i].type = NEG;
+		}
+	}
 
-	return 0;
+	return eval(nr_token, 0, success);
 }
