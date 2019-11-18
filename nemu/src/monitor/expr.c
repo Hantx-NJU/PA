@@ -148,12 +148,11 @@ static bool make_token(char *e)
 
 extern uint32_t look_up_symtab(char * sym, bool * success);
 
-static bool check(int e,int s,bool **success)
+static bool check(int e,int s,bool *success)
 {
 	int c = 0;
 	bool flag = true;
-	int i;
-	for (i = s; i < e; i++) {
+	for (int i = s; i < e; i++) {
 		if (tokens[i].type == '(')
 			c++;
 		else if (tokens[i].type == ')') {
