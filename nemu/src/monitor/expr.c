@@ -1,10 +1,11 @@
+
+
 #include "nemu.h"
 #include "cpu/reg.h"
-#include "cpu/instr.h"
+#include "cpu/cpu.h"
 #include "memory/memory.h"
 
 #include <stdlib.h>
-#include <stdio.h>
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -12,13 +13,23 @@
 #include <sys/types.h>
 #include <regex.h>
 
-enum {
-	NOTYPE = 256, EQ = 257, NUM = 259, NEG = 260, DEREF = 261, REG = 262, SYM = 263, HEX = 264
+enum
+{
+	NOTYPE = 256,
+	EQ = 257,
+	NUM = 258,
+	REG = 259,
+	SYMB = 260,
+	NEG = 261,
+	DER = 262,
+	HEX = 263
+
 	/* TODO: Add more token types */
 
 };
 
-static struct rule {
+static struct rule
+{
 	char *regex;
 	int token_type;
 } rules[] = {
@@ -27,43 +38,47 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",	NOTYPE},				// white space
+	{" +", NOTYPE}, // white space
 	{"\\+", '+'},
 	{"==", EQ},
 	{"[0-9]+", NUM},
-	{"-", '-'},
-	{"\\*", '*'},
-	{"\\(", '('},
-	{"\\)", ')'},
-	{"-", NEG},
-	{"\\*", DEREF},
-	{"[$][a-zA-Z]{2, 3}", REG},
-	{"[a-zA-Z_][a-zA-Z0-9_]+", SYM},
+	{"-",'-'},
+	{"-",NEG},
+	{"\\*",'*'},
+	{"\\*",DER},
+	{"\\(",'('},
+	{"\\)",')'},
+	{"[$][a-zA-Z]{2,3}",REG},
+	{"[a-zA-Z_][0-9a-zA-Z_]+", SYMB},
 	{"[0][xX][0-9a-fA-F]+", HEX}
 };
 
-#define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
+#define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
 
 static regex_t re[NR_REGEX];
 
 /* Rules are used for more times.
  * Therefore we compile them only once before any usage.
  */
-void init_regex() {
+void init_regex()
+{
 	int i;
 	char error_msg[128];
 	int ret;
 
-	for(i = 0; i < NR_REGEX; i ++) {
+	for (i = 0; i < NR_REGEX; i++)
+	{
 		ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
-		if(ret != 0) {
+		if (ret != 0)
+		{
 			regerror(ret, &re[i], error_msg, 128);
 			assert(ret != 0);
 		}
 	}
 }
 
-typedef struct token {
+typedef struct token
+{
 	int type;
 	char str[32];
 } Token;
@@ -71,32 +86,39 @@ typedef struct token {
 Token tokens[32];
 int nr_token;
 
-void init_token() {
-	for (int i = 0; i < 32; i++) {
-		tokens[i].type = NOTYPE;
-		tokens[i].str[0] = '\0';
+void init_token()
+{
+	for(int i=0;i<32;++i)
+	{
+		tokens[i].str[0]='\0';
+		tokens[i].type=NOTYPE;
 	}
 }
-
-static bool make_token(char *e) {
+static bool make_token(char *e)
+{
 	int position = 0;
 	int i;
 	regmatch_t pmatch;
-	
+
 	nr_token = 0;
 
-	while(e[position] != '\0') {
+	while (e[position] != '\0')
+	{
 		/* Try all rules one by one. */
-		for(i = 0; i < NR_REGEX; i ++) {
-			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
+		for (i = 0; i < NR_REGEX; i++)
+		{
+			if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0)
+			{
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 
-				//copy char[] to tokens[]
-				if (rules[i].token_type != NOTYPE) {
-					for (int i = 0; i < substr_len; i++)
-						tokens[nr_token].str[i] = *(e + position + i);
-					tokens[nr_token].str[substr_len] = '\0';
+				if(rules[i].token_type!=NOTYPE)
+				{
+					for(int i=0;i<substr_len;++i)
+					{
+						tokens[nr_token].str[i]=*(position+e+i);
+						tokens[nr_token].str[substr_len]='\0';
+					}
 				}
 
 				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
@@ -106,33 +128,34 @@ static bool make_token(char *e) {
 				 * Add codes to perform some actions with this token.
 				 */
 
-
-				switch(rules[i].token_type) {
-					case NOTYPE: break;
-					default: tokens[nr_token].type = rules[i].token_type;
-							 nr_token ++;
+				switch (rules[i].token_type)
+				{
+				default:
+					tokens[nr_token].type = rules[i].token_type;
+					nr_token++;
 				}
 
 				break;
 			}
 		}
 
-		if(i == NR_REGEX) {
+		if (i == NR_REGEX)
+		{
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
 	}
 
-	return true; 
+	return true;
 }
 
 extern uint32_t look_up_symtab(char * sym, bool * success);
 
-static bool check_parentheses(int s, int e, bool *success) {
+static bool  check_parentheses(int s,int e,bool *success)
+{
 	int c = 0;
 	bool flag = true;
-	int i;
-	for (i = s; i < e; i++) {
+	for (int i = s; i < e; i++) {
 		if (tokens[i].type == '(')
 			c++;
 		else if (tokens[i].type == ')') {
@@ -149,7 +172,8 @@ static bool check_parentheses(int s, int e, bool *success) {
 	return flag;
 }
 
-uint32_t eval(int s, int e, bool * success) {
+uint32_t eval(int s,int e, bool *success)
+{
 	if (s > e) {
 		*success = false;
 		return 0;
@@ -160,10 +184,10 @@ uint32_t eval(int s, int e, bool * success) {
 		else if (tokens[s].type == REG) {
 			if ((strcmp(tokens[s].str, "$eax") == 0) || (strcmp(tokens[s].str, "$EAX") == 0))
 					return cpu.eax;
-			else if (strcmp(tokens[s].str, "edx") == 0)
-				return cpu.edx;
 			else if (strcmp(tokens[s].str, "ecx") == 0)
 				return cpu.ecx;
+			else if (strcmp(tokens[s].str, "edx") == 0)
+				return cpu.edx;
 			else if (strcmp(tokens[s].str, "ebx") == 0)
 				return cpu.ebx;
 			else if (strcmp(tokens[s].str, "esp") == 0)
@@ -177,7 +201,7 @@ uint32_t eval(int s, int e, bool * success) {
 			else
 				*success = false;
 		}
-		else if (tokens[s].type == SYM) {
+		else if (tokens[s].type == SYMB) {
 			return look_up_symtab(tokens[s].str, success);
 		}
 		else if (tokens[s].type == HEX) {
@@ -220,7 +244,7 @@ uint32_t eval(int s, int e, bool * success) {
 		else {
 			if (tokens[s].type == NEG)
 				return (-eval(s + 1, e, success));
-			else if (tokens[s].type == DEREF)
+			else if (tokens[s].type == DER)
 				return vaddr_read(eval(s + 1, e, success), SREG_DS, 4);
 			else
 				assert(0);
@@ -229,26 +253,27 @@ uint32_t eval(int s, int e, bool * success) {
 	return 0;
 }
 
-uint32_t expr(char *e, bool *success) {
-	init_token();
-	if(!make_token(e)) {
+uint32_t expr(char *e, bool *success)
+{
+	if (!make_token(e))
+	{
 		*success = false;
 		return 0;
 	}
-	/*implement code to handle '*', '-' and so on*/
-	int i;
-	for (i = 0; i; i++) {
-		if (tokens[i].type == '-') {
+
+	for(int i=0;i<32;++i)
+	{
+		if (tokens[i].type == '*') {
+			if (i == 0)
+				tokens[i].type = DER;
+			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
+				tokens[i].type = DER;
+		}
+		else if (tokens[i].type == '-') {
 			if (i == 0)
 				tokens[i].type = NEG;
 			else if ((tokens[i-1].type != ')') || (tokens[i].type != NUM ) || (tokens[i].type != HEX))
 				tokens[i].type = NEG;
-		}
-		else if (tokens[i].type == '*') {
-			if (i == 0)
-				tokens[i].type = DEREF;
-			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
-				tokens[i].type = DEREF;
 		}
 	}
 
