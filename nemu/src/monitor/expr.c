@@ -257,11 +257,11 @@ uint32_t eval(int s,int e, bool *success)
 uint32_t expr(char *e, bool *success)
 {
 	init_token();
-	if (!make_token(e))
+	/*if (!make_token(e))
 	{
 		*success = false;
 		return 0;
-	}
+	}*/
 
 	for(int i=0;i<32;++i)
 	{
