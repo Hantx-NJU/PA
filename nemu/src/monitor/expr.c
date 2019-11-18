@@ -37,6 +37,17 @@ static struct rule
 
 	{" +", NOTYPE}, // white space
 	{"\\+", '+'},
+	{"==", EQ},
+	{"[0-9]+", NUM},
+	{"-",'-'},
+	{"-",NEG},
+	{"\\*",'*'},
+	{"\\*",DER},
+	{"\\(",'('},
+	{"\\)",')'},
+	{"[$][a-zA-Z]{2,3}",REG},
+	{"[a-zA-Z_][0-9a-zA-Z_]+", SYMB},
+	{"[0][xX][0-9a-fA-F]+", HEX}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
