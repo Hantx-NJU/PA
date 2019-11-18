@@ -275,5 +275,5 @@ uint32_t expr(char *e, bool *success)
 		}
 	}
 
-	return eval(nr_token, 0, success);
+		return eval(0, nr_token, success);
 }
