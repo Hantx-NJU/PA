@@ -212,7 +212,8 @@ uint32_t eval(int s, int e)
 			sscanf(tokens[s].str, "%x", &i);
 			return i;
 		}
-		else if (tokens[s].type == SYM) {
+		else if (tokens[s].type == SYMB) {
+			bool*success;
 			return look_up_symtab(tokens[s].str, success);
 		}
 		
