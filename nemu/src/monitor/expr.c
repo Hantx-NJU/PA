@@ -104,9 +104,14 @@ static bool make_token(char *e)
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
-
+				if (rules[i].token_type != NOTYPE) {
+					for (int i = 0; i < substr_len; i++)
+						tokens[nr_token].str[i] = *(e + position + i);
+					tokens[nr_token].str[substr_len] = '\0';
+				}
 				switch (rules[i].token_type)
 				{
+					case NOTYPE:break;
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
