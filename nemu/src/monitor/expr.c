@@ -213,7 +213,8 @@ uint32_t eval(int s, int e)
 			return i;
 		}
 		else if (tokens[s].type == SYMB) {
-			bool*success=true;
+			bool*success;
+			*success=true;
 			return look_up_symtab(tokens[s].str, success);
 		}
 		
