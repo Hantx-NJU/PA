@@ -176,9 +176,9 @@ uint32_t eval(int s, int e)
 	else if(s == e) { 
 		return atoi(tokens[s].str);
 	}
-else if(check_parentheses(s, e) == true) {
+	else if(check_parentheses(s, e) == true) {
 	return eval(s + 1, e - 1); 
-}
+	}
 else {
 int pm = -1, mul = -1, c = 0, i;
 		for (i = s; i < e; i++) {
@@ -210,7 +210,7 @@ int pm = -1, mul = -1, c = 0, i;
 				default: assert(0);
 			}
 		} 
-	else {
+		else {
 			if (tokens[s].type == NEG)
 				return (-eval(s + 1, e));
 			else if (tokens[s].type == DER)
