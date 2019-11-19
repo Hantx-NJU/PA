@@ -231,7 +231,7 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-	for (int i = 0; i; ++i) {
+	for (int i = 0; i< nr_token; ++i) {
 		if (tokens[i].type == '-') {
 			if (i == 0)
 				tokens[i].type = NEG;
