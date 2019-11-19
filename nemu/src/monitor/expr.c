@@ -43,7 +43,7 @@ static struct rule
 	{"\\(", '('},
 	{"\\)", ')'},
 	{"[$][a-zA-Z]{2, 3}", REG},
-	{"[a-zA-Z_][a-zA-Z0-9_]+", SYM},
+	{"[a-zA-Z_][a-zA-Z0-9_]+", SYMB},
 	{"[0][xX][0-9a-fA-F]+", HEX}
 };
 
