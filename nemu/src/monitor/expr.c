@@ -212,7 +212,7 @@ int pm = -1, mul = -1, c = 0, i;
 		} 
 	else {
 			if (tokens[s].type == NEG)
-				return (-eval(s + 1, e);
+				return (-eval(s + 1, e));
 			else if (tokens[s].type == DER)
 				return vaddr_read(eval(s + 1, e), SREG_DS, 4);
 			else
