@@ -17,7 +17,9 @@ enum
 	NUM = 258,
 	REG = 259,
 	SYMB = 260,
-	HEX = 261
+	HEX = 261,
+	NEG = 262,
+	DER = 263
 
 	/* TODO: Add more token types */
 
