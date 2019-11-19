@@ -219,7 +219,7 @@ int pm = -1, mul = -1, c = 0, i;
 				assert(0);
 		}
 	}
-	}
+	
 	return 0;
 }
 
