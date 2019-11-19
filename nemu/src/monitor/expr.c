@@ -39,6 +39,7 @@ static struct rule
 	{" +", NOTYPE}, // white space
 	{"\\+", '+'},
 	{"==", EQ},
+	{"[0][xX][0-9a-fA-F]+", HEX},
 	{"[0-9]+", NUM},
 	{"\\-", '-'},
 	{"\\*", '*'},
@@ -48,8 +49,8 @@ static struct rule
 	{"\\$e[a,b,c,d]x", REG},
 	{"\\$e[s,b]p", REG},
 	{"\\$e[s,d]i", REG},
-	{"[a-zA-Z_][a-zA-Z0-9_]+", SYMB},
-	{"[0][xX][0-9a-fA-F]+", HEX}
+	{"[a-zA-Z_][a-zA-Z0-9_]+", SYMB}
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -224,7 +225,6 @@ uint32_t eval(int s, int e)
 			//printf("4");
 			return look_up_symtab(tokens[s].str, &success);
 		}
-		
 	}
 	else if(check_parentheses(s, e) == true) {
 	return eval(s + 1, e - 1); 
