@@ -253,16 +253,13 @@ uint32_t expr(char *e, bool *success)
 		if (tokens[i].type == '-') {
 			if (i == 0)
 				tokens[i].type = NEG;
-			else if ((tokens[i-1].type == '+') || (tokens[i].type == '-' ) || (tokens[i].type == '*')
-			|| (tokens[i].type == '/' ) || (tokens[i].type == '(')|| (tokens[i].type == DER ))
-				{tokens[i].type = NEG;
-				printf("yes");
-				}
+			else if ((tokens[i-1].type != ')') || (tokens[i-1].type != NUM ) || (tokens[i-1].type != HEX))
+				tokens[i].type = NEG;
 		}
 		else if (tokens[i].type == '*') {
 			if (i == 0)
 				tokens[i].type = DER;
-			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
+			else if ((tokens[i-1].type != ')') || (tokens[i-1].type != NUM) || (tokens[i-1].type != HEX))
 				tokens[i].type = DER;
 		}
 	}
