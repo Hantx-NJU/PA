@@ -181,9 +181,12 @@ uint32_t eval(int s, int e)
 	
 	else if(s == e) { 
 		//printf("atoi=%d\n",atoi(tokens[s].str));
+		if (tokens[s].type == NUM)
+		{
 		uint32_t num;
 		sscanf(tokens[s].str,"%d",&num);
 		return num;
+		}
 	}
 	else if(check_parentheses(s, e) == true) {
 	return eval(s + 1, e - 1); 
