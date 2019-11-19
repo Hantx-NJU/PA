@@ -1,5 +1,6 @@
 #include "nemu.h"
 #include "cpu/reg.h"
+#include "cpu/instr.h"
 #include "memory/memory.h"
 
 #include <stdlib.h>
@@ -183,10 +184,38 @@ uint32_t eval(int s, int e)
 		//printf("atoi=%d\n",atoi(tokens[s].str));
 		if (tokens[s].type == NUM)
 		{
-		uint32_t num;
-		sscanf(tokens[s].str,"%d",&num);
-		return num;
+			uint32_t num;
+			sscanf(tokens[s].str,"%d",&num);
+			return num;
 		}
+		else if (tokens[s].type == REG) {
+			if ((strcmp(tokens[s].str, "$eax") == 0) || (strcmp(tokens[s].str, "$EAX") == 0))
+					return cpu.eax;
+			else if (strcmp(tokens[s].str, "edx") == 0)
+				return cpu.edx;
+			else if (strcmp(tokens[s].str, "ecx") == 0)
+				return cpu.ecx;
+			else if (strcmp(tokens[s].str, "ebx") == 0)
+				return cpu.ebx;
+			else if (strcmp(tokens[s].str, "esp") == 0)
+				return cpu.esp;
+			else if (strcmp(tokens[s].str, "ebp") == 0)
+				return cpu.ebp;
+			else if (strcmp(tokens[s].str, "esi") == 0)
+				return cpu.esi;
+			else if (strcmp(tokens[s].str, "edi") == 0)
+				return cpu.edi;
+
+		}
+		else if (tokens[s].type == HEX) {
+			uint32_t i;
+			sscanf(tokens[s].str, "%x", &i);
+			return i;
+		}
+		else if (tokens[s].type == SYM) {
+			return look_up_symtab(tokens[s].str, success);
+		}
+		
 	}
 	else if(check_parentheses(s, e) == true) {
 	return eval(s + 1, e - 1); 
