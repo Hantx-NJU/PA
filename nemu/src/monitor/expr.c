@@ -180,7 +180,7 @@ uint32_t eval(int s, int e)
 	}
 	
 	else if(s == e) { 
-		printf("atoi=%d\n",atoi(tokens[s].str));
+		//printf("atoi=%d\n",atoi(tokens[s].str));
 		uint32_t num;
 		sscanf(tokens[s].str,"%d",&num);
 		return num;
@@ -196,14 +196,14 @@ int pm = -1, mul = -1, c = 0, i;
 			else if (tokens[i].type == ')')
 				c--;
 			if (c == 0) {
-				printf("-=%d,now=%d",'-',tokens[i].type);
+				//printf("-=%d,now=%d",'-',tokens[i].type);
 				if (tokens[i].type == '+' || tokens[i].type == '-')
 					pm = i;
 				else if (tokens[i].type == '*' || tokens[i].type == '/')
 					mul = i;
 			}
 		}
-printf("pm=%d,mul=%d",pm,mul);
+//printf("pm=%d,mul=%d",pm,mul);
 		if (pm != -1 || mul != -1) {
 			int op;
 			
@@ -211,10 +211,10 @@ printf("pm=%d,mul=%d",pm,mul);
 				op = pm;
 			else
 				op = mul;
-			printf("op.pos=%d\n",op);
+			//printf("op.pos=%d\n",op);
 			int val1 = eval(s, op - 1);
 			int val2 = eval(op + 1, e);
-			printf("val1=%d,val2=%d\n",val1,val2);
+			//printf("val1=%d,val2=%d\n",val1,val2);
 			switch(tokens[op].type) {
 				case '+': return val1 + val2;
 				case '-': /*printf("return here%d\n",val1-val2);*/return val1 - val2;
@@ -231,7 +231,7 @@ printf("pm=%d,mul=%d",pm,mul);
 			else
 				{
 					printf("type=%d,str=%s",tokens[s].type,tokens[s].str);
-					//assert(0);
+					assert(0);
 
 				}
 		}
