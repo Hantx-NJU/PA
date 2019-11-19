@@ -204,7 +204,10 @@ uint32_t eval(int s, int e)
 			else if (strcmp(tokens[s].str, "esp") == 0)
 				return cpu.esp;
 			else if (strcmp(tokens[s].str, "ebp") == 0)
-				return cpu.ebp;
+				{
+					printf("ebp=%d\n",cpu.ebp);
+					return cpu.ebp;
+				}
 			else if (strcmp(tokens[s].str, "esi") == 0)
 				return cpu.esi;
 			else if (strcmp(tokens[s].str, "edi") == 0)
