@@ -268,7 +268,10 @@ int pm = -1, mul = -1, count = 0, i;
 			if (tokens[s].type == NEG)
 				return (-eval(s + 1, e));
 			else if (tokens[s].type == DER)
-				return vaddr_read(eval(s + 1, e), SREG_DS, 4);
+				{
+					printf("s=%d,str=%s",s,tokens[s+1].str);
+					return vaddr_read(eval(s + 1, e), SREG_DS, 4);
+				}
 			else
 				{
 					printf("type=%d,str=%s\n",tokens[s].type,tokens[s].str);
