@@ -196,10 +196,10 @@ uint32_t eval(int s, int e)
 			if ((strcmp(tokens[s].str, "$eax") == 0))
 					return cpu.eax;
 
-			else if (strcmp(tokens[s].str, "$edx") == 0)
-				return cpu.edx;
 			else if (strcmp(tokens[s].str, "$ecx") == 0)
 				return cpu.ecx;
+			else if (strcmp(tokens[s].str, "$edx") == 0)
+				return cpu.edx;
 			else if (strcmp(tokens[s].str, "$ebx") == 0)
 				return cpu.ebx;
 			else if (strcmp(tokens[s].str, "$esp") == 0)
