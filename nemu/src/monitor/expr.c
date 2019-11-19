@@ -17,7 +17,7 @@ enum
 	NUM = 258,
 	REG = 259,
 	SYMB = 260,
-	
+	HEX = 261
 
 	/* TODO: Add more token types */
 
@@ -35,6 +35,15 @@ static struct rule
 
 	{" +", NOTYPE}, // white space
 	{"\\+", '+'},
+	{"==", EQ},
+	{"[0-9]+", NUM},
+	{"-", '-'},
+	{"\\*", '*'},
+	{"\\(", '('},
+	{"\\)", ')'},
+	{"[$][a-zA-Z]{2, 3}", REG},
+	{"[a-zA-Z_][a-zA-Z0-9_]+", SYM},
+	{"[0][xX][0-9a-fA-F]+", HEX}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
