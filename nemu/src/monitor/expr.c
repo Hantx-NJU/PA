@@ -193,8 +193,7 @@ uint32_t eval(int s, int e)
 		else if (tokens[s].type == REG) {
 			printf("str=%s\n",tokens[s].str);
 			if ((strcmp(tokens[s].str, "$eax") == 0))
-					{	printf("eax yes\n");
-						return cpu.eax;}
+					return cpu.eax;
 
 			else if (strcmp(tokens[s].str, "edx") == 0)
 				return cpu.edx;
