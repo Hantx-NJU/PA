@@ -253,13 +253,13 @@ uint32_t expr(char *e, bool *success)
 		if (tokens[i].type == '-') {
 			if (i == 0)
 				tokens[i].type = NEG;
-			else if ((tokens[i-1].type != ')') || (tokens[i-1].type != NUM ) || (tokens[i-1].type != HEX))
+			else if ((tokens[i-1].type != ')') && (tokens[i-1].type != NUM ) && (tokens[i-1].type != HEX))
 				tokens[i].type = NEG;
 		}
 		else if (tokens[i].type == '*') {
 			if (i == 0)
 				tokens[i].type = DER;
-			else if ((tokens[i-1].type != ')') || (tokens[i-1].type != NUM) || (tokens[i-1].type != HEX))
+			else if ((tokens[i-1].type != ')') && (tokens[i-1].type != NUM) && (tokens[i-1].type != HEX))
 				tokens[i].type = DER;
 		}
 	}
