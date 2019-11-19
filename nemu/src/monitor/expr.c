@@ -191,7 +191,7 @@ uint32_t eval(int s, int e)
 			return num;
 		}
 		else if (tokens[s].type == REG) {
-			printf("str=%s",tokens[s].str);
+			printf("str=%s\n",tokens[s].str);
 			if ((strcmp(tokens[s].str, "$eax") == 0))
 					return cpu.eax;
 			else if (strcmp(tokens[s].str, "edx") == 0)
@@ -217,7 +217,7 @@ uint32_t eval(int s, int e)
 		}
 		else if (tokens[s].type == SYMB) {
 			bool success= true;
-			printf("4");
+			//printf("4");
 			return look_up_symtab(tokens[s].str, &success);
 		}
 		
@@ -267,7 +267,7 @@ int pm = -1, mul = -1, c = 0, i;
 				return vaddr_read(eval(s + 1, e), SREG_DS, 4);
 			else
 				{
-					printf("type=%d,str=%s",tokens[s].type,tokens[s].str);
+					printf("type=%d,str=%s\n",tokens[s].type,tokens[s].str);
 					assert(0);
 
 				}
@@ -280,14 +280,14 @@ int pm = -1, mul = -1, c = 0, i;
 uint32_t expr(char *e, bool *success)
 {
 	*success = true;
-	printf("1");
+	//printf("1");
 	if (!make_token(e))
 	{
 		printf("3");
 		*success = false;
 		return 0;
 	}
-printf("2");
+//printf("2");
 	for (int i = 0; i< nr_token; ++i) {
 		if (tokens[i].type == '-') {
 			if (i == 0)
