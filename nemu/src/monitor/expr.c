@@ -214,7 +214,7 @@ uint32_t eval(int s, int e)
 		}
 		else if (tokens[s].type == SYMB) {
 			bool success= true;
-			return look_up_symtab(tokens[s].str, success);
+			return look_up_symtab(tokens[s].str, *success);
 		}
 		
 	}
