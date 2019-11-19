@@ -100,7 +100,7 @@ static bool make_token(char *e)
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
 				//int len =substr_len > 31 ? 31 : substr_len;
-				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
+				printf("match regex[%d] at position %d with len %d: %.*s\n", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 				if(substr_len>=32){
 					printf("substr is too long at position %d\n%s\n%*.s^\n", position, e, position, "");
@@ -205,7 +205,7 @@ int pm = -1, mul = -1, c = 0, i;
 				op = pm;
 			else
 				op = mul;
-			printf("%d",op);
+			printf("%d\n",op);
 			int val1 = eval(s, op - 1);
 			int val2 = eval(op + 1, e);
 			switch(tokens[op].type) {
