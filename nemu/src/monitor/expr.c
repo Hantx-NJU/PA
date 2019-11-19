@@ -155,7 +155,7 @@ static bool make_token(char *e)
 }
 
 extern uint32_t look_up_symtab(char * sym, bool * success);
-
+///////////////////////////debug//
 static bool  check_parentheses(int s,int e,bool *success)
 {
 	int c = 0;
