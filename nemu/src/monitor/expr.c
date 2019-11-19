@@ -173,11 +173,12 @@ extern uint32_t look_up_symtab(char * sym, bool * success);
 
 uint32_t eval(int s, int e) 
 {
+	printf("s=%d,e=%d\n",s,e);
 	if (s > e) {
 		printf("eval error!");
 		assert(0);
 	}
-	printf("s=%d,e=%d\n",s,e);
+	
 	else if(s == e) { 
 		printf("atoi=%d\n",atoi(tokens[s].str));
 		return atoi(tokens[s].str);
