@@ -240,7 +240,7 @@ int pm = -1, mul = -1, c = 0, i;
 
 uint32_t expr(char *e, bool *success)
 {
-	success = true;
+	*success = true;
 	if (!make_token(e))
 	{
 		*success = false;
