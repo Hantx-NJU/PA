@@ -205,6 +205,7 @@ int pm = -1, mul = -1, c = 0, i;
 
 		if (pm != -1 || mul != -1) {
 			int op;
+			printf("pm=%d,mul=%d",pm,mul);
 			if (pm != -1)
 				op = pm;
 			else
