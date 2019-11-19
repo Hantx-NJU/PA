@@ -163,6 +163,13 @@ bool check_parentheses(int s, int e)
 	}
 }
 
+uint32_t eval(int s, int e) {
+	if (s > e) {
+		printf("eval error!");
+		assert(0);
+	}
+
+}
 uint32_t expr(char *e, bool *success)
 {
 	if (!make_token(e))
