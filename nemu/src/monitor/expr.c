@@ -193,7 +193,7 @@ int pm = -1, mul = -1, c = 0, i;
 					mul = i;
 			}
 		}
-}
+
 		if (pm != -1 || mul != -1) {
 			int op;
 			if (pm != -1)
@@ -218,6 +218,7 @@ int pm = -1, mul = -1, c = 0, i;
 			else
 				assert(0);
 		}
+	}
 	}
 	return 0;
 }
