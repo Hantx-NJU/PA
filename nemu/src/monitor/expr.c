@@ -255,7 +255,9 @@ uint32_t expr(char *e, bool *success)
 				tokens[i].type = NEG;
 			else if ((tokens[i-1].type == '+') || (tokens[i].type == '-' ) || (tokens[i].type == '*')
 			|| (tokens[i].type == '/' ) || (tokens[i].type == '(')|| (tokens[i].type == DER ))
-				tokens[i].type = NEG;
+				{tokens[i].type = NEG;
+				printf("yes");
+				}
 		}
 		else if (tokens[i].type == '*') {
 			if (i == 0)
