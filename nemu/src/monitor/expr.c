@@ -97,7 +97,7 @@ static bool make_token(char *e)
 			{
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
-
+				int len =substr_len > 31 ? 31 : substr_len;
 				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
 
@@ -105,9 +105,9 @@ static bool make_token(char *e)
 				 * Add codes to perform some actions with this token.
 				 */
 				if (rules[i].token_type != NOTYPE) {
-					for (int i = 0; i < substr_len; i++)
-						tokens[nr_token].str[i] = *(e + position + i);
-					tokens[nr_token].str[substr_len] = '\0';
+					//for (int i = 0; i < substr_len; i++)
+					strncpy(tokens[nr_token].str,substr_start,len);
+					tokens[nr_token].str[len] = '\0';
 				}
 				switch (rules[i].token_type)
 				{
