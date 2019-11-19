@@ -94,7 +94,7 @@ cmd_handler(cmd_p)
 		goto p_error;
 	}
 	//if(args + strspn(args, " ") >= cmd_end) { goto p_error; }
-	print ("s1");
+	printf ("s1");
 	bool success;
 	uint32_t val = expr(args, &success);
 	if (!success)
