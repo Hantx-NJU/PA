@@ -162,6 +162,7 @@ bool check_parentheses(int s, int e)
 		return true;
 	}
 }
+extern uint32_t look_up_symtab(char * sym, bool * success);
 
 uint32_t eval(int s, int e) {
 	if (s > e) {
@@ -169,6 +170,24 @@ uint32_t eval(int s, int e) {
 		assert(0);
 	}
 
+	else if(s == e) { 
+		return atoi(tokens[s].str);
+	}
+else if(check_parentheses(s, e) == true) {
+return eval(s + 1, e - 1, success);
+return eval(s + 1, e - 1); 
+}
+else {
+op = the position of dominant operator in the token expression;
+val1 = eval(p, op - 1);
+val2 = eval(op + 1, q);
+switch(op_type) {
+case '+': return val1 + val2;
+case '-': /* ... */
+case '*': /* ... */
+case '/': /* ... */
+default: assert(0);
+} }
 }
 uint32_t expr(char *e, bool *success)
 {
