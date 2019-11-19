@@ -230,13 +230,13 @@ uint32_t eval(int s, int e)
 	return eval(s + 1, e - 1); 
 	}
 else {
-int pm = -1, mul = -1, c = 0, i;
+int pm = -1, mul = -1, count = 0, i;
 		for (i =s; i < e; i++) {
 			if (tokens[i].type == '(')
-				c++;
+				count++;
 			else if (tokens[i].type == ')')
-				c--;
-			if (c == 0) {
+				count--;
+			if (count == 0) {
 				//printf("-=%d,now=%d",'-',tokens[i].type);
 				if (tokens[i].type == '+' || tokens[i].type == '-')
 					pm = i;
