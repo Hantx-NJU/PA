@@ -140,6 +140,7 @@ bool check_parentheses(int s, int e)
 
 	if(tokens[s].type!='(')
 		return false;
+
 	for(int i = s;i<e;++i)
 	{
 		if(tokens[i].type=='(')
@@ -147,7 +148,11 @@ bool check_parentheses(int s, int e)
 		else if(tokens[i].type == ')')
 		{
 			--count;
-			flag
+		}
+		if(count == 0)	return false;
+		if(count < 0)	{
+			printf("parentheses error!");
+			assert(0);
 		}
 	}
 
