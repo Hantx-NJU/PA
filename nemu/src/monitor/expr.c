@@ -214,7 +214,7 @@ int pm = -1, mul = -1, c = 0, i;
 			int val2 = eval(op + 1, e);
 			printf("val1=%d,val2=%d\n",val1,val2);
 			switch(tokens[op].type) {
-				case '+': return val1 + val2;
+				case '+': printf("return here %d",val1+val2);	return val1 + val2;
 				case '-': return val1 - val2;
 				case '*': return val1 * val2;
 				case '/': return val1 / val2;
