@@ -215,6 +215,7 @@ uint32_t eval(int s, int e)
 		}
 		else if (tokens[s].type == SYMB) {
 			bool success= true;
+			printf("4");
 			return look_up_symtab(tokens[s].str, &success);
 		}
 		
