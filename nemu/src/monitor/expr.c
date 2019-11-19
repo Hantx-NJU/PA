@@ -222,7 +222,7 @@ int pm = -1, mul = -1, c = 0, i;
 				return vaddr_read(eval(s + 1, e), SREG_DS, 4);
 			else
 				{
-					printf("type=%d",tokens[s].type);
+					printf("type=%d,str=%s",tokens[s].type,tokens[s].str);
 					//assert(0);
 
 				}
