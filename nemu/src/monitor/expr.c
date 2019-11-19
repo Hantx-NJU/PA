@@ -164,7 +164,8 @@ bool check_parentheses(int s, int e)
 }
 extern uint32_t look_up_symtab(char * sym, bool * success);
 
-uint32_t eval(int s, int e) {
+uint32_t eval(int s, int e) 
+{
 	if (s > e) {
 		printf("eval error!");
 		assert(0);
@@ -174,20 +175,38 @@ uint32_t eval(int s, int e) {
 		return atoi(tokens[s].str);
 	}
 else if(check_parentheses(s, e) == true) {
-return eval(s + 1, e - 1, success);
-return eval(s + 1, e - 1); 
+	return eval(s + 1, e - 1); 
 }
 else {
-op = the position of dominant operator in the token expression;
-val1 = eval(p, op - 1);
-val2 = eval(op + 1, q);
-switch(op_type) {
-case '+': return val1 + val2;
-case '-': /* ... */
-case '*': /* ... */
-case '/': /* ... */
-default: assert(0);
-} }
+int pm = -1, mul = -1, c = 0, i;
+		for (i = s; i < e; i++) {
+			if (tokens[i].type == '(')
+				c++;
+			else if (tokens[i].type == ')')
+				c--;
+			if (c == 0) {
+				if (tokens[i].type == '+' || tokens[i].type == '-')
+					pm = i;
+				else if (tokens[i].type == '*')
+					mul = i;
+			}
+		}
+		if (pm != -1 || mul != -1) {
+			int op;
+			if (pm != -1)
+				op = pm;
+			else
+				op = mul;
+			int val1 = eval(s, op - 1, success);
+			int val2 = eval(op + 1, e, success);
+			switch(tokens[op].type) {
+				case '+': return val1 + val2;
+				case '-': return val1 - val2;
+				case '*': return val1 * val2;
+				default: assert(0);
+			}
+		} 
+	}
 }
 uint32_t expr(char *e, bool *success)
 {
