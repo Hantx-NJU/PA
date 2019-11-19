@@ -195,22 +195,22 @@ uint32_t eval(int s, int e)
 			if ((strcmp(tokens[s].str, "$eax") == 0))
 					return cpu.eax;
 
-			else if (strcmp(tokens[s].str, "edx") == 0)
+			else if (strcmp(tokens[s].str, "$edx") == 0)
 				return cpu.edx;
-			else if (strcmp(tokens[s].str, "ecx") == 0)
+			else if (strcmp(tokens[s].str, "$ecx") == 0)
 				return cpu.ecx;
-			else if (strcmp(tokens[s].str, "ebx") == 0)
+			else if (strcmp(tokens[s].str, "$ebx") == 0)
 				return cpu.ebx;
-			else if (strcmp(tokens[s].str, "esp") == 0)
+			else if (strcmp(tokens[s].str, "$esp") == 0)
 				return cpu.esp;
-			else if (strcmp(tokens[s].str, "ebp") == 0)
+			else if (strcmp(tokens[s].str, "$ebp") == 0)
 				{
 					printf("ebp=%d\n",cpu.ebp);
 					return cpu.ebp;
 				}
-			else if (strcmp(tokens[s].str, "esi") == 0)
+			else if (strcmp(tokens[s].str, "$esi") == 0)
 				return cpu.esi;
-			else if (strcmp(tokens[s].str, "edi") == 0)
+			else if (strcmp(tokens[s].str, "$edi") == 0)
 				return cpu.edi;
 
 		}
