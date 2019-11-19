@@ -280,6 +280,7 @@ uint32_t expr(char *e, bool *success)
 	printf("1");
 	if (!make_token(e))
 	{
+		printf("3");
 		*success = false;
 		return 0;
 	}
