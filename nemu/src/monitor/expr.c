@@ -189,7 +189,8 @@ uint32_t eval(int s, int e)
 			return num;
 		}
 		else if (tokens[s].type == REG) {
-			if ((strcmp(tokens[s].str, "$eax") == 0) || (strcmp(tokens[s].str, "$EAX") == 0))
+			printf("str=%s",tokens[s].str);
+			if ((strcmp(tokens[s].str, "$eax") == 0))
 					return cpu.eax;
 			else if (strcmp(tokens[s].str, "edx") == 0)
 				return cpu.edx;
