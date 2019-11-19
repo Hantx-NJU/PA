@@ -89,6 +89,7 @@ cmd_handler(cmd_info)
 // static void cmd_p(char *e, char *cmd_end) {
 cmd_handler(cmd_p)
 {
+	printf ("s2");
 	if (args == NULL)
 	{
 		goto p_error;
