@@ -270,6 +270,7 @@ int pm = -1, mul = -1, count = 0, i;
 			else if (tokens[s].type == DER)
 				{
 					//printf("s=%d,str=%s,eval=%d",s,tokens[s+1].str,eval(s + 1, e));
+					printf("eval=%x",eval(s + 1, e));
 					return vaddr_read(eval(s + 1, e), SREG_DS, 4);
 				}
 			else
