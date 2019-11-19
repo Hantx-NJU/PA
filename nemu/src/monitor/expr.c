@@ -109,14 +109,19 @@ static bool make_token(char *e)
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
-				if (rules[i].token_type != NOTYPE) {
+				//if (rules[i].token_type != NOTYPE) {
 					//for (int i = 0; i < substr_len; i++)
-					strncpy(tokens[nr_token].str,substr_start,substr_len);
-					tokens[nr_token].str[substr_len] = '\0';
-				}
+					
+				//}
 				switch (rules[i].token_type)
 				{
 					case NOTYPE:break;
+					case NUM:
+					case HEX:
+					case SYMB:
+					case REG:
+						strncpy(tokens[nr_token].str,substr_start,substr_len);
+						tokens[nr_token].str[substr_len] = '\0';
 				default:
 					tokens[nr_token].type = rules[i].token_type;
 					nr_token++;
