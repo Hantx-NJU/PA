@@ -45,7 +45,9 @@ static struct rule
 	{"\\/", '/'},
 	{"\\(", '('},
 	{"\\)", ')'},
-	{"[$][e][a-zA-Z]{2, 3}", REG},
+	{"\\$e[a,b,c,d]x", REG},
+	{"\\$e[s,b]p", REG},
+	{"\\$e[s,d]i", REG},
 	{"[a-zA-Z_][a-zA-Z0-9_]+", SYMB},
 	{"[0][xX][0-9a-fA-F]+", HEX}
 };
