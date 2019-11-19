@@ -97,17 +97,20 @@ static bool make_token(char *e)
 			{
 				char *substr_start = e + position;
 				int substr_len = pmatch.rm_eo;
-				int len =substr_len > 31 ? 31 : substr_len;
+				//int len =substr_len > 31 ? 31 : substr_len;
 				printf("match regex[%d] at position %d with len %d: %.*s", i, position, substr_len, substr_len, substr_start);
 				position += substr_len;
-
+				if(substr_len>=32){
+					printf("substr is too long at position %d\n%s\n%*.s^\n", position, e, position, "");
+					return false;
+				}
 				/* TODO: Now a new token is recognized with rules[i]. 
 				 * Add codes to perform some actions with this token.
 				 */
 				if (rules[i].token_type != NOTYPE) {
 					//for (int i = 0; i < substr_len; i++)
-					strncpy(tokens[nr_token].str,substr_start,len);
-					tokens[nr_token].str[len] = '\0';
+					strncpy(tokens[nr_token].str,substr_start,substr_len);
+					tokens[nr_token].str[substr_len] = '\0';
 				}
 				switch (rules[i].token_type)
 				{
