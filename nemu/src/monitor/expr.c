@@ -177,7 +177,7 @@ uint32_t eval(int s, int e)
 		printf("eval error!");
 		assert(0);
 	}
-
+	printf("s=%d,e=%d\n",s,e);
 	else if(s == e) { 
 		printf("atoi=%d\n",atoi(tokens[s].str));
 		return atoi(tokens[s].str);
