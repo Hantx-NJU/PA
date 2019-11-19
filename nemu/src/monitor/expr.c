@@ -240,9 +240,9 @@ uint32_t expr(char *e, bool *success)
 		}
 		else if (tokens[i].type == '*') {
 			if (i == 0)
-				tokens[i].type = DEREF;
+				tokens[i].type = DER;
 			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
-				tokens[i].type = DEREF;
+				tokens[i].type = DER;
 		}
 	}
 
