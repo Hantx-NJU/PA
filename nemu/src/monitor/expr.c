@@ -186,7 +186,7 @@ uint32_t eval(int s, int e)
 	}
 else {
 int pm = -1, mul = -1, c = 0, i;
-		for (i = s; i < e; i++) {
+		for (i =s; i < e; i++) {
 			if (tokens[i].type == '(')
 				c++;
 			else if (tokens[i].type == ')')
