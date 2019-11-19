@@ -136,8 +136,7 @@ static bool make_token(char *e)
 bool check_parentheses(int s, int e)
 {
 	int count = 0;
-	bool flag = true;
-
+	
 	if(tokens[s].type!='(')
 		return false;
 
@@ -151,11 +150,17 @@ bool check_parentheses(int s, int e)
 		}
 		if(count == 0)	return false;
 		if(count < 0)	{
-			printf("parentheses error!");
+			printf("1:parentheses error!");
 			assert(0);
 		}
 	}
-
+	if(count!=1||tokens[e].type!=')'){
+		printf("2:parentheses error!");
+			assert(0);
+	}
+	else{
+		return true;
+	}
 }
 
 uint32_t expr(char *e, bool *success)
