@@ -205,7 +205,7 @@ uint32_t eval(int s, int e)
 				return cpu.esp;
 			else if (strcmp(tokens[s].str, "$ebp") == 0)
 				{
-					printf("ebp=%d\n",cpu.ebp);
+					//printf("ebp=%d\n",cpu.ebp);
 					return cpu.ebp;
 				}
 			else if (strcmp(tokens[s].str, "$esi") == 0)
