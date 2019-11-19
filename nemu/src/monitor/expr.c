@@ -179,6 +179,7 @@ uint32_t eval(int s, int e)
 	}
 
 	else if(s == e) { 
+		printf("atoi=%d\n",atoi(tokens[s].str));
 		return atoi(tokens[s].str);
 	}
 	else if(check_parentheses(s, e) == true) {
