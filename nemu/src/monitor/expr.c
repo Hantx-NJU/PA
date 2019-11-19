@@ -17,14 +17,27 @@ enum
 {
 	
 
-	NOTYPE = 256,
+	/*NOTYPE = 256,
 	EQ = 257,
 	NUM = 258,
 	REG = 259,
 	SYMB = 260,
 	NEG = 261,
 	DER = 262,
-	HEX = 263
+	HEX = 263*/
+	{" +",	NOTYPE},				// white space
+	{"\\+", '+'},
+	{"==", EQ},
+	{"[0-9]+", NUM},
+	{"-", '-'},
+	{"\\*", '*'},
+	{"\\(", '('},
+	{"\\)", ')'},
+	{"-", NEG},
+	{"\\*", DEREF},
+	{"[$][a-zA-Z]{2, 3}", REG},
+	{"[a-zA-Z_][a-zA-Z0-9_]+", SYM},
+	{"[0][xX][0-9a-fA-F]+", HEX}
 
 	/* TODO: Add more token types */
 
