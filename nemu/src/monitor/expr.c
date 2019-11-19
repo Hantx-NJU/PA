@@ -17,16 +17,16 @@ enum
 {
 	
 
-	/*NOTYPE = 256,
+	NOTYPE = 256,
 	EQ = 257,
 	NUM = 258,
-	REG = 259,
-	SYMB = 260,
-	NEG = 261,
-	DER = 262,
-	HEX = 263*/
+	NEG = 259,
+	DER = 260,
+	REG = 261,
+	SYMB = 262,
+	HEX = 263
 	
-	NOTYPE = 256, EQ = 257, NUM = 259, NEG = 260, DER = 261, REG = 262, SYMB = 263, HEX = 264
+	
 	/* TODO: Add more token types */
 
 };
@@ -41,19 +41,20 @@ static struct rule
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	/*{" +", NOTYPE}, // white space
+	{" +", NOTYPE}, // white space
 	{"\\+", '+'},
 	{"==", EQ},
 	{"[0-9]+", NUM},
 	{"-",'-'},
-	{"-",NEG},
+	
 	{"\\*",'*'},
+	{"-",NEG},
 	{"\\*",DER},
 	{"\\(",'('},
 	{"\\)",')'},
 	{"[$][a-zA-Z]{2,3}",REG},
 	{"[a-zA-Z_][0-9a-zA-Z_]+", SYMB},
-	{"[0][xX][0-9a-fA-F]+", HEX}*/
+	{"[0][xX][0-9a-fA-F]+", HEX}
 
 	{" +",	NOTYPE},				// white space
 	{"\\+", '+'},
