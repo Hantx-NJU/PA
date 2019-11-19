@@ -271,7 +271,7 @@ int pm = -1, mul = -1, count = 0, i;
 				{
 					//printf("s=%d,str=%s,eval=%d",s,tokens[s+1].str,eval(s + 1, e));
 					printf("eval=%d",eval(s + 1, e));
-					printf("str=%s,type=%s",tokens[s+1].str,tokens[s+1].type);
+					printf("str=%s,type=%d",tokens[s+1].str,tokens[s+1].type);
 					return vaddr_read(eval(s + 1, e), SREG_DS, 4);
 				}
 			else
