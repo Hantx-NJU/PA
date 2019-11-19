@@ -133,6 +133,11 @@ static bool make_token(char *e)
 	return true;
 }
 
+bool check_parentheses(int s, int e)
+{
+	
+}
+
 uint32_t expr(char *e, bool *success)
 {
 	if (!make_token(e))
