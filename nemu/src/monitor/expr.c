@@ -208,6 +208,7 @@ int pm = -1, mul = -1, c = 0, i;
 			printf("op.pos=%d\n",op);
 			int val1 = eval(s, op - 1);
 			int val2 = eval(op + 1, e);
+			printf("val1=%d,val2=%d\n",val1,val2)
 			switch(tokens[op].type) {
 				case '+': return val1 + val2;
 				case '-': return val1 - val2;
