@@ -196,6 +196,7 @@ int pm = -1, mul = -1, c = 0, i;
 			else if (tokens[i].type == ')')
 				c--;
 			if (c == 0) {
+				printf("-=%d,now=%d",'-',tokens[i].type);
 				if (tokens[i].type == '+' || tokens[i].type == '-')
 					pm = i;
 				else if (tokens[i].type == '*' || tokens[i].type == '/')
