@@ -205,7 +205,7 @@ int pm = -1, mul = -1, c = 0, i;
 				op = pm;
 			else
 				op = mul;
-			printf("%d\n",op);
+			printf("op.pos=%d\n",op);
 			int val1 = eval(s, op - 1);
 			int val2 = eval(op + 1, e);
 			switch(tokens[op].type) {
