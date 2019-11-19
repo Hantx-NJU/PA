@@ -135,7 +135,22 @@ static bool make_token(char *e)
 
 bool check_parentheses(int s, int e)
 {
-	
+	int count = 0;
+	bool flag = true;
+
+	if(tokens[s].type!='(')
+		return false;
+	for(int i = s;i<e;++i)
+	{
+		if(tokens[i].type=='(')
+			++count;
+		else if(tokens[i].type == ')')
+		{
+			--count;
+			flag
+		}
+	}
+
 }
 
 uint32_t expr(char *e, bool *success)
