@@ -277,12 +277,13 @@ int pm = -1, mul = -1, c = 0, i;
 uint32_t expr(char *e, bool *success)
 {
 	*success = true;
+	printf("1");
 	if (!make_token(e))
 	{
 		*success = false;
 		return 0;
 	}
-
+printf("2");
 	for (int i = 0; i< nr_token; ++i) {
 		if (tokens[i].type == '-') {
 			if (i == 0)
