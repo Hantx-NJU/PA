@@ -26,11 +26,11 @@ enum
 	SYMB = 262,
 	HEX = 263
 	
-	NOTYPE = 256,
+	/*NOTYPE = 256,
 	EQ,
 	NUM,
 	REG,
-	SYMB
+	SYMB*/
 
 	
 	/* TODO: Add more token types */
