@@ -189,7 +189,7 @@ int pm = -1, mul = -1, c = 0, i;
 			if (c == 0) {
 				if (tokens[i].type == '+' || tokens[i].type == '-')
 					pm = i;
-				else if (tokens[i].type == '*')
+				else if (tokens[i].type == '*' || tokens[i].type == '/')
 					mul = i;
 			}
 		}
