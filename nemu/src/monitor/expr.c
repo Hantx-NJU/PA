@@ -231,8 +231,23 @@ uint32_t expr(char *e, bool *success)
 		return 0;
 	}
 
-	printf("\nPlease implement expr at expr.c\n");
-	assert(0);
+	for (int i = 0; i; ++i) {
+		if (tokens[i].type == '-') {
+			if (i == 0)
+				tokens[i].type = NEG;
+			else if ((tokens[i-1].type != ')') || (tokens[i].type != NUM ) || (tokens[i].type != HEX))
+				tokens[i].type = NEG;
+		}
+		else if (tokens[i].type == '*') {
+			if (i == 0)
+				tokens[i].type = DEREF;
+			else if ((tokens[i].type != ')') || (tokens[i].type != NUM) || (tokens[i].type != HEX))
+				tokens[i].type = DEREF;
+		}
+	}
 
-	return 0;
+	return eval(0, nr_token);
+	//printf("\nPlease implement expr at expr.c\n");
+	//assert(0);
+
 }
