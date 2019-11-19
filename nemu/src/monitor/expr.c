@@ -197,12 +197,13 @@ int pm = -1, mul = -1, c = 0, i;
 				op = pm;
 			else
 				op = mul;
-			int val1 = eval(s, op - 1, success);
-			int val2 = eval(op + 1, e, success);
+			int val1 = eval(s, op - 1);
+			int val2 = eval(op + 1, e);
 			switch(tokens[op].type) {
 				case '+': return val1 + val2;
 				case '-': return val1 - val2;
 				case '*': return val1 * val2;
+				case '/': return val1 / val2;
 				default: assert(0);
 			}
 		} 
