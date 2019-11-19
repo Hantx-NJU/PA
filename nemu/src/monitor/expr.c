@@ -272,7 +272,7 @@ int pm = -1, mul = -1, count = 0, i;
 					//printf("s=%d,str=%s,eval=%d",s,tokens[s+1].str,eval(s + 1, e));
 					//printf("eval=%d",eval(s + 1, e));
 					//printf("str=%s,type=%d\n",tokens[s+1].str,tokens[s+1].type);
-					printf("vaddr=%d",vaddr_read(eval(s + 1, e), SREG_DS, 4));
+					printf("vaddr=%d\n",vaddr_read(eval(s + 1, e), SREG_DS, 4));
 					return vaddr_read(eval(s + 1, e), SREG_DS, 4);
 				}
 			else
