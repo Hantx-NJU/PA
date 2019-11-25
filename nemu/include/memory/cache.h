@@ -9,7 +9,7 @@ typedef struct
     uint8_t data[64];
 }CacheLine;
 
-extern CacheLine cache[1024];
+extern CacheLine cache[1024];   //Eight-way group connection will be implemented in the cache.c
 
 
 
