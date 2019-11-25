@@ -4,6 +4,7 @@
 typedef struct 
 {
     bool valid;
+    uint32_t sign[8];
     
 };
 
