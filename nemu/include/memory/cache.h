@@ -9,7 +9,7 @@ typedef struct
     uint8_t data[64];
 }CacheLine;
 
-
+extern CacheLine cache[1024];
 
 
 
