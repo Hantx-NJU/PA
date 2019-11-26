@@ -8,6 +8,10 @@
 
 uint8_t hw_mem[MEM_SIZE_B];
 
+#ifdef CACHE_ENABLED
+CacheLine cache[128];
+#endif
+
 uint32_t hw_mem_read(paddr_t paddr, size_t len)
 {
 	uint32_t ret = 0;
@@ -58,7 +62,9 @@ void init_mem()
 {
 	// clear the memory on initiation
 	memset(hw_mem, 0, MEM_SIZE_B);
+	#ifdef CACHE_ENABLED
 	init_cache();
+	#endif
 
 #ifdef TLB_ENABLED
 	make_all_tlb();
