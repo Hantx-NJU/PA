@@ -24,18 +24,22 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		uint32_t block_addr = (paddr & 0x3f);
 		uint32_t blockline = 0;
 
+		bool flag=false;
 		//Judge if hit
 		for(int i = 0; i < 8; ++i)
 		{
-			if(cache[group * 8 + i].valid == true){
-				if(cache[group * 8 + i].sign == tag){
+			if(cache[group * 8 + i].valid == true)
+			{
+				if(cache[group * 8 + i].sign == tag)
+				{
 					//now hit
 					memcpy(&res,cache[group*8 + i].data + block_addr, 1);
-					return res;
+					flag = true;
+					break;
 				}
 			}
 		}
-
+		if(flag)	continue;
 	
 	//find empty block to load new data
 	for(int i = 0; i < 8; ++i)
