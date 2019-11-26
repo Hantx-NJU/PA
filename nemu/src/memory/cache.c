@@ -23,8 +23,10 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 
 	//Cross Row
 	if(tag!=tag_suf){
-
+		int suf_len = len + block_addr - 64;
+		suf = cache_read(paddr + len - suf_len, suf_len, cache);
 	}
+	
 
 }
 
