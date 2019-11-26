@@ -2,6 +2,7 @@
 #include "cpu/cpu.h"
 #include "memory/memory.h"
 #include "device/mm_io.h"
+#include "memory/cache.h"
 #include <memory.h>
 #include <stdio.h>
 
@@ -57,6 +58,7 @@ void init_mem()
 {
 	// clear the memory on initiation
 	memset(hw_mem, 0, MEM_SIZE_B);
+	init_cache();
 
 #ifdef TLB_ENABLED
 	make_all_tlb();
