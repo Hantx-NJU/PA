@@ -40,7 +40,11 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		if(cache[group * 8 + i].valid){
 			if(cache[group * 8 + i].sign == tag){
 				//now hit
-				memcpy(&res,cache[group*8 + i].data + block_addr, min(len,64-block_addr));
+				if(flag_cr)
+					{
+						memcpy(&res,cache[group*8 + i].data + block_addr, len - suf_len);
+						res = res << (8*suf_len) + suf;
+					}
 				
 			}
 		}
