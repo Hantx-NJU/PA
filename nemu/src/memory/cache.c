@@ -33,8 +33,9 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		suf = cache_read(paddr + len - suf_len, suf_len, cache);
 	}
 
-	bool flag = false;	//if hit then set flag true
+	//bool flag = false;	//if hit then set flag true
 
+	//Judge if hit
 	for(int i = 0; i < 8; ++i)
 	{
 		if(cache[group * 8 + i].valid){
