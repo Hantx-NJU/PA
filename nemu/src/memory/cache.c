@@ -78,7 +78,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 					memcpy(&res, hw_mem + paddr, len);
 					return res;
 				}
-				else{
+			else{
 					memcpy(&res, cache[group*8 + i].data + block_addr, len);
 					return res;
 					//memcpy(&res, hw_mem + paddr, len);
