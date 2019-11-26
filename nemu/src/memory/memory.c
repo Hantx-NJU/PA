@@ -9,7 +9,7 @@
 uint8_t hw_mem[MEM_SIZE_B];
 
 #ifdef CACHE_ENABLED
-CacheLine cache[128];
+CacheLine cache[1024];
 #endif
 
 uint32_t hw_mem_read(paddr_t paddr, size_t len)
