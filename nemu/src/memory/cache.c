@@ -117,8 +117,10 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
 	uint32_t block_addr = paddr & 0x3f;
 
 	int suf_len = len + block_addr - 64,read_len = len - suf_len;
+	bool flag_cr = false;
 	//Cross Row
 	if((paddr&0xffffffc0)!=((paddr+len)&0xffffffc0)){
+		flag_cr =true;
 		if(len == 2)
 		{
 			cache_write(paddr + 1, 1, data & 0xf, cache);
