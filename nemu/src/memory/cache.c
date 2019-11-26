@@ -72,8 +72,8 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			if(flag_cr)
 				{
 					memcpy(&res, (cache[group*8 + i].data + block_addr), len - suf_len);
-					//res = res + (suf << (8*(len-suf_len)));
-					res = (res << (8*suf_len)) + suf;
+					res = res + (suf << (8*(len-suf_len)));
+					//res = (res << (8*suf_len)) + suf;
 					return res;
 					//memcpy(&res, hw_mem + paddr, len);
 					//return res;
@@ -95,10 +95,11 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	cache[group*8 + blockline].sign = tag;
 	memcpy(cache[group*8 + blockline].data, hw_mem + (paddr&0xffffffc0), 64);
 	//memcpy(&res,cache[group*8 + blockline].data + block_addr, len);
-	if(flag_cr)
+	if(flag_cr == true)
 		{
 			memcpy(&res, (cache[group*8 + blockline].data + block_addr), len - suf_len);
-			res = (res << (8*suf_len)) + suf;
+			//res = (res << (8*suf_len)) + suf;
+			res = res + (suf << (8*(len-suf_len)));
 			return res;
 		}
 	else{
