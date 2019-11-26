@@ -68,7 +68,7 @@ uint32_t cache_read(paddr_t paddr,size_t len, CacheLine* cache)
     
 
 }
-vvoid cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
+void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 {
     uint32_t group_number=(paddr>>6)&0x7f;
     uint32_t sign_number=(paddr>>13)&0x7ffff;
@@ -91,7 +91,4 @@ vvoid cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
             break;
         }
     }
-
-
-
 }
