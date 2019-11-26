@@ -81,7 +81,7 @@ vvoid cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
         {
             if(offset_number+len<=64)
             {
-                memcpy(cache[group_number*8+i].block+offset_number,&data,len);
+                memcpy(cache[group_number*8+i].data+offset_number,&data,len);
             }
             else
             {
