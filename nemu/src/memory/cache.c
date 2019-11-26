@@ -16,8 +16,9 @@ int min(int a, int b){
 
 uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 {
-	static seed = 0;
-
+	static uint32_t seed = 0;
+	++seed;
+	if(seed > 100000)	seed=0;
 	uint32_t res = 0, suf=0;
 	uint32_t tag = paddr & 0xffffe000, tag_suf =(paddr + len)&0xffffe000;
 	uint32_t group = paddr & 0x1fc0;
@@ -67,6 +68,8 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			return res;
 		}
 	}
+
+	//now we must replace one block to load new--->blockline = seed % 8
 }
 
 void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache);
