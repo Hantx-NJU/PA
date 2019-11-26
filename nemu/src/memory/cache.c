@@ -16,8 +16,9 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	static uint32_t seed = 0;
 	++seed;
 	if(seed > 100000)	seed = 0;
+	uint32_t res = 0;
 	for(int i=0;i<len;++i){	//}
-		uint32_t res = 0, suf = 0;
+		uint32_t temp;
 		uint32_t tag = paddr & 0xffffe000;
 		uint32_t group = paddr & 0x1fc0;
 		group >>= 6;
@@ -33,7 +34,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				if(cache[group * 8 + i].sign == tag)
 				{
 					//now hit
-					memcpy(&res,cache[group*8 + i].data + block_addr, 1);
+					memcpy(&temp,cache[group*8 + i].data + block_addr, 1);
 					flag = true;
 					break;
 				}
