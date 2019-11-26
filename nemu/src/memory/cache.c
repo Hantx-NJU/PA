@@ -42,7 +42,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				//now hit
 				if(flag_cr)
 				{
-					memcpy(&res,cache[group*8 + i].data + block_addr, len - suf_len);
+					memcpy(&res, cache[group*8 + i].data + block_addr, len - suf_len);
 					res = (res << (8*suf_len)) + suf;
 					return res;
 				}
@@ -64,12 +64,12 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			memcpy(cache[group*8 + i].data, hw_mem + (paddr&0xffffffc0), 64);
 			if(flag_cr)
 				{
-					memcpy(&res,cache[group*8 + i].data + block_addr, len - suf_len);
+					memcpy(&res, cache[group*8 + i].data + block_addr, len - suf_len);
 					res = (res << (8*suf_len)) + suf;
 					return res;
 				}
 				else{
-					memcpy(&res,cache[group*8 + i].data + block_addr, len);
+					memcpy(&res, cache[group*8 + i].data + block_addr, len);
 					return res;
 				}
 			//memcpy(&res,cache[group*8 + i].data + block_addr, len);
