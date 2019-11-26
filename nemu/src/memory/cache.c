@@ -17,7 +17,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	++seed;
 	if(seed > 100000)	seed = 0;
 	uint32_t res = 0;
-	for(int k = 0;k < len;++k){	
+	for(int k = 0;k < len;++k, ++paddr){	
 		uint32_t temp = 0;
 		uint32_t tag = paddr & 0xffffe000;
 		uint32_t group = paddr & 0x1fc0;
@@ -27,7 +27,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 
 		bool flag=false;
 		//Judge if hit
-		for(int i = 0; i < 8; ++i, ++paddr)
+		for(int i = 0; i < 8; ++i)
 		{
 			if(cache[group * 8 + i].valid == true)
 			{
