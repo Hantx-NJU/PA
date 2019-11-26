@@ -43,12 +43,12 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		if(cache[group * 8 + i].valid == true){
 			if(cache[group * 8 + i].sign == tag){
 				//now hit
-				if(flag_cr)
+				if(flag_cr == true)
 				{
-					memcpy(&res, cache[group*8 + i].data + block_addr, len - suf_len);
+					//memcpy(&res, cache[group*8 + i].data + block_addr, len - suf_len);
 					//res = (res << (8*suf_len)) + suf;
-					res = res + (suf << (8*(len-suf_len)));
-					//memcpy(&res, hw_mem + paddr, len);
+					//res = res + (suf << (8*(len-suf_len)));
+					memcpy(&res, hw_mem + paddr, len);
 					return res;
 				}
 				else{
@@ -64,7 +64,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	//find empty block to load new data
 	for(int i = 0; i < 8; ++i)
 	{
-		if(!cache[group*8 + i].valid)
+		if(cache[group*8 + i].valid == false)
 		{
 			cache[group*8 + i].valid = true;
 			cache[group*8 + i].sign = tag;
