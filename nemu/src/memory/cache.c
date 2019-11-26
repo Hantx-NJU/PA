@@ -157,7 +157,8 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
 			if(cache[group * 8 + i].sign == tag){
 				if(flag_cr == true)
 				{
-
+					memcpy(cache[group*8 + i].data + block_addr, &data, len);
+					memcpy(hw_mem + paddr, &data, len);
 				}
 				else{
 					memcpy(cache[group*8 + i].data + block_addr, &data, len);
