@@ -63,15 +63,25 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			cache[group*8 + i].valid = true;
 			cache[group*8 + i].sign = tag;
 			memcpy(cache[group*8 + i].data, hw_mem + (paddr&0xffffffc0), 64);
-			memcpy(&res,cache[group*8 + i].data + block_addr, len);
-			return res;
+			if(flag_cr)
+				{
+					memcpy(&res,cache[group*8 + i].data + block_addr, len - suf_len);
+					res = (res << (8*suf_len)) + suf;
+					return res;
+				}
+				else{
+					memcpy(&res,cache[group*8 + i].data + block_addr, len);
+					return res;
+				}
+			//memcpy(&res,cache[group*8 + i].data + block_addr, len);
+			//return res;
 		}
 	}
 
 	//now we must replace one block to load new--->blockline = seed % 8
 	blockline = seed % 8;
 	cache[group*8 + blockline].sign = tag;
-	memcpy(cache[group*8 + blockline].data, hw_mem + paddr, 64);
+	memcpy(cache[group*8 + blockline].data, hw_mem + (paddr&0xffffffc0), 64);
 	//memcpy(&res,cache[group*8 + blockline].data + block_addr, len);
 	if(flag_cr)
 		{
