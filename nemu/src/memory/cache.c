@@ -5,7 +5,7 @@ CacheLine cache[1024];
 
 void init_cache(){
 	int i;
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < 1024; ++i) {
 		cache[i].valid = false;
 	}
 }
@@ -62,7 +62,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		{
 			cache[group*8 + i].valid = true;
 			cache[group*8 + i].sign = tag;
-			memcpy(cache[group*8 + i].data, hw_mem + paddr, 64);
+			memcpy(cache[group*8 + i].data, hw_mem + (paddr&0xffffffc0), 64);
 			memcpy(&res,cache[group*8 + i].data + block_addr, len);
 			return res;
 		}
