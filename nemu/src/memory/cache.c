@@ -44,11 +44,11 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				{
 					memcpy(&res, cache[group*8 + i].data + block_addr, len - suf_len);
 					res = (res << (8*suf_len)) + suf;
-					return (res>>(8*(4-len)));
+					return res;
 				}
 				else{
 					memcpy(&res,cache[group*8 + i].data + block_addr, len);
-					return (res>>(8*(4-len)));
+					return res;
 				}
 			}
 		}
@@ -66,11 +66,11 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				{
 					memcpy(&res, cache[group*8 + i].data + block_addr, len - suf_len);
 					res = (res << (8*suf_len)) + suf;
-					return (res>>(8*(4-len)));
+					return res;
 				}
 				else{
 					memcpy(&res, cache[group*8 + i].data + block_addr, len);
-					return (res>>(8*(4-len)));
+					return res;
 				}
 			//memcpy(&res,cache[group*8 + i].data + block_addr, len);
 			//return res;
@@ -86,11 +86,11 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		{
 			memcpy(&res, cache[group*8 + blockline].data + block_addr, len - suf_len);
 			res = (res << (8*suf_len)) + suf;
-			return (res>>(8*(4-len)));
+			return res;
 		}
 	else{
 			memcpy(&res, cache[group*8 + blockline].data + block_addr, len);
-			return (res>>(8*(4-len)));
+			return res;
 		}
 	return res;
 }
