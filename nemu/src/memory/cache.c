@@ -15,7 +15,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	++seed;
 	if(seed > 100000)	seed = 0;
 
-	uint32_t res = 0, suf = 0;
+	uint32_t res = 0;,
 	//memcpy(&res, hw_mem + paddr, len);
 	//return res;
 
@@ -36,6 +36,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				//now hit
 				if(block_addr + len > 64)
 				{
+					uint32_t suf = 0;
 					memcpy(&res, (cache[group*8 + i].data + block_addr), 64-block_addr;
 					suf = cache_read(paddr + 64 - block_addr, block_addr + len - 64, cache);
 					res = res + (suf << (8*(64 - block_addr)));
