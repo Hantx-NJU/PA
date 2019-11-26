@@ -25,9 +25,10 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	uint32_t block_addr = paddr & 0x3f;
 	uint32_t blockline = 0;
 
+	int suf_len = len + block_addr - 64;
 	//Cross Row
 	if(tag!=tag_suf){
-		int suf_len = len + block_addr - 64;
+		
 		suf = cache_read(paddr + len - suf_len, suf_len, cache);
 	}
 
@@ -39,6 +40,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			if(cache[group * 8 + i].sign == tag){
 				//now hit
 				memcpy(&res,cache[group*8 + i].data + block_addr, min(len,64-block_addr));
+				
 			}
 		}
 	}
