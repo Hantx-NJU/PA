@@ -27,7 +27,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 
 		bool flag=false;
 		//Judge if hit
-		for(int i = 0; i < 8; ++i)
+		for(int i = 0; i < 8; ++i, ++paddr)
 		{
 			if(cache[group * 8 + i].valid == true)
 			{
@@ -42,7 +42,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			}
 		}
 
-		if(flag)	{++paddr;	continue;}
+		if(flag)	continue;
 	
 		//find empty block to load new data
 		for(int i = 0; i < 8; ++i)
@@ -59,7 +59,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			}
 		}
 
-		if(flag)	{++paddr;	continue;}
+		if(flag)	continue;
 
 		//now we must replace one block to load new--->blockline = seed % 8
 		blockline = seed % 8;
@@ -69,7 +69,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		res += (temp<<(8*k));
 		flag = true;
 		break;
-		++paddr;	
+			
 	}
 	return res;
 }
