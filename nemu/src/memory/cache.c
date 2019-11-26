@@ -18,7 +18,10 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	if(seed > 100000)	seed = 0;
 
 	uint32_t res = 0, suf = 0;
-	uint32_t tag = paddr & 0xffffe000, tag_suf =(paddr + len)&0xffffe000;
+	memcpy(&res, hw_mem, len);
+	return res;
+
+	/*uint32_t tag = paddr & 0xffffe000, tag_suf =(paddr + len)&0xffffe000;
 	uint32_t group = paddr & 0x1fc0;
 	group >>= 6;
 	uint32_t block_addr = paddr & 0x3f;
@@ -92,7 +95,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			memcpy(&res, cache[group*8 + blockline].data + block_addr, len);
 			return res;
 		}
-	return res;
+	return res;*/
 }
 
 void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
