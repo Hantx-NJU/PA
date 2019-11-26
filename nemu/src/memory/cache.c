@@ -1,6 +1,8 @@
 #include "memory/memory.h"
 #include "memory/cache.h"
 #include<time.h>
+#include <stdio.h>
+#include<stdlib.h>
 
 CacheLine cache[1024];
 
