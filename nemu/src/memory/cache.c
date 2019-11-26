@@ -56,10 +56,9 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			}
 		}
 	}
-	memcpy(&res, hw_mem + paddr, len);
-	return res;
+	
 	//find empty block to load new data
-/*	for(int i = 0; i < 8; ++i)
+	for(int i = 0; i < 8; ++i)
 	{
 		if(!cache[group*8 + i].valid)
 		{
@@ -80,7 +79,8 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			//return res;
 		}
 	}
-
+memcpy(&res, hw_mem + paddr, len);
+	return res;/*
 	//now we must replace one block to load new--->blockline = seed % 8
 	blockline = seed % 8;
 	cache[group*8 + blockline].sign = tag;
