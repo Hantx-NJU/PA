@@ -40,7 +40,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				if(block_addr + len > 64)
 				{
 					memcpy(&res, (cache[group*8 + i].data + block_addr), len - suf_len);
-					//res = (res << (8*suf_len)) + suf;
+					suf = cache_read(paddr + 64 - block_addr)
 					res = res + (suf << (8*(len-suf_len)));
 					//memcpy(&res, hw_mem + paddr, len);
 					return res;
