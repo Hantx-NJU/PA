@@ -17,7 +17,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	++seed;
 	if(seed > 100000)	seed = 0;
 	uint32_t res = 0;
-	for(int i=0;i<len;++i){	//}
+	for(int k = 0;k < len;++k){	//}
 		uint32_t temp;
 		uint32_t tag = paddr & 0xffffe000;
 		uint32_t group = paddr & 0x1fc0;
@@ -35,6 +35,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				{
 					//now hit
 					memcpy(&temp,cache[group*8 + i].data + block_addr, 1);
+					res += (temp<<(8*k));
 					flag = true;
 					break;
 				}
