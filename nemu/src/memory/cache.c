@@ -88,8 +88,8 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			//return res;
 		}
 	}
-memcpy(&res, hw_mem + paddr, len);
-	return res;
+//memcpy(&res, hw_mem + paddr, len);
+//	return res;
 	//now we must replace one block to load new--->blockline = seed % 8
 	blockline = seed % 8;
 	cache[group*8 + blockline].sign = tag;
