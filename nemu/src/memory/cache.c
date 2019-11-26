@@ -11,7 +11,7 @@ void init_cache(){
 
 uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 {
-	static uint32_t seed = 0;
+	static int seed = 0;
 	++seed;
 	if(seed > 100000)	seed = 0;
 
