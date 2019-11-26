@@ -59,7 +59,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	memcpy(&res, hw_mem + paddr, len);
 	return res;
 	//find empty block to load new data
-	for(int i = 0; i < 8; ++i)
+/*	for(int i = 0; i < 8; ++i)
 	{
 		if(!cache[group*8 + i].valid)
 		{
@@ -96,7 +96,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			memcpy(&res, cache[group*8 + blockline].data + block_addr, len);
 			return res;
 		}
-	return res;
+	return res;*/
 }
 
 void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
