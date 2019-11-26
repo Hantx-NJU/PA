@@ -10,6 +10,9 @@ void init_cache(){
 	}
 }
 
+int min(int a, int b){
+	return (a < b ? a : b);
+}
 uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 {
 	static seed = 0;
@@ -28,7 +31,16 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	}
 
 	bool flag = false;	//if hit then set flag true
-	
+
+	for(int i = 0; i < 8; ++i)
+	{
+		if(cache[group * 8 + i].valid){
+			if(cache[group * 8 + i].sign == tag){
+				//now hit
+
+			}
+		}
+	}
 }
 
 void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache);
