@@ -26,14 +26,14 @@ uint32_t cache_read(paddr_t paddr,size_t len, CacheLine* cache)
         {
             if(offset_number+len<=64)
             {
-                memcpy(&rst,cache[group_number*8+i].block+offset_number,len);
+                memcpy(&rst,cache[group_number*8+i].data+offset_number,len);
                 return rst;
 
             }
             else
             {
                 uint32_t tmp1=0,tmp2=0;
-                memcpy(&tmp1,cache[group_number*8+i].block+offset_number,64-offset_number);
+                memcpy(&tmp1,cache[group_number*8+i].data+offset_number,64-offset_number);
                 tmp2=cache_read(paddr-offset_number+64,len+offset_number-64,cache);
                 rst=tmp1|(tmp2<<(64-offset_number)*8);
                 return rst;
@@ -62,7 +62,7 @@ uint32_t cache_read(paddr_t paddr,size_t len, CacheLine* cache)
     }
     cache[group_number*8+j].valid=1;
     cache[group_number*8+j].sign=sign_number;
-    memcpy(cache[group_number*8+j].block,hw_mem+paddr-offset_number,64);
+    memcpy(cache[group_number*8+j].data,hw_mem+paddr-offset_number,64);
     
     return rst;
     
