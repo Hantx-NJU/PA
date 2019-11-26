@@ -14,7 +14,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 {
 	static seed = 0;
 
-	uint32_t res = 0;
+	uint32_t res = 0, suf=0;
 	uint32_t tag = paddr & 0xffffe000;
 	uint32_t group = paddr & 0x1fc0;
 	group >>= 6;
