@@ -56,10 +56,16 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	}
 
 	//find empty block to load new data
-
 	for(int i = 0; i < 8; ++i)
 	{
-		
+		if(!cache[group*8 + i].valid)
+		{
+			cache[group*8 + i].valid = true;
+			cache[group*8 + i].sign = tag;
+			memcpy(cache[group*8 + i].data, hw_mem + paddr, 64);
+			memcpy(&res,cache[group*8 + i].data + block_addr, len);
+			return res;
+		}
 	}
 }
 
