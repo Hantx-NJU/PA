@@ -53,10 +53,10 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 					return res;
 				}
 				else{
-					//memcpy(&res,cache[group*8 + i].data + block_addr, len);
-					//return res;
-					memcpy(&res, hw_mem + paddr, len);
+					memcpy(&res,cache[group*8 + i].data + block_addr, len);
 					return res;
+					//memcpy(&res, hw_mem + paddr, len);
+					//return res;
 				}
 			}
 		}
@@ -79,10 +79,10 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 					return res;
 				}
 				else{
-				//	memcpy(&res, cache[group*8 + i].data + block_addr, len);
-				//	return res;
-					memcpy(&res, hw_mem + paddr, len);
+					memcpy(&res, cache[group*8 + i].data + block_addr, len);
 					return res;
+					//memcpy(&res, hw_mem + paddr, len);
+					//return res;
 				}
 			//memcpy(&res,cache[group*8 + i].data + block_addr, len);
 			//return res;
