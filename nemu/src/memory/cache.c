@@ -41,14 +41,11 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				{
 					memcpy(&res, (cache[group*8 + i].data + block_addr), len - suf_len);
 					suf = cache_read(paddr + 64 - block_addr, block_addr + len - 64, cache);
-					res = res + (suf << (8*(len-suf_len)));
-					//memcpy(&res, hw_mem + paddr, len);
+					res = res + (suf << (8*(64 - block_addr)));
 					return res;
 				}
 				else{
 					memcpy(&res,cache[group*8 + i].data + block_addr, len);
-					//return res;
-					//memcpy(&res, hw_mem + paddr, len);
 					return res;
 				}
 			}
