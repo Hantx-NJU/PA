@@ -80,17 +80,14 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 
 void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
 {
-	uint32_t suf=0;
 	uint32_t tag = paddr & 0xffffe000, tag_suf =(paddr + len)&0xffffe000;
 	uint32_t group = paddr & 0x1fc0;
 	group >>= 6;
 	uint32_t block_addr = paddr & 0x3f;
 
 	int suf_len = len + block_addr - 64,read_len = len - suf_len;
-	bool flag_cr=false;	//if cross row then set flag_cr true
 	//Cross Row
 	if(tag!=tag_suf){
-		flag_cr = true;
 		if(len == 2)
 		{
 			cache_write(paddr + 1, 1, data & 0xf, cache);
