@@ -19,8 +19,6 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	if(seed > 100000)	seed = 0;
 
 	uint32_t res = 0;
-	//memcpy(&res, hw_mem + paddr, len);
-	//return res;
 
 	uint32_t tag = paddr & 0xffffe000;
 	uint32_t group = paddr & 0x1fc0;
@@ -28,8 +26,6 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	uint32_t block_addr = (paddr & 0x3f);
 	int blockline = -1;
 
-
-	//bool flag = false;	//if hit then set flag true
 
 	//Judge if hit
 	for(int i = 0; i < 8; ++i)
