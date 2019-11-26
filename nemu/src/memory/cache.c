@@ -16,48 +16,24 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	static uint32_t seed = 0;
 	++seed;
 	if(seed > 100000)	seed = 0;
+	for(int i=0;i<len;++i){	//}
+		uint32_t res = 0, suf = 0;
+		uint32_t tag = paddr & 0xffffe000;
+		uint32_t group = paddr & 0x1fc0;
+		group >>= 6;
+		uint32_t block_addr = (paddr & 0x3f);
+		uint32_t blockline = 0;
 
-	uint32_t res = 0, suf = 0;
-	//memcpy(&res, hw_mem + paddr, len);
-	//return res;
-
-	uint32_t tag = paddr & 0xffffe000;
-	uint32_t group = paddr & 0x1fc0;
-	group >>= 6;
-	uint32_t block_addr = (paddr & 0x3f);
-	uint32_t blockline = 0;
-
-	int suf_len = len + block_addr - 64;
-	bool flag_cr = false;	//if cross row then set flag_cr true
-	//Cross Row
-	if((paddr&0xffffffc0)!=((paddr+len)&0xffffffc0)){
-		flag_cr = true;
-		suf = cache_read(paddr + len - suf_len, suf_len, cache);
-	}
-
-	//bool flag = false;	//if hit then set flag true
-
-	//Judge if hit
-	for(int i = 0; i < 8; ++i)
-	{
-		if(cache[group * 8 + i].valid == true){
-			if(cache[group * 8 + i].sign == tag){
-				//now hit
-				if(flag_cr == true)
-				{
-					memcpy(&res, (cache[group*8 + i].data + block_addr), len - suf_len);
-					//res = (res << (8*suf_len)) + suf;
-					res = res + (suf << (8*(len-suf_len)));
-					//memcpy(&res, hw_mem + paddr, len);
-					return res;
-				}
-				else{
+		//Judge if hit
+		for(int i = 0; i < 8; ++i)
+		{
+			if(cache[group * 8 + i].valid == true){
+				if(cache[group * 8 + i].sign == tag){
+					//now hit
 					memcpy(&res,cache[group*8 + i].data + block_addr, len);
-					//return res;
-					//memcpy(&res, hw_mem + paddr, len);
 					return res;
+					}
 				}
-			}
 		}
 	}
 	
