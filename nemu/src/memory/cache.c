@@ -41,40 +41,35 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				}
 			}
 		}
+
 		if(flag)	continue;
 	
-	//find empty block to load new data
-	for(int i = 0; i < 8; ++i)
-	{
-		if(cache[group*8 + i].valid == false)
+		//find empty block to load new data
+		for(int i = 0; i < 8; ++i)
 		{
-			cache[group*8 + i].valid = true;
-			cache[group*8 + i].sign = tag;
-			memcpy(cache[group*8 + i].data, (hw_mem + (paddr&0xffffffc0)), 64);
-			memcpy(&temp, (cache[group*8 + i].data + block_addr), 1);
-			res += (temp<<(8*k));
-			flag = true;
-			break;
+			if(cache[group*8 + i].valid == false)
+			{
+				cache[group*8 + i].valid = true;
+				cache[group*8 + i].sign = tag;
+				memcpy(cache[group*8 + i].data, (hw_mem + (paddr&0xffffffc0)), 64);
+				memcpy(&temp, (cache[group*8 + i].data + block_addr), 1);
+				res += (temp<<(8*k));
+				flag = true;
+				break;
+			}
 		}
+
+		if(flag)	continue;
+
+		blockline = seed % 8;
+		cache[group*8 + blockline].sign = tag;
+		memcpy(cache[group*8 + blockline].data, hw_mem + (paddr&0xffffffc0), 64);
+		memcpy(&res, cache[group*8 + blockline].data + block_addr, 1);
+		res += (temp<<(8*k));
+		flag = true;
+		break;
+			
 	}
-//memcpy(&res, hw_mem + paddr, len);
-//	return res;
-	//now we must replace one block to load new--->blockline = seed % 8
-	blockline = seed % 8;
-	cache[group*8 + blockline].sign = tag;
-	memcpy(cache[group*8 + blockline].data, hw_mem + (paddr&0xffffffc0), 64);
-	//memcpy(&res,cache[group*8 + blockline].data + block_addr, len);
-	if(flag_cr == true)
-		{
-			memcpy(&res, (cache[group*8 + blockline].data + block_addr), len - suf_len);
-			//res = (res << (8*suf_len)) + suf;
-			res = res + (suf << (8*(len-suf_len)));
-			return res;
-		}
-	else{
-			memcpy(&res, cache[group*8 + blockline].data + block_addr, len);
-			return res;
-		}
 	return res;
 }
 
