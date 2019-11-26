@@ -17,7 +17,8 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	++seed;
 	if(seed > 100000)	seed = 0;
 
-	uint32_t res = 0, suf = 0;
+	uint32_t res = 0;
+	//, suf = 0;
 	//memcpy(&res, hw_mem + paddr, len);
 	//return res;
 
