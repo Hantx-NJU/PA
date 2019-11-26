@@ -25,7 +25,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	uint32_t block_addr = paddr & 0x3f;
 	uint32_t blockline = 0;
 
-	int suf_len = len + block_addr - 64;
+	int suf_len = len + block_addr - 63;
 	bool flag_cr=false;	//if cross row then set flag_cr true
 	//Cross Row
 	if(tag!=tag_suf){
