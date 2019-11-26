@@ -10,7 +10,7 @@ void init_cache()
     for(int i=0;i<1024;i++)
     {
        
-            L1_dcache[i].valid=0;
+            cache[i].valid=0;
         
     }
 }
