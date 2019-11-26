@@ -40,7 +40,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	//Judge if hit
 	for(int i = 0; i < 8; ++i)
 	{
-		if(cache[group * 8 + i].valid){
+		if(cache[group * 8 + i].valid == true){
 			if(cache[group * 8 + i].sign == tag){
 				//now hit
 				if(flag_cr)
