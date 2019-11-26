@@ -33,7 +33,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	//Cross Row
 	if(tag != tag_suf){
 		flag_cr = true;
-		suf = cache_read(paddr + len - suf_len, suf_len, cache);
+		//suf = cache_read(paddr + len - suf_len, suf_len, cache);
 	}
 
 	//bool flag = false;	//if hit then set flag true
