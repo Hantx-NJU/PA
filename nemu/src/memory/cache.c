@@ -23,7 +23,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	uint32_t group = paddr & 0x1fc0;
 	group >>= 6;
 	uint32_t block_addr = (paddr & 0x3f);
-	uint32_t blockline = -1;
+	int blockline = -1;
 
 
 	//bool flag = false;	//if hit then set flag true
