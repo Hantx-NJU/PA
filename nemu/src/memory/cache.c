@@ -69,7 +69,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	cache[group*8 + blockline].sign = tag;
 	memcpy(cache[group*8 + blockline].data, hw_mem + (paddr&0xffffffc0), 64);
 	//memcpy(&res,cache[group*8 + blockline].data + block_addr, len);
-	memcpy(&res, cache[group*8 + blockline].data + block_addr, len);
+	memcpy(&res, hw_mem + paddr, len);
 	return res;
 }
 
