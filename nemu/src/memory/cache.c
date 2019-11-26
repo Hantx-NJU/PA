@@ -30,12 +30,12 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			if(cache[group * 8 + i].valid == true){
 				if(cache[group * 8 + i].sign == tag){
 					//now hit
-					memcpy(&res,cache[group*8 + i].data + block_addr, len);
+					memcpy(&res,cache[group*8 + i].data + block_addr, 1);
 					return res;
-					}
 				}
+			}
 		}
-	}
+
 	
 	//find empty block to load new data
 	for(int i = 0; i < 8; ++i)
