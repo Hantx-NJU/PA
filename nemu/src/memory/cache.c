@@ -68,26 +68,30 @@ uint32_t cache_read(paddr_t paddr,size_t len, CacheLine* cache)
     
 
 }
-void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
+vvoid cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 {
-	for(int j=0;j<len;++j){
-		uint32_t tag = paddr & 0xffffe000;
-		uint32_t group = paddr & 0x1fc0;
-		group >>= 6;
-		uint32_t block_addr = paddr & 0x3f;
+    uint32_t group_number=(paddr>>6)&0x7f;
+    uint32_t sign_number=(paddr>>13)&0x7ffff;
+    uint32_t offset_number= paddr&0x3f;
+    memcpy(hw_mem+paddr,&data,len);
+    for(int i=0;i<8;i++)
+    {
+        if(cache[group_number*8+i].valid==1
+           &&cache[group_number*8+i].sign==sign_number)
+        {
+            if(offset_number+len<=64)
+            {
+                memcpy(cache[group_number*8+i].block+offset_number,&data,len);
+            }
+            else
+            {
+                cache_write(paddr,64-offset_number,data,cache);
+                cache_write(paddr-offset_number+64,len-64+offset_number,data>>(8*(64-offset_number)),cache);
+            }
+            break;
+        }
+    }
 
-		//write through
-		for(int i = 0; i < 8; ++i)
-		{
-			if(cache[group * 8 + i].valid){
-				if(cache[group * 8 + i].sign == tag){
-					uint32_t temp = data & 0xff;
-					memcpy(cache[group*8 + i].data + block_addr, &temp, 1);
-					memcpy(hw_mem + paddr, &temp, 1);
-					data >>= 8;
-				}
-			}
-		}
-		++paddr;
-	}
+
+
 }
