@@ -42,7 +42,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			}
 		}
 
-		if(flag)	continue;
+		if(flag)	{++paddr;	continue;}
 	
 		//find empty block to load new data
 		for(int i = 0; i < 8; ++i)
@@ -59,7 +59,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			}
 		}
 
-		if(flag)	continue;
+		if(flag)	{++paddr;	continue;}
 
 		blockline = seed % 8;
 		cache[group*8 + blockline].sign = tag;
@@ -68,7 +68,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		res += (temp<<(8*k));
 		flag = true;
 		break;
-			
+		++paddr;	
 	}
 	return res;
 }
