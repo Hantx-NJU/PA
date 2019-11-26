@@ -89,7 +89,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 		}
 	}
 memcpy(&res, hw_mem + paddr, len);
-	return res;/*
+	return res;
 	//now we must replace one block to load new--->blockline = seed % 8
 	blockline = seed % 8;
 	cache[group*8 + blockline].sign = tag;
@@ -105,7 +105,7 @@ memcpy(&res, hw_mem + paddr, len);
 			memcpy(&res, cache[group*8 + blockline].data + block_addr, len);
 			return res;
 		}
-	return res;*/
+	return res;
 }
 
 void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
