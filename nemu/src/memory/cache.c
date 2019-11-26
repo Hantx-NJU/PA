@@ -5,7 +5,7 @@ CacheLine cache[1024];
 
 void init_cache(){
 	for (int i = 0; i < 1024; ++i) {
-		cache[i].valid = false;
+		cache[i].valid = 0;
 	}
 }
 
@@ -32,7 +32,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	//Judge if hit
 	for(int i = 0; i < 8; ++i)
 	{
-		if(cache[group * 8 + i].valid == true){
+		if(cache[group * 8 + i].valid == 1){
 			if(cache[group * 8 + i].sign == tag){
 				//now hit
 				if(block_addr + len > 64)
@@ -53,7 +53,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	//find empty block to load new data
 	for(int i = 0; i < 8; ++i)
 	{
-		if(cache[group*8 + i].valid == false)
+		if(cache[group*8 + i].valid == 0)
 		{
 			blockline = i;
 			break;
@@ -63,7 +63,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 //	return res;
 	//now we must replace one block to load new--->blockline = seed % 8
 	if(blockline == -1)	blockline = seed % 8;
-	cache[group*8 + blockline].valid = true;
+	cache[group*8 + blockline].valid = 1;
 	cache[group*8 + blockline].sign = tag;
 	memcpy(cache[group*8 + blockline].data, hw_mem + (paddr&0xffffffc0), 64);
 	//memcpy(&res,cache[group*8 + blockline].data + block_addr, len);
