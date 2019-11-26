@@ -5,7 +5,7 @@
 typedef struct 
 {
     bool valid;
-    uint32_t sign[8];
+    uint32_t sign;
     uint8_t data[64];
 }CacheLine;
 
