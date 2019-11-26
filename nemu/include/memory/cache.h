@@ -1,6 +1,7 @@
 #ifndef __CACHE_H__
 #define __CACHE_H__
 #include <stdint.h>
+#include <stddef.h>
 
 typedef struct 
 {
