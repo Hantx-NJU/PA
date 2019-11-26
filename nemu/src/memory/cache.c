@@ -70,6 +70,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	memcpy(&res, hw_mem + paddr, len);
 	return res;
 }
+
 void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 {
     uint32_t group_number=(paddr>>6)&0x7f;
