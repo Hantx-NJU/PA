@@ -119,4 +119,14 @@ void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache)
 			}
 		}
 	}
+
+	//write through
+	for(int i = 0; i < 8; ++i)
+	{
+		if(cache[group * 8 + i].valid){
+			if(cache[group * 8 + i].sign == tag){
+				
+			}
+		}
+	}
 }
