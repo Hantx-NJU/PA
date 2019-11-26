@@ -21,7 +21,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	//memcpy(&res, hw_mem + paddr, len);
 	//return res;
 
-	uint32_t tag = paddr & 0xffffe000, tag_suf =(paddr + len)&0xffffe000;
+	uint32_t tag = paddr & 0xffffe000;
 	uint32_t group = paddr & 0x1fc0;
 	group >>= 6;
 	uint32_t block_addr = (paddr & 0x3f);
@@ -30,7 +30,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	int suf_len = len + block_addr - 64;
 	bool flag_cr = false;	//if cross row then set flag_cr true
 	//Cross Row
-	if(tag != tag_suf){
+	if((paddr&0xffffffc0)!=((paddr+len)&0xffffffc0)){
 		flag_cr = true;
 		suf = cache_read(paddr + len - suf_len, suf_len, cache);
 	}
