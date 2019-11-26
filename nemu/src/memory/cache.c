@@ -54,6 +54,13 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 			}
 		}
 	}
+
+	//find empty block to load new data
+
+	for(int i = 0; i < 8; ++i)
+	{
+		
+	}
 }
 
 void cache_write(paddr_t paddr, size_t len, uint32_t data, CacheLine * cache);
