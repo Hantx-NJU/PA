@@ -66,6 +66,7 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	memcpy(cache[group*8 + blockline].data, hw_mem + paddr - block_addr, 64);
 	
 	//memcpy(&res,cache[group*8 + blockline].data + block_addr, len);
+	//hw_mem-->cache-->regs
 	if(block_addr + len > 64)
 	{
 		uint32_t suf = 0;
