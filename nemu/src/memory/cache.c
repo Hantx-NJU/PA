@@ -37,8 +37,8 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 				{
 					uint32_t suf = 0;
 					memcpy(&res, (cache[group*8 + i].data + block_addr), 64-block_addr);
-					suf = cache_read(paddr + 64 - block_addr, block_addr + len - 64, cache);
-					res = res + (suf << (8*(64 - block_addr)));
+					//suf = cache_read(paddr + 64 - block_addr, block_addr + len - 64, cache);
+					//res = res + (suf << (8*(64 - block_addr)));
 					return res;
 				}
 				else{
