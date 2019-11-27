@@ -86,8 +86,7 @@ void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 					cache_write(paddr+64-block_addr,block_addr+len-64,(data>>(8*(64-block_addr))),cache);
 				}
 				else{
-					memcpy(&res,cache[group*8 + i].data + block_addr, len);
-					return res;
+					memcpy(cache[group*8 + i].data+block_addr, &data, len);
 				}
 			}
 		}
