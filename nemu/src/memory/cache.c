@@ -75,6 +75,8 @@ void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 	uint32_t group = (paddr>>6) & 0x7f;
 	uint32_t block_addr = (paddr & 0x3f);
     memcpy(hw_mem + paddr,&data,len);
+
+	//if hit
   	for(int i = 0; i < 8; ++i)
 	{
 		if(cache[group * 8 + i].valid == 1){
@@ -91,4 +93,6 @@ void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 			}
 		}
 	}
+
+	//if not hit, no write
 }
