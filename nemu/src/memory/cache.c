@@ -90,7 +90,7 @@ void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
    	uint32_t tag = (paddr>>13)&0x7ffff;
 	uint32_t group = (paddr>>6) & 0x7f;
 	uint32_t block_addr = (paddr & 0x3f);
-    memcpy(hw_mem + paddr,&data,len);
+   	//memcpy(hw_mem + paddr,&data,len);
 
 	//if hit
   	for(int i = 0; i < 8; ++i)
@@ -102,15 +102,17 @@ void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 				{
 					cache_write(paddr, 64-block_addr,data,cache);
 					cache_write(paddr+64-block_addr,block_addr+len-64,(data>>(8*(64-block_addr))),cache);
+					return;
 				}
 				else{
 					memcpy(cache[group*8 + i].data+block_addr, &data, len);
-					//if not hit, no writing, or use the code in Line93
-					//memcpy(hw_mem + paddr, cache[group*8 + i].data + block_addr, len);
+					//if not hit, wirting in Line114, or use the code in Line93
+					memcpy(hw_mem + paddr, cache[group*8 + i].data + block_addr, len);
+					return;
 				}
 			}
 		}
 	}
-
+	memcpy(hw_mem + paddr,&data,len);
 	//if not hit, no write
 }
