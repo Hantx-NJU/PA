@@ -71,10 +71,10 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 
 void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 {
-    uint32_t group_number=(paddr>>6)&0x7f;
-    uint32_t sign_number=(paddr>>13)&0x7ffff;
-    uint32_t offset_number= paddr&0x3f;
-    memcpy(hw_mem+paddr,&data,len);
+   uint32_t tag = (paddr>>13)&0x7ffff;
+	uint32_t group = (paddr>>6) & 0x7f;
+	uint32_t block_addr = (paddr & 0x3f);
+    memcpy(hw_mem + paddr,&data,len);
     for(int i=0;i<8;i++)
     {
         if(cache[group_number*8+i].valid==1
