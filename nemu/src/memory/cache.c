@@ -69,13 +69,13 @@ uint32_t cache_read(paddr_t paddr, size_t len, CacheLine * cache)
 	if(block_addr + len > 64)
 	{
 		uint32_t suf = 0;
-		memcpy(&res, (cache[group*8 + i].data + block_addr), 64-block_addr);
+		memcpy(&res, (cache[group*8 + blockline].data + block_addr), 64-block_addr);
 		suf = cache_read(paddr + 64 - block_addr, block_addr + len - 64, cache);
 		res = res + (suf << (8*(64 - block_addr)));
 		return res;
 	}
 	else{
-		memcpy(&res,cache[group*8 + i].data + block_addr, len);
+		memcpy(&res,cache[group*8 + blockline].data + block_addr, len);
 		return res;
 	}
 	
