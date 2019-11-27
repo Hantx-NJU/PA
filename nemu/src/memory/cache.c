@@ -75,18 +75,15 @@ void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 	uint32_t group = (paddr>>6) & 0x7f;
 	uint32_t block_addr = (paddr & 0x3f);
     memcpy(hw_mem + paddr,&data,len);
-   for(int i = 0; i < 8; ++i)
+  	for(int i = 0; i < 8; ++i)
 	{
 		if(cache[group * 8 + i].valid == 1){
 			if(cache[group * 8 + i].sign == tag){
 				//now hit
 				if(block_addr + len > 64)
 				{
-					uint32_t suf = 0;
-					memcpy(&res, (cache[group*8 + i].data + block_addr), 64-block_addr);
-					suf = cache_read(paddr + 64 - block_addr, block_addr + len - 64, cache);
-					res = res + (suf << (8*(64 - block_addr)));
-					return res;
+					cache_write(paddr, 64-block_addr,data,cache);
+					cache_write(paddr+64-block_addr,block_addr+len-64,(data>>(8*(64-block_addr))),cache);
 				}
 				else{
 					memcpy(&res,cache[group*8 + i].data + block_addr, len);
