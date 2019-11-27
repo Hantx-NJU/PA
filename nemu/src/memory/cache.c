@@ -106,13 +106,14 @@ void cache_write(paddr_t paddr,size_t len,uint32_t data , CacheLine* cache)
 				}
 				else{
 					memcpy(cache[group*8 + i].data+block_addr, &data, len);
-					//if not hit, wirting in Line114, or use the code in Line93
+					//if not hit, wirting in Line117, or use the code in Line93
 					memcpy(hw_mem + paddr, cache[group*8 + i].data + block_addr, len);
 					return;
 				}
 			}
 		}
 	}
+	//if not hit, write directly without cache
 	memcpy(hw_mem + paddr,&data,len);
-	//if not hit, no write
+	
 }
