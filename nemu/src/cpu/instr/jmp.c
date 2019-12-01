@@ -58,6 +58,23 @@ make_instr_func(jmp_near_indirect)
         return 0;
 }
 
+make_instr_func(jmp_far_imm)
+{
+	OPERAND src, dest;
+	src.type = OPR_IMM;
+	dest.type = OPR_IMM;
+	src.data_size = 32;
+	dest.data_size = 16;
+	src.addr = eip + 1;
+	dest.addr = eip + 5;
 
+	operand_read(&src);
+	operand_read(&dest);
+
+	cpu.eip = src.val;
+	cpu.cs.val = dest.val;
+
+	return 0;
+}
 
 
