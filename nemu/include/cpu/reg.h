@@ -94,7 +94,7 @@ typedef struct
 		uint32_t val;
 	} eflags;
 
-#ifdef IA32_SEG
+//#ifdef IA32_SEG
 	
 	GDTR gdtr; // GDTR, todo: define type GDTR
 	// segment registers, todo: define type SegReg
@@ -108,9 +108,9 @@ typedef struct
 	};
 	// control registers, todo: define type CR0
 	CR0 cr0;
-#else
+//#else
 	uint8_t dummy_seg[142]; // make __ref_ instructions safe to use
-#endif
+//#endif
 #ifdef IA32_PAGE
 	// control registers, todo: define type CR3
 	CR3 cr3;
