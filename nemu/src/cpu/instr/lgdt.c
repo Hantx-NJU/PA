@@ -5,10 +5,10 @@ make_instr_func(lgdt)
 	int len = 1;
 	OPERAND src;
 
-	len += mod_rm(eip+1, &src);
+	len += modrm_rm(eip+1, &src);
 	src.data_size = 16;
 	operand_read(&src);
-	cpu.gdrt.limit = src.val;
+	cpu.gdtr.limit = src.val;
 
 	src.addr += 2;
 
@@ -16,12 +16,12 @@ make_instr_func(lgdt)
 	{
 		src.data_size = 28;
 		operand_read(&src);
-		cpu.gdrt.base = src.val;
+		cpu.gdtr.base = src.val;
 	}
 	else
 	{
 		src.data_size = 32;
 		operand_read(&src);
-		cpu.gdrt.base = src.val;
+		cpu.gdtr.base = src.val;
 	}
 }
