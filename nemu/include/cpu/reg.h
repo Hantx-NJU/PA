@@ -109,7 +109,7 @@ typedef struct
 	// control registers, todo: define type CR0
 	CR0 cr0;
 //#else
-	uint8_t dummy_seg[142]; // make __ref_ instructions safe to use
+//	uint8_t dummy_seg[142]; // make __ref_ instructions safe to use
 //#endif
 #ifdef IA32_PAGE
 	// control registers, todo: define type CR3
