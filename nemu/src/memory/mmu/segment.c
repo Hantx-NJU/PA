@@ -1,4 +1,5 @@
 #include "cpu/cpu.h"
+#include "cpu/reg.h"
 #include "memory/memory.h"
 
 // return the linear address from the virtual address and segment selector
