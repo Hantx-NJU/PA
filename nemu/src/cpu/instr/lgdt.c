@@ -24,4 +24,5 @@ make_instr_func(lgdt)
 		operand_read(&src);
 		cpu.gdtr.base = src.val;
 	}
+	return len;
 }
