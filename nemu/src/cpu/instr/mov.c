@@ -78,5 +78,21 @@ make_instr_func(mov_srm162r_l) {
 }
 
 make_instr_func(mov_rm2s_w) {
+	int len = 1;
+	uint32_t data = instr_fetch(eip +1 ,1);
+	++len;
+	OPERAND reg, sreg;
+	reg.type = OPR_REG;
+	reg.data_size = 16;
+	reg.addr = data & 7;
+	sreg.type = OPR_SREG;
+	sreg.data_size = 16;
+	sreg.addr = (data >> 3) &7;
 	
+	operand_read(reg);
+	sreg.val = reg.val;
+	operand_write(&sreg);
+
+	load_sreg(sreg.addr);
+	return len;
 }
