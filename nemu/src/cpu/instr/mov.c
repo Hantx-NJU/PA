@@ -89,7 +89,7 @@ make_instr_func(mov_rm2s_w) {
 	sreg.data_size = 16;
 	sreg.addr = (data >> 3) &7;
 	
-	operand_read(reg);
+	operand_read(&reg);
 	sreg.val = reg.val;
 	operand_write(&sreg);
 
