@@ -18,22 +18,16 @@ void load_sreg(uint8_t sreg)
 	/* TODO: load the invisibile part of the segment register 'sreg' by reading the GDT.
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
-	SegDesc des;
+	SegDesc s;
+	uint32_t base = (s.base_31_24 << 24) + (s.base_23_16 << 16) + s.base_15_0;
+	uint32_t limit = (s.limit_19_16 << 16) + s.limit_15_0;
 
-	assert(cpu.segReg[sreg].ti != 1);
+	assert(base == 0);
+	assert(limit == 0);
+	assert(s.present != 0);
+	assert(s.granularity != 0);
 
-	laddr_t gdtindex = cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc);
-	des.val[0] = laddr_read(gdtindex, 4);
-	des.val[1] = laddr_read(gdtindex + 4, 4);
-
-	assert(des.base_15_0 == 0 && des.base_23_16 == 0 && des.base_31_24 == 0);
-	assert(des.limit_15_0 == 0xffff && des.limit_19_16 == 0xf);
-	assert(des.present != 0);
-	assert(des.granularity != 0);
-
-	cpu.segReg[sreg].type = des.type;
-	cpu.segReg[sreg].privilege_level = des.privilege_level;
-	cpu.segReg[sreg].soft_use = des.soft_use;
-	cpu.segReg[sreg].base = (des.base_31_24 << 24) + (des.base_23_16 << 16) + des.base_15_0;
-	cpu.segReg[sreg].limit = (des.limit_19_16 << 16) + des.limit_15_0;
+	cpu.segReg[sreg].privilege_level = s.privilege_level;
+	cpu.segReg[sreg].base = base;
+	cpu.segReg[sreg].limit = limit;
 }
