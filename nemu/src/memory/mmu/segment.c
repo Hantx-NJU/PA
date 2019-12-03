@@ -28,7 +28,7 @@ void load_sreg(uint8_t sreg)
 	uint32_t limit = (s.limit_19_16 << 16) + s.limit_15_0;
 
 	assert(base == 0);
-	assert(limit == 0);
+	assert(limit == 0xFFFFF);
 	assert(s.present != 0);
 	assert(s.granularity != 0);
 
