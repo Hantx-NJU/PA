@@ -111,3 +111,7 @@ make_instr_func(mov_c2r_l) {
 	operand_write(&r);
 	return len;
 }
+
+make_instr_func(mov_r2c_l) {
+
+}
