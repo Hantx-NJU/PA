@@ -50,7 +50,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 	#ifndef IA32_PAGE
 		return paddr_read(laddr, len);
 	#else
-		if(cpu.cr0.pg && cpu.cr0.pe)
+		if(cpu.cr0.pg == 1 && cpu.cr0.pe == 1)
 			{
 				paddr_t paddr;
 				paddr = page_translate(laddr);
@@ -68,7 +68,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 	#ifndef IA32_PAGE
 		paddr_write(laddr, len, data);
 	#else
-		if(cpu.cr0.pg && cpu.cr0.pe)
+		if(cpu.cr0.pg == 1 && cpu.cr0.pe == 1)
 			{
 			paddr_t paddr;
 			paddr = page_translate(laddr);
