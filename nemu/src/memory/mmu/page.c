@@ -10,7 +10,8 @@ paddr_t page_translate(laddr_t laddr)
 	uint32_t offset = laddr & 0xfff;
 
 	assert(PDE.present == 1);
-	
+
+	uint32_t pde_index = (dir<<2) + (cpu.cr3.pdbr<<12);
 	//printf("\nPlease implement page_translate()\n");
 	//assert(0);
 #else
