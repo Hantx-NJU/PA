@@ -50,9 +50,14 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 	#ifndef IA32_PAGE
 		return paddr_read(laddr, len);
 	#else
-		paddr_t paddr;
-		paddr = page_translate(laddr);
-		return paddr_read(paddr, len);
+	if(cpu.cr0.pg && cpu.cr0.pe)
+		{
+			paddr_t paddr;
+			paddr = page_translate(laddr);
+			return paddr_read(paddr, len);
+		}
+	else
+		return paddr_read(laddr, len);
 	#endif
 	
 }
