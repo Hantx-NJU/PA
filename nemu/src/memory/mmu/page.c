@@ -12,6 +12,9 @@ paddr_t page_translate(laddr_t laddr)
 	assert(PDE.present == 1);
 
 	uint32_t pde_index = (dir<<2) + (cpu.cr3.pdbr<<12);
+	uint32_t pde = paddr_read(pde_index, 14;
+	
+
 	//printf("\nPlease implement page_translate()\n");
 	//assert(0);
 #else
