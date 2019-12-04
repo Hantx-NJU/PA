@@ -13,6 +13,7 @@ paddr_t page_translate(laddr_t laddr)
 
 	uint32_t pde_index = (dir<<2) + (cpu.cr3.pdbr<<12);
 	uint32_t pde = paddr_read(pde_index, 14;
+	uint32_t pte_index = (page << 2) + (pde & 0xfffff000);
 	
 
 	//printf("\nPlease implement page_translate()\n");
