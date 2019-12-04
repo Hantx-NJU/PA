@@ -8,6 +8,9 @@ paddr_t page_translate(laddr_t laddr)
 	uint32_t dir = (laddr >> 22) & 0x3ff;
 	uint32_t page = (laddr >> 12) & 0x3ff;
 	uint32_t offset = laddr & 0xfff;
+
+	assert(PDE.present == 1);
+	
 	//printf("\nPlease implement page_translate()\n");
 	//assert(0);
 #else
