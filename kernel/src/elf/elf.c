@@ -39,13 +39,14 @@ uint32_t loader()
 
 			// remove this panic!!!
 			//panic("Please implement the loader");
-
+memcpy((void*)ph->p_vaddr, (void*)ph->p_offset, ph->p_filesz);
+	memset((void*)(ph->p_vaddr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);
 /* TODO: copy the segment from the ELF file to its proper memory area */
 //memcpy((void*)ph->p_vaddr, (void*)ph->p_offset, ph->p_filesz);
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
 //memset((void*)(ph->p_vaddr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);
 #ifdef IA32_PAGE
-uint32_t addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
+			/*uint32_t addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
 			memset((void*)addr, 0, ph->p_memsz);
 			memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
 			/*uint32_t laddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
@@ -58,9 +59,9 @@ uint32_t addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
 			{
 				brk = new_brk;
 			}
-#else
+/*#else
 	memcpy((void*)ph->p_vaddr, (void*)ph->p_offset, ph->p_filesz);
-	memset((void*)(ph->p_vaddr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);
+	memset((void*)(ph->p_vaddr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);*/
 #endif
 		}
 	}
