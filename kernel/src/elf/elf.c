@@ -64,7 +64,6 @@ uint32_t loader()
 			memset((void*)addr, 0, ph->p_memsz);
 			ide_read((uint8_t*)addr, (ph->p_offset+ELF_OFFSET_IN_DISK), ph->p_filesz);
 	#endif
-#endif
 		}
 	}
 
