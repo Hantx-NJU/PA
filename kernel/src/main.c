@@ -86,7 +86,7 @@ void init_cond()
 	video_mapping_write_test();
 #endif
 	/* Load the program. */
-	uint32_t eip = loader();
+	uint32_t eip = loader()+0xc0000000;
 #ifdef HAS_DEVICE_VGA
 	/* Read data in the video memory to check whether 
 	 * the test data is written sucessfully.
