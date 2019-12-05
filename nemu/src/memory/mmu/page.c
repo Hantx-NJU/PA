@@ -15,7 +15,7 @@ paddr_t page_translate(laddr_t laddr)
 
 	uint32_t pte_addr = (page << 2) + (pde & 0xfffff000);
 	uint32_t pte = paddr_read(pte_addr, 4);
-	assert((pte&0x1) == 10;
+	assert((pte&0x1) == 0);
 
 	return (offset + (pte & 0xfffff000));
 	//printf("\nPlease implement page_translate()\n");
