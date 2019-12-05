@@ -45,15 +45,10 @@ memcpy((void*)ph->p_vaddr, (void*)ph->p_offset, ph->p_filesz);
 /* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
 memset((void*)(ph->p_vaddr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);
 #else
-	#ifndef HAS_DEVICE_IDE
-			uint32_t addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
+
+			Elf32_Addr addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
 			memset((void*)addr, 0, ph->p_memsz);
 			memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
-	#else
-			uint32_t addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
-			memset((void*)addr, 0, ph->p_memsz);
-			ide_read((uint8_t*)addr, (ph->p_offset+ELF_OFFSET_IN_DISK), ph->p_filesz);
-	#endif
 #endif
 
 
