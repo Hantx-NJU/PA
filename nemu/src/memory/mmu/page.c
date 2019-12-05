@@ -5,9 +5,12 @@
 paddr_t page_translate(laddr_t laddr)
 {
 #ifndef TLB_ENABLED
-	uint32_t dir = (laddr >> 22) & 0x3ff;
-	uint32_t page = (laddr >> 12) & 0x3ff;
-	uint32_t offset = laddr & 0xfff;
+	//uint32_t dir = (laddr >> 22) & 0x3ff;
+	//uint32_t page = (laddr >> 12) & 0x3ff;
+	//uint32_t offset = laddr & 0xfff;
+	uint32_t dir = (laddr & 0xffc00000) >> 20;
+	uint32_t page = (laddr & 0x003ff000) >> 10;
+	uint32_t offset = (laddr & 0x00000fff);
 
 	uint32_t pde_addr = (dir<<2) + (cpu.cr3.pdbr<<12);
 	uint32_t pde = paddr_read(pde_addr, 4);
