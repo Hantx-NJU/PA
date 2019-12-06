@@ -14,7 +14,7 @@ run: nemu
 	$(call git_commit, "run")
 	#./nemu/nemu --testcase bit 
 	#/nemu/nemu --testcase mov-c  --kernel
-	./nemu/nemu --testcase bit  --kernel
+	./nemu/nemu --testcase mov-c  --kernel
 
 run-kernel: nemu
 	$(call git_commit, "run-kernel")
