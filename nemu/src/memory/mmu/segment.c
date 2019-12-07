@@ -32,6 +32,7 @@ void load_sreg(uint8_t sreg)
 	assert(s.present != 0);
 	assert(s.granularity != 0);
 
+	cpu.segReg[sreg].type = s.type;
 	cpu.segReg[sreg].privilege_level = s.privilege_level;
 	cpu.segReg[sreg].base = base;
 	cpu.segReg[sreg].limit = limit;
