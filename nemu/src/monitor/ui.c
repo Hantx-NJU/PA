@@ -65,7 +65,8 @@ cmd_handler(cmd_si)
 			printf("Bad number: \e[0;31m%s\e[0m\n", steps);
 		}
 	}
-	cmd_handler("info r");
+	char *s ="info r";
+	cmd_handler(s);
 	return 0;
 }
 
