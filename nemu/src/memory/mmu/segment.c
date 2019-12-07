@@ -19,7 +19,6 @@ void load_sreg(uint8_t sreg)
 	 * The visible part of 'sreg' should be assigned by mov or ljmp already.
 	 */
 	SegDesc s;
-	assert(SegReg[sreg].ti != 1);
 
 	laddr_t index = cpu.gdtr.base + cpu.segReg[sreg].index * sizeof(SegDesc);
 	s.val[0] = laddr_read(index, 4);
