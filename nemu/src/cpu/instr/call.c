@@ -10,8 +10,8 @@ make_instr_func(call_near)
 	operand_read(&rel);
 	cpu.esp -= data_size / 8;
 
-	rel.sreg = SREG_DS;
-	mem.sreg = SREG_CS;
+	rel.sreg = SREG_CS;
+	mem.sreg = SREG_DS;
 	
 	mem.type = OPR_MEM;
 	mem.data_size = data_size;
@@ -33,8 +33,8 @@ make_instr_func(call_near_indirect)
 	rm.data_size = data_size;
 	operand_read(&rm);
 
-	rm.sreg = SREG_CS;
-	mem.sreg = SREG_CS;
+	rm.sreg = SREG_DS;
+	mem.sreg = SREG_DS;
 
 	cpu.esp -= data_size / 8;
 	
