@@ -52,7 +52,7 @@ uint32_t laddr_read(laddr_t laddr, size_t len)
 	//#else
 		if(cpu.cr0.pg == 1 && cpu.cr0.pe == 1)
 			{
-				uint32_t paddr;
+				paddr_t paddr;
 				paddr = page_translate(laddr);
 				return paddr_read(paddr, len);
 			}
@@ -70,7 +70,7 @@ void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 	//#else
 		if(cpu.cr0.pg == 1 && cpu.cr0.pe == 1)
 			{
-			uint32_t paddr;
+			paddr_t paddr;
 			paddr = page_translate(laddr);
 			paddr_write(paddr, len, data);
 			}
