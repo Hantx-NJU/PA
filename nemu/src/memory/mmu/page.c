@@ -22,7 +22,7 @@ paddr_t page_translate(laddr_t laddr)
 	//uint32_t pte = hw_mem_read(pte_addr, 4);
 	assert(pte->present== 1);
 
-	return (offset + (pte->val & 0xfffff000));
+	return (offset + (pte->val << 12));
 	//printf("\nPlease implement page_translate()\n");
 	//assert(0);
 #else
