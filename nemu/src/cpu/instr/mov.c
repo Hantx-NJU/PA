@@ -97,7 +97,7 @@ make_instr_func(mov_rm2s_w) {
 	return len;
 }
 
-make_instr_func(mov_r2c_l) {
+make_instr_func(mov_c2r_l) {
 	int len = 1;
 	OPERAND c, r;
 	c.type = OPR_CREG;
@@ -114,7 +114,7 @@ make_instr_func(mov_r2c_l) {
 	return len;
 }
 
-make_instr_func(mov_c2r_l) {
+make_instr_func(mov_r2c_l) {
 	int len = 1;
 	OPERAND c, r;
 	c.type = OPR_CREG;
