@@ -6,6 +6,8 @@ make_instr_func(ret_near)
 	OPERAND temp;
 	temp.type = OPR_MEM;
 	temp.data_size = data_size;
+	temp.sreg = SREG_DS;
+
 	temp.addr = cpu.esp;
 	operand_read(&temp);
 	cpu.esp += data_size/8;
@@ -18,6 +20,8 @@ make_instr_func(ret_near_imm16)
 	//EIP <- POP()
 	OPERAND temp;
 	temp.type = OPR_MEM;
+	temp.sreg = SREG_DS;
+
 	temp.data_size = data_size;
 	temp.addr = cpu.esp;
 	operand_read(&temp);

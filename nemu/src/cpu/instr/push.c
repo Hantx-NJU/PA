@@ -6,6 +6,8 @@ static void instr_execute_1op()
 	operand_read(&opr_src);
 	cpu.esp -= data_size / 8;
 	temp.type=OPR_MEM;
+	temp.sreg = SREG_DS;
+
 	temp.val = opr_src.val;
 	temp.val = sign_ext(temp.val, data_size);
 	temp.addr = cpu.esp;

@@ -8,6 +8,7 @@ static void instr_execute_1op()
 	temp.addr = cpu.esp;
 	operand_read(&temp);
 
+	temp.sreg = SREG_DS;
 	opr_src.val = temp.val;
 	operand_write(&opr_src);
 	cpu.esp += data_size/8;
