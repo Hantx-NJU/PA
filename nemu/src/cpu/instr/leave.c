@@ -7,7 +7,10 @@ make_instr_func(leave)
 	temp.val = sign_ext(temp.val, data_size);
 	cpu.esp = temp.val;
 
+
 	temp.type = OPR_MEM;
+
+	temp.sreg = SREG_DS;
 	temp.data_size = data_size;
 	temp.addr = cpu.esp;
 	operand_read(&temp);
