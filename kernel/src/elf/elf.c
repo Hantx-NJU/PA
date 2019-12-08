@@ -69,7 +69,7 @@ uint32_t loader()
 #ifdef IA32_PAGE
 	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 #ifdef HAS_DEVICE_VGA
-	create_video_mapping();
+	//create_video_mapping();
 #endif
 	write_cr3(get_ucr3());
 #endif
