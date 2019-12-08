@@ -29,7 +29,7 @@ make_instr_func(call_near)
 make_instr_func(call_near_indirect)
 {
 	OPERAND rm, mem;
-       	modrm_rm(eip+1,&rm);
+    modrm_rm(eip+1,&rm);
 	rm.data_size = data_size;
 	operand_read(&rm);
 
