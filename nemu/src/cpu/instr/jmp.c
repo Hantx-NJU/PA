@@ -68,6 +68,9 @@ make_instr_func(jmp_far_imm)
 	src.addr = eip + 1;
 	dest.addr = eip + 5;
 
+        src.sreg = SREG_CS;
+        dest.sreg = SREG_CS;
+
 	operand_read(&src);
 	operand_read(&dest);
 
