@@ -10,6 +10,8 @@ make_instr_func(lgdt)
 	operand_read(&src);
 	cpu.gdtr.limit = src.val;
 
+	src.sreg = SREG_DS;
+
 	src.addr += 2;
 
 	if(data_size == 16)
