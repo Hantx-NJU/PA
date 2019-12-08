@@ -47,36 +47,36 @@ void paddr_write(paddr_t paddr, size_t len, uint32_t data)
 uint32_t laddr_read(laddr_t laddr, size_t len)
 {
 	assert(len == 1 || len == 2 || len == 4);
-	#ifndef IA32_PAGE
-		return paddr_read(laddr, len);
-	#else
+	//#ifndef IA32_PAGE
+	//	return paddr_read(laddr, len);
+	//#else
 		if(cpu.cr0.pg == 1 && cpu.cr0.pe == 1)
 			{
 				paddr_t paddr;
 				paddr = page_translate(laddr);
-				return hw_mem_read(paddr, len);
+				return paddr_read(paddr, len);
 			}
 		else
 			return paddr_read(laddr, len);
-	#endif
+	//#endif
 	
 }
 
 void laddr_write(laddr_t laddr, size_t len, uint32_t data)
 {
 	assert(len == 1 || len == 2 || len == 4);
-	#ifndef IA32_PAGE
-		paddr_write(laddr, len, data);
-	#else
+	//#ifndef IA32_PAGE
+	//	paddr_write(laddr, len, data);
+	//#else
 		if(cpu.cr0.pg == 1 && cpu.cr0.pe == 1)
 			{
 			paddr_t paddr;
 			paddr = page_translate(laddr);
-			hw_mem_write(paddr, len, data);
+			paddr_write(paddr, len, data);
 			}
 		else
 			paddr_write(laddr, len, data);
-	#endif
+	//#endif
 }
 
 uint32_t vaddr_read(vaddr_t vaddr, uint8_t sreg, size_t len)
