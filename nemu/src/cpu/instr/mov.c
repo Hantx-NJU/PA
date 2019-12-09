@@ -96,7 +96,7 @@ make_instr_func(mov_rm2s_w) {
 	load_sreg(sreg.addr);
 	return len;
 }
-
+/*
 make_instr_func(mov_c2r_l) {
 	int len = 1;
 	OPERAND cr, r;
@@ -131,4 +131,32 @@ make_instr_func(mov_r2c_l) {
 	//c.val = 0x1;
 	operand_write(&c);
 	return len;
+}*/
+make_instr_func(mov_r2c_l)
+{
+        int len=1;
+        OPERAND r,cr;
+        r.data_size=32;
+        cr.data_size=32;
+        len+=modrm_r_rm(eip+1,&cr,&r);
+        cr.type=OPR_CREG;
+        
+        operand_read(&r);
+        cr.val=r.val;
+        operand_write(&cr);
+        return len;
+}
+
+make_instr_func(mov_c2r_l)
+{
+        int len =1;
+        OPERAND r,cr;
+        r.data_size=32;
+        cr.data_size=32;
+        len+=modrm_r_rm(eip+1,&cr,&r);
+        cr.type=OPR_CREG;
+        operand_read(&cr);
+        r.val=cr.val;
+        operand_write(&r);
+        return len;
 }
