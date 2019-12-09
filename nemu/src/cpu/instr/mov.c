@@ -118,8 +118,8 @@ make_instr_func(mov_c2r_l) {
 make_instr_func(mov_r2c_l) {
 	int len = 1;
 	OPERAND c, r;
-	c.type = OPR_CREG;
-	r.type = OPR_REG;
+	//c.type = OPR_CREG;
+	//r.type = OPR_REG;
 	c.data_size = 32;
 	r.data_size = 32;
 
