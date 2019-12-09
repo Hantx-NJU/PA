@@ -125,7 +125,7 @@ make_instr_func(mov_r2c_l) {
 
 	len += modrm_r_rm(eip + 1, &r ,&cr);
 	cr.type = OPR_CREG;
-	r.type = OPR_REG;
+	//r.type = OPR_REG;
 	operand_read(&r);
 	cr.val = r.val;
 	//c.val = 0x1;
