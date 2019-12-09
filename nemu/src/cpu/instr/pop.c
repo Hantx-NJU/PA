@@ -6,6 +6,7 @@ static void instr_execute_1op()
 	temp.type = OPR_MEM;
 	temp.data_size = data_size;
 	temp.addr = cpu.esp;
+	temp.sreg = SREG_SS;
 	operand_read(&temp);
 
 	temp.sreg = SREG_DS;
