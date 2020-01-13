@@ -17,12 +17,9 @@ make_instr_func(lidt)
     base.type = OPR_MEM;
     base.addr = mem.addr + limit.data_size / 8;
 
-    base.val = laddr_read(base.addr, base.data_size / 8);
-    limit.val = laddr_read(limit.addr, limit.data_size / 8);
-
-    cpu.idtr.base = base.val;
-    cpu.idtr.limit = limit.val;
-
+    cpu.idtr.base = laddr_read(base.addr, base.data_size / 8);
+    cpu.idtr.limit = laddr_read(limit.addr, limit.data_size / 8);
+    
     print_asm_0("lgdt", "", len + 5);
 
     return len;
