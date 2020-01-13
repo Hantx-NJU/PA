@@ -1,6 +1,6 @@
 #include "cpu/instr.h"
 
-make_instr_func(lglidtdt)
+make_instr_func(lidt)
 {
 	 int len = 1;
     OPERAND mem;
