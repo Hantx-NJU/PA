@@ -3,9 +3,9 @@
 make_instr_func(lidt)
 {
 	 int len = 1;
-    OPERAND mem;
-    mem.data_size = data_size;
-    mem.type = OPR_MEM;
+    OPERAND MEM;
+    MEM.data_size = data_size;
+    MEM.type = OPR_MEM;
 
     len += modrm_rm(eip + 1, &mem);
 
