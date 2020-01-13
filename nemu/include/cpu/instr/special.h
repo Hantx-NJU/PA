@@ -15,4 +15,5 @@ make_instr_func(cbw_a_v);
 make_instr_func(cli);
 make_instr_func(lidt);
 make_instr_func(sti);
+make_instr_func(int_);
 #endif
