@@ -16,7 +16,7 @@ make_instr_func(lglidtdt)
 
 	if(data_size == 16)
 	{
-		src.data_size = 25;
+		src.data_size = 24;
 		operand_read(&src);
 		cpu.gdtr.base = src.val;
 	}
