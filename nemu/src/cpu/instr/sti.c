@@ -1,4 +1,4 @@
-#incldue "cpu/instr.h"
+#include "cpu/instr.h"
 
 make_instr_func(sti)
 {
