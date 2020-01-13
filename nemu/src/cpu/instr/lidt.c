@@ -7,7 +7,7 @@ make_instr_func(lidt)
     MEM.data_size = data_size;
     MEM.type = OPR_MEM;
 
-    len += modrm_rm(eip + 1, &mem);
+    len += modrm_rm(eip + 1, &MEM);
 
     OPERAND limit, base;
     limit.data_size = 16;
