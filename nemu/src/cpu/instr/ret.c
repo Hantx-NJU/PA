@@ -36,7 +36,7 @@ make_instr_func(ret_near_imm16)
 	return 0;
 }
 
-void basic_pop(uint32_t* val)
+uint32_t basic_pop()
 {
     OPERAND temp;
     temp.type = OPR_MEM;
@@ -45,14 +45,14 @@ void basic_pop(uint32_t* val)
     temp.sreg = SREG_CS;
     operand_read(&temp);
     cpu.esp += data_size / 8;
-    *val =  temp.val;
+    return temp.val;
 }
 
 make_instr_func(iret)
 {
-	basic_pop(&cpu.eip);
-	basic_pop(&cpu.cs);
-	basic_pop(cpu.eflags);
-	
+	cpu.eip=basic_pop();
+    cpu.cs.val=basic_pop();
+    cpu.eflags.val=basic_pop();
+
     return 0;
 }
