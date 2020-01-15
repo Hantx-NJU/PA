@@ -29,7 +29,7 @@ make_instr_func(jb_near);
 make_instr_func(jae_near);
 make_instr_func(jns_near);
 make_instr_func(js_short_);
-
+make_instr_func(jns_short_);
 
 
 
