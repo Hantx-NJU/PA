@@ -20,3 +20,21 @@ make_instr_impl_1op(push,rm,v);
 make_instr_impl_1op(push,i,b);
 make_instr_impl_1op(push,i,v);
 		
+make_instr_func(pusha)
+{
+	OPERAND esp;
+    esp.type = OPR_MEM;
+    esp.data_size = data_size;
+    esp.addr = cpu.esp;
+    esp.sreg = SREG_CS;
+    operand_read(&esp);
+    push(cpu.eax);
+    push(cpu.ecx);
+    push(cpu.edx);
+    push(cpu.ebx);
+    push(esp.val);
+    push(cpu.ebp);
+    push(cpu.esi);
+    push(cpu.edi);
+	return 1;
+}
