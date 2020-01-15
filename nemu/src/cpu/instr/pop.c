@@ -17,7 +17,7 @@ static void instr_execute_1op()
 
 make_instr_impl_1op(pop, r, v);
 
-void basic_pop(uint32_t& val)
+void basic_pop(uint32_t* val)
 {
     OPERAND temp;
     temp.type = OPR_MEM;
