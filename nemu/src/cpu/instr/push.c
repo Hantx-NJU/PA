@@ -42,13 +42,13 @@ make_instr_func(pusha)
     esp.addr = cpu.esp;
     esp.sreg = SREG_CS;
     operand_read(&esp);
-    push(cpu.eax);
-    push(cpu.ecx);
-    push(cpu.edx);
-    push(cpu.ebx);
-    push(esp.val);
-    push(cpu.ebp);
-    push(cpu.esi);
-    push(cpu.edi);
+    basic_push(cpu.eax);
+    basic_push(cpu.ecx);
+    basic_push(cpu.edx);
+    basic_push(cpu.ebx);
+    basic_push(esp.val);
+    basic_push(cpu.ebp);
+    basic_push(cpu.esi);
+    basic_push(cpu.edi);
 	return 1;
 }
