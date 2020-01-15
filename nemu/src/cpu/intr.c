@@ -2,6 +2,10 @@
 #include "cpu/instr.h"
 #include "memory/memory.h"
 
+void raise_intr_push(uint32_t val)
+{
+	
+}
 void raise_intr(uint8_t intr_no)
 {
 #ifdef IA32_INTR
