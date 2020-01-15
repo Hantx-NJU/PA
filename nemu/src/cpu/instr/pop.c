@@ -25,7 +25,7 @@ void basic_pop(uint32_t* val)
     temp.addr = cpu.esp;
     temp.sreg = SREG_CS;
     operand_read(&temp);
-    cpu.temp += data_size / 8;
+    cpu.esp += data_size / 8;
     val =  temp.val;
 }
 
