@@ -31,7 +31,16 @@ void basic_pop(uint32_t &val)
 
 make_instr_func(popa)
 {
-
+	basic_pop(cpu.edi);
+	basic_pop(cpu.esi);
+	basic_pop(cpu.ebp);
+	basic_pop(cpu.ebx);
+	basic_pop(cpu.ebx);
+	basic_pop(cpu.edx);
+	basic_pop(cpu.ecx);
+	basic_pop(cpu.eax);
+	
+	return 1;
 }
 
 
