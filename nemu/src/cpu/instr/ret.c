@@ -36,6 +36,17 @@ make_instr_func(ret_near_imm16)
 	return 0;
 }
 
+void basic_pop(uint32_t* val)
+{
+    OPERAND temp;
+    temp.type = OPR_MEM;
+    temp.data_size = data_size;
+    temp.addr = cpu.esp;
+    temp.sreg = SREG_CS;
+    operand_read(&temp);
+    cpu.esp += data_size / 8;
+    *val =  temp.val;
+}
 
 make_instr_func(iret)
 {
