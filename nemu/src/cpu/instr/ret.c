@@ -36,7 +36,7 @@ make_instr_func(ret_near_imm16)
 	return 0;
 }
 
-uint32_t basic_pop()
+static uint32_t basic_pop()
 {
     OPERAND temp;
     temp.type = OPR_MEM;
