@@ -19,7 +19,21 @@ make_instr_impl_1op(push,r,v);
 make_instr_impl_1op(push,rm,v);
 make_instr_impl_1op(push,i,b);
 make_instr_impl_1op(push,i,v);
-		
+
+void basic_push(uint32_t val)
+{
+	OPERAND temp;
+	//operand_read(&opr_src);
+	cpu.esp -= data_size / 8;
+	temp.type=OPR_MEM;
+	temp.sreg = SREG_CS;
+
+	temp.val = val;
+	temp.val = sign_ext(temp.val, data_size);
+	temp.addr = cpu.esp;
+	temp.data_size=data_size;
+	operand_write(&temp);
+}
 make_instr_func(pusha)
 {
 	OPERAND esp;
