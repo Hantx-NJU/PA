@@ -26,7 +26,7 @@ void basic_pop(uint32_t* val)
     temp.sreg = SREG_CS;
     operand_read(&temp);
     cpu.esp += data_size / 8;
-    val =  temp.val;
+    *val =  temp.val;
 }
 
 make_instr_func(popa)
