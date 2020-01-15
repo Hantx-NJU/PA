@@ -5,12 +5,12 @@
 void raise_intr_push(uint32_t val)
 {
 	OPERAND temp;
-	
+	//operand_read(&opr_src);
 	cpu.esp -= data_size / 8;
 	temp.type=OPR_MEM;
-	temp.sreg = SREG_SS;
+	temp.sreg = SREG_CS;
 
-	temp.val = opr_src.val;
+	temp.val = val;
 	temp.val = sign_ext(temp.val, data_size);
 	temp.addr = cpu.esp;
 	temp.data_size=data_size;
