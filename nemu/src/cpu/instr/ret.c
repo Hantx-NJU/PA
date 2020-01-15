@@ -35,3 +35,25 @@ make_instr_func(ret_near_imm16)
 	cpu.esp += imm.val;
 	return 0;
 }
+
+
+make_instr_func(iret)
+{
+	//EIP <- POP()
+	OPERAND temp;
+	temp.type = OPR_MEM;
+	temp.sreg = SREG_DS;
+
+	temp.data_size = data_size;
+	temp.addr = cpu.esp;
+	operand_read(&temp);
+	cpu.esp += data_size/8;
+	cpu.eip = temp.val;
+
+	OPERAND imm;
+	modrm_rm(cpu.eip+1, &imm);
+	imm.data_size = data_size;
+	operand_read(&imm);
+	cpu.esp += imm.val;
+	return 0;
+}
