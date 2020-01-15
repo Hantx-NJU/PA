@@ -28,6 +28,15 @@ raise_intr_push(cpu.eip);
 uint32_t des[2];
 des[0] = laddr_read(cpu.idtr.base + (intr_no << 3), 4);
 des[1] = laddr_read(cpu.idtr.base + (intr_no << 3) + 4, 4);
+
+uint32_t new_cs = (des[0]&0xffff0000)>>16;
+uint32_t new_eip = (des[1]&0xffff0000)|(des[0]&0xffff);
+
+cpu.cs.val=new_cs;
+cpu.eip=new_eip;
+
+load_sreg(SREG_CS);
+
 #endif
 }
 
