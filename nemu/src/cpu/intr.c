@@ -4,7 +4,17 @@
 
 void raise_intr_push(uint32_t val)
 {
+	OPERAND temp;
 	
+	cpu.esp -= data_size / 8;
+	temp.type=OPR_MEM;
+	temp.sreg = SREG_SS;
+
+	temp.val = opr_src.val;
+	temp.val = sign_ext(temp.val, data_size);
+	temp.addr = cpu.esp;
+	temp.data_size=data_size;
+	operand_write(&temp);
 }
 void raise_intr(uint8_t intr_no)
 {
