@@ -19,8 +19,14 @@ void raise_intr_push(uint32_t val)
 void raise_intr(uint8_t intr_no)
 {
 #ifdef IA32_INTR
-	printf("Please implement raise_intr()");
-	assert(0);
+//	printf("Please implement raise_intr()");
+//	assert(0);
+raise_intr_push(cpu.eflags.val);
+raise_intr_push(cpu.cs.val);
+raise_intr_push(cpu.eip);
+
+GateDesc *It;
+paddr_t res= 
 #endif
 }
 
