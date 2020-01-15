@@ -51,8 +51,8 @@ void basic_pop(uint32_t* val)
 make_instr_func(iret)
 {
 	basic_pop(&cpu.eip);
-	basic_pop(&cpu.cs.val);
-	basic_pop(cpu.eflags.val);
+	basic_pop(&cpu.cs);
+	basic_pop(cpu.eflags);
 	
     return 0;
 }
