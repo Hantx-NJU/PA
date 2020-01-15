@@ -37,6 +37,8 @@ cpu.eip=new_eip;
 
 load_sreg(SREG_CS);
 
+int type = (des[1]>>8)&0xf;
+if(type==0xe)	cpu.eflags.IF = 0;
 #endif
 }
 
