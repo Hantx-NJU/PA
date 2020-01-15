@@ -25,8 +25,9 @@ raise_intr_push(cpu.eflags.val);
 raise_intr_push(cpu.cs.val);
 raise_intr_push(cpu.eip);
 
-GateDesc *It;
-paddr_t res= 
+uint32_t des[2];
+dex[0] = laddr_read(cpu.idtr.base + (intr_no << 3), 4);
+
 #endif
 }
 
