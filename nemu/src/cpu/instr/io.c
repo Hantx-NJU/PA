@@ -25,7 +25,7 @@ make_instr_func(out_b) {
 make_instr_func(out_v) {
     int len =1;
     if(data_size == 16)
-        cpu.gpr[0]._16 = pio_read(cpu.gpr[2]._16, 2);
+        pio_write(cpu.gpr[2]._16, 2, cpu.gpr[0]._16);
     else
 	    pio_write(cpu.gpr[2]._16, 4, cpu.eax);
 	return len;

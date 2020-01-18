@@ -2,6 +2,7 @@
     "files.associations": {
         "sstream": "c",
         "cpu.h": "c",
-        "memory.h": "c"
+        "memory.h": "c",
+        "port_io.h": "c"
     }
 }
