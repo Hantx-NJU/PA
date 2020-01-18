@@ -15,3 +15,13 @@ make_instr_func(in_v) {
 	    cpu.eax = pio_read(cpu.gpr[2]._16, 4);
 	return len;
 }
+
+make_instr_func(out_b) {
+	pio_write(cpu.gpr[2]._16, 1, (uint32_t)cpu.gpr[0]._8[0]);
+	return 1;
+}
+
+make_instr_func(out_v) {
+	pio_write(cpu.gpr[2]._16, 4, cpu.eax);
+	return 1;
+}
