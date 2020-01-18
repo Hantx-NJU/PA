@@ -24,7 +24,7 @@ void hw_mem_write(paddr_t paddr, size_t len, uint32_t data)
 	memcpy(hw_mem + paddr, &data, len);
 }
 
-uint32_t paddr_read(paddr_t paddr, size_t len)
+/*uint32_t paddr_read(paddr_t paddr, size_t len)
 {
 	uint32_t ret = 0;
 #ifdef CACHE_ENABLED
@@ -50,6 +50,38 @@ int mapval = is_mmio(paddr);
 	else
 	mmio_write((uint32_t)hw_mem + paddr, len, data, mapval);
 
+#endif
+}*/
+uint32_t paddr_read(paddr_t paddr, size_t len)
+{ //physical addr
+	uint32_t ret = 0;
+#ifdef CACHE_ENABLED
+	ret = cache_read(paddr, len, L1_dcache);
+#else
+	int mapping_val = is_mmio(paddr);
+	if (mapping_val != -1)
+	{
+		ret = mmio_read((uint32_t)hw_mem + paddr, len, mapping_val);
+	}
+	else
+		ret = hw_mem_read(paddr, len);
+#endif
+	return ret;
+}
+
+void paddr_write(paddr_t paddr, size_t len, uint32_t data)
+{
+#ifdef CACHE_ENABLED
+	cache_write(paddr, len, data, L1_dcache);
+#else
+	int mapping_val = is_mmio(paddr);
+	if (mapping_val != -1)
+	{
+		//what the addr ???
+		mmio_write((uint32_t)hw_mem + paddr, len, data, mapping_val);
+	}
+	else
+		hw_mem_write(paddr, len, data);
 #endif
 }
 
