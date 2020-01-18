@@ -44,7 +44,11 @@ void paddr_write(paddr_t paddr, size_t len, uint32_t data)
 #ifdef CACHE_ENABLED
 	cache_write(paddr, len, data, cache);
 #else
-	hw_mem_write(paddr, len, data);
+int mapval = is_mmio(paddr);
+	if (mapval != -1)
+		mmio_write((uint32_t)hw_mem + paddr, len, data, mapval);
+	else
+		hw_mem_write(paddr, len, data);
 #endif
 }
 
