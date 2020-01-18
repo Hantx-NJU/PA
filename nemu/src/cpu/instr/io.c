@@ -34,7 +34,7 @@ make_instr_func(in_v) {
 	return len;
 }
 
-/*static void instr_execute_2op()
+static void instr_execute_2op()
 {
 	operand_read(&opr_src);
 	operand_read(&opr_dest);
