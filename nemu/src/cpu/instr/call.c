@@ -1,6 +1,6 @@
 #include "cpu/instr.h"
 
-/*make_instr_func(call_near)
+make_instr_func(call_near)
 {
 	//PUSH(EIP)
 	OPERAND rel, mem;
@@ -24,29 +24,7 @@
 	cpu.eip += rel_s;
 
 	return 1 + data_size / 8;
-}*/
-make_instr_func(call_near) {
-	cpu.esp = cpu.esp - 4;
-	OPERAND rel, locate;
-	rel.type = OPR_IMM;
-	rel.data_size = data_size;
-	rel.addr = cpu.eip + 1;
-	locate.type = OPR_MEM;
-	locate.data_size = data_size;
-	locate.val = cpu.eip + 1 + rel.data_size/8;
-	locate.addr = cpu.esp;
-	locate.sreg = SREG_CS;
-
-	operand_read(&rel);
-	operand_write(&locate);
-
-	int offset = sign_ext(rel.val, rel.data_size);
-
-	cpu.eip += offset;
-
-	return (1 + rel.data_size / 8);
 }
-
 make_instr_func(call_near_indirect)
 {
     OPERAND rm, mem;
