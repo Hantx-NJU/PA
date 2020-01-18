@@ -2,6 +2,15 @@
 #include "memory/memory.h"
 
 // translate from linear address to physical address
+typedef union {
+	struct
+	{
+		uint32_t offset : 12;
+		uint32_t page_index : 10;
+		uint32_t dic_index : 10;
+	};
+	uint32_t val;
+} laddr_analyse;
 paddr_t page_translate(laddr_t laddr)
 {
 #ifndef TLB_ENABLED
