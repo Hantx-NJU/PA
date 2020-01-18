@@ -83,7 +83,6 @@ uint32_t loader()
 	return entry;
 }
 #else
-{
 	uint32_t loader()
 {
 	Elf32_Ehdr *elf;	  //The header of the elf file
@@ -137,6 +136,5 @@ uint32_t loader()
 	write_cr3(get_ucr3());
 #endif
 	return entry;
-}
 }
 #endif
