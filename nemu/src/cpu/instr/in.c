@@ -9,6 +9,9 @@ make_instr_func(in_b) {
 
 make_instr_func(in_v) {
     int len =1;
-	cpu.eax = pio_read(cpu.gpr[2]._16, 4);
+    if(data_size == 16)
+        cpu.gpr[0]._16 = pio_read(cpu.gpr[2]._16, 2);
+    else
+	    cpu.eax = pio_read(cpu.gpr[2]._16, 4);
 	return len;
 }
