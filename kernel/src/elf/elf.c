@@ -139,3 +139,4 @@ uint32_t loader()
 	return entry;
 }
 }
+#endif
