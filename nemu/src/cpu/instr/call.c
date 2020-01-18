@@ -28,16 +28,22 @@ make_instr_func(call_near)
 
 make_instr_func(call_near_indirect)
 {
-    int len = 1;
-    OPERAND rm;
-    rm.data_size = data_size;
-    len += modrm_rm(eip + 1, &rm);
-    push(eip + len);
-    operand_read(&rm);
-    cpu.eip = rm.val & mask_code;
-    rm.val = cpu.eip;
-    print_asm_1("call", "", len, &rm);
-    return 0;
+    OPERAND rm, locate;
+	int len = 1;
+	rm.data_size = data_size;
+	len += modrm_rm(eip + 1, &rm);
+	operand_read(&rm);
+
+	cpu.esp = cpu.esp - 4;
+	locate.type = OPR_MEM;
+	locate.data_size = data_size;
+	locate.val = cpu.eip + len;
+	locate.addr = cpu.esp;
+	operand_write(&locate);
+
+	cpu.eip = rm.val;
+
+	return 0;
 }
 
 /*make_instr_func(call_near_indirect)
