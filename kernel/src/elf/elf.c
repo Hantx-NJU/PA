@@ -44,7 +44,7 @@ uint32_t loader()
 	Elf32_Addr addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
 	//memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
 	#ifdef HAS_DEVICE_IDE
-		ide_read((uint8_t *)addr, ph->p_offset, ph->p_filesz);
+		ide_read((uint8_t*)addr, (ph->p_offset+ELF_OFFSET_IN_DISK), ph->p_filesz);
 	#else
 		memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
 	#endif
