@@ -82,46 +82,55 @@ uint32_t loader()
 #endif
 	return entry;
 }
+
+
 #else
-	uint32_t loader()
-{
-	Elf32_Ehdr *elf;	  //The header of the elf file
-	Elf32_Phdr *ph, *eph; //ph is the pointer to the program_header
+uint32_t loader() {	
+	Elf32_Ehdr *elf;
+	Elf32_Phdr *ph, *eph;
+
 #ifdef HAS_DEVICE_IDE
 	uint8_t buf[4096];
 	ide_read(buf, ELF_OFFSET_IN_DISK, 4096);
-	elf = (void *)buf;
+	elf = (void*)buf;
 	Log("ELF loading from hard disk.");
 #else
-	elf = (void *)0x0; //The elf_file is stored beigins in 0x0.
+	elf = (void *)0x0;
 	Log("ELF loading from ram disk.");
 #endif
+
 	/* Load each program segment */
 	ph = (void *)elf + elf->e_phoff;
-	eph = ph + elf->e_phnum; //The end of the items.
-	for (; ph < eph; ph++)
-	{
-
-		if (ph->p_type == PT_LOAD)
-		{
-			uint32_t paddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
-			memset((void *)(paddr), 0, ph->p_memsz);
-#ifdef HAS_DEVICE_IDE
-			ide_read((uint8_t *)paddr, ph->p_offset, ph->p_filesz);
+	eph = ph + elf->e_phnum;
+	for(; ph < eph; ph ++) {
+		if(ph->p_type == PT_LOAD) {
+#ifndef IA32_PAGE
+			//panic("Please implement the loader");
+			int i;
+			/* TODO: copy the segment from the ELF file to its proper memory area */
+			for (i = 0; i < ph->p_filesz; i++) {
+				*((uint32_t *)(ph->p_vaddr + i)) = *((uint32_t *)((void *)elf + ph->p_offset + i));
+			}
+			/* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
+			for (i = ph->p_filesz; i < ph->p_memsz; i++) {
+				*((uint32_t *)(ph->p_vaddr + i)) = 0;
+			}
 #else
-			memcpy((void *)(paddr), (void *)elf + (ph->p_offset),
-				   ph->p_filesz);
+	#ifndef HAS_DEVICE_IDE
+			uint32_t addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
+			memset((void*)addr, 0, ph->p_memsz);
+			memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
+	#else
+			uint32_t addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
+			memset((void*)addr, 0, ph->p_memsz);
+			ide_read((uint8_t*)addr, (ph->p_offset+ELF_OFFSET_IN_DISK), ph->p_filesz);
+	#endif
 #endif
-// /* TODO: copy the segment from the ELF file to its proper memory area */
-/* TODO: zeror the memory area [vaddr + file_sz, vaddr + mem_sz) */
 #ifdef IA32_PAGE
 			/* Record the program break for future use */
 			extern uint32_t brk;
 			uint32_t new_brk = ph->p_vaddr + ph->p_memsz - 1;
-			if (brk < new_brk)
-			{
-				brk = new_brk;
-			}
+			if(brk < new_brk) { brk = new_brk; }
 #endif
 		}
 	}
