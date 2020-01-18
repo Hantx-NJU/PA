@@ -11,6 +11,7 @@
 #define STACK_SIZE (1 << 20)
 
 void ide_read(uint8_t *, uint32_t, uint32_t);
+void ide_write(uint8_t *buf, uint32_t offset, uint32_t len);
 void create_video_mapping();
 uint32_t get_ucr3();
 
