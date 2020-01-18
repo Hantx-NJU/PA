@@ -26,7 +26,8 @@ make_instr_func(call_near)
 	return 1 + data_size / 8;
 }
 
-make_instr_func(call_near_indirect)
+
+/*make_instr_func(call_near_indirect)
 {
 	OPERAND rm, mem;
     modrm_rm(eip+1,&rm);
@@ -48,4 +49,4 @@ make_instr_func(call_near_indirect)
 
         return 0;
 }
-
+*/
