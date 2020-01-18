@@ -28,5 +28,5 @@ make_instr_impl_1op_cc(set, rm, b, ns)
 make_instr_impl_1op_cc(set, rm, b, o)
 make_instr_impl_1op_cc(set, rm, b, p)
 make_instr_impl_1op_cc(set, rm, b, s)
-make_instr_impl_1op_cc(set, rm, b, s)
-sete_b
+
+
