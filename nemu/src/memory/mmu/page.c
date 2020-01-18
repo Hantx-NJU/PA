@@ -7,7 +7,7 @@ paddr_t page_translate(laddr_t laddr) {
 	uint32_t dir4 = (laddr & 0xffc00000) >> 20;
 	uint32_t page4 = (laddr & 0x003ff000) >> 10;
 	uint32_t offset = (laddr & 0x00000fff);
-	uint32_t pde1 = (cpu.cr3.PDBR << 12) + dir4;
+	uint32_t pde1 = (cpu.cr3.pdbr << 12) + dir4;
 	pde1 = paddr_read(pde1, 4);
 	if ((pde1 & 1) == 0)
 		assert(0);
