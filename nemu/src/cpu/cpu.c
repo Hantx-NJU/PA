@@ -16,6 +16,7 @@ uint8_t data_size = 32;
 
 void init_cpu(const uint32_t init_eip)
 {
+	cpu.intr = 0;
 	cpu.eflags.val = 0x0;
 	fpu.status.val = 0x0;
 	int i = 0;
