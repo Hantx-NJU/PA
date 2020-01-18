@@ -30,33 +30,14 @@ make_instr_func(ret_near_imm16)
 
 	OPERAND imm;
 	modrm_rm(cpu.eip+1, &imm);
-	imm.data_size = data_size;
+	imm.data_size = 16;
 	operand_read(&imm);
 	cpu.esp += sign_ext(imm.val, imm.data_size);
 	return 0;
 }
 
 
-make_instr_func(ret_near_imm16) {
-	OPERAND rel, imm;
-	rel.type = OPR_MEM;
-	rel.addr = cpu.esp;
-	rel.sreg = SREG_SS;
-	rel.data_size = data_size;
-	operand_read(&rel);
 
-	imm.type = OPR_IMM;
-	imm.sreg = SREG_CS;
-	imm.data_size = 16;
-	imm.addr = eip + 1;
-	operand_read(&imm);
-	
-	cpu.eip = rel.val;
-	cpu.esp = cpu.esp + 4;
-	cpu.esp = cpu.esp + sign_ext(imm.val, imm.data_size);
-
-	return 0;
-}
 
 static uint32_t basic_pop()
 {
