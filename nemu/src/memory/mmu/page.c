@@ -2,33 +2,26 @@
 #include "memory/memory.h"
 
 // translate from linear address to physical address
-typedef union {
-	struct
-	{
-		uint32_t offset : 12;
-		uint32_t page_index : 10;
-		uint32_t dic_index : 10;
-	};
-	uint32_t val;
-} laddr_analyse;
-paddr_t page_translate(laddr_t laddr)
-{
+paddr_t page_translate(laddr_t laddr) {
 #ifndef TLB_ENABLED
-	laddr_analyse l;
-	l.val = laddr;
-	PDE *pde_header = (void *)(hw_mem + (cpu.cr3.PDBR << 12));
-	PDE target_dic = pde_header[l.dic_index];
-	// assert(pde_header->present);
-	PTE *pte_header = (void *)(hw_mem +
-							   (target_dic.page_frame << 12));
-	PTE target_tbl = pte_header[l.page_index];
-	assert(target_tbl.present);
-	return (target_tbl.page_frame << 12) + l.offset;
-#else
-	return tlb_read(laddr) | (laddr & PAGE_MASK);
-	;
+	uint32_t dir4 = (laddr & 0xffc00000) >> 20;
+	uint32_t page4 = (laddr & 0x003ff000) >> 10;
+	uint32_t offset = (laddr & 0x00000fff);
+	uint32_t pde1 = (cpu.cr3.PDBR << 12) + dir4;
+	pde1 = paddr_read(pde1, 4);
+	if ((pde1 & 1) == 0)
+		assert(0);
+	uint32_t pte1 = (pde1 & 0xfffff000) + page4;
+	pte1 = paddr_read(pte1, 4);
+	if ((pte1 & 1) == 0)
+		assert(0);
+	uint32_t padd = (pte1 & 0xfffff000) + offset;
+	return padd;
+#else	
+	return tlb_read(laddr) | (laddr & PAGE_MASK);;
 #endif
 }
+
 /*paddr_t page_translate(laddr_t laddr)
 {
 #ifndef TLB_ENABLED
