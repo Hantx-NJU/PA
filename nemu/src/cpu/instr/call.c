@@ -28,20 +28,21 @@ make_instr_func(call_near)
 
 make_instr_func(call_near_indirect)
 {
-    OPERAND rm, locate;
+    OPERAND rm, mem;
 	int len = 1;
 	rm.data_size = data_size;
 	len += modrm_rm(eip + 1, &rm);
 	operand_read(&rm);
 
 	cpu.esp = cpu.esp - 4;
-	locate.type = OPR_MEM;
-	locate.data_size = data_size;
-	locate.val = cpu.eip + len;
-	locate.addr = cpu.esp;
-	operand_write(&locate);
+	mem.type = OPR_MEM;
+	mem.data_size = data_size;
+	mem.val = cpu.eip + len;
+	mem.addr = cpu.esp;
+	operand_write(&mem);
 
-	cpu.eip = rm.val;
+	int rel_s = sign_ext(rm.val, data_size);
+	cpu.eip = rel_s;
 
 	return 0;
 }
