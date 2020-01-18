@@ -30,7 +30,11 @@ uint32_t paddr_read(paddr_t paddr, size_t len)
 #ifdef CACHE_ENABLED
 	ret = cache_read(paddr, len, cache);
 #else
-	ret = hw_mem_read(paddr, len);
+	int mapval = is_mmio(paddr);
+	if (mapval != -1)
+		ret = mmio_read((uint32_t)hw_mem + paddr, len, mapval);
+	else
+		ret = hw_mem_read(paddr, len);
 #endif
 	return ret;
 }
