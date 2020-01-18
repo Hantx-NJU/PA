@@ -42,7 +42,12 @@ uint32_t loader()
 			//panic("Please implement the loader");
 #ifdef IA32_PAGE
 	Elf32_Addr addr = mm_malloc(ph->p_vaddr, ph->p_memsz);
-	memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
+	//memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
+	#ifdef HAS_DEVICE_IDE
+		ide_read((uint8_t *)addr, ph->p_offset, ph->p_filesz);
+	#else
+		memcpy((void*)addr, (void*)ph->p_offset, ph->p_filesz);
+	#endif
 	memset((void*)(addr + ph->p_filesz), 0, ph->p_memsz - ph->p_filesz);
 #else
 	/* TODO: copy the segment from the ELF file to its proper memory area */
