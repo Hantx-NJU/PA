@@ -51,35 +51,8 @@ void paddr_write(paddr_t paddr, size_t len, uint32_t data)
 	mmio_write(paddr, len, data, mapval);
 
 #endif
-}/*
-uint32_t paddr_read(paddr_t paddr, size_t len) {
-	uint32_t ret = 0;
-	int mmio_id = is_mmio(paddr);
-	if (mmio_id == -1) {
-#ifdef CACHE_ENABLED
-	ret = cache_read(paddr, len, cache);
-#else
-	ret = hw_mem_read(paddr, len);
-#endif
-	}
-	else
-		ret = mmio_read(paddr, len, mmio_id);
-	return ret;
 }
 
-void paddr_write(paddr_t paddr, size_t len, uint32_t data) {
-	int mmio_id = is_mmio(paddr);
-	if (mmio_id == -1) {
-#ifdef CACHE_ENABLED
-	cache_write(paddr, len, data, cache);
-#else
-	hw_mem_write(paddr, len, data);
-#endif
-	}
-	else
-		mmio_write(paddr, len, data, mmio_id);
-}
-*/
 uint32_t laddr_read(laddr_t laddr, size_t len)
 {
 	assert(len == 1 || len == 2 || len == 4);
