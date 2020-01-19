@@ -50,5 +50,5 @@ void video_mapping_read_test()
 
 void video_mapping_clear()
 {
-	memset((void *)VMEM_ADDR, 0, SCR_SIZE);
+	//memset((void *)VMEM_ADDR, 0, SCR_SIZE);
 }
