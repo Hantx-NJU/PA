@@ -38,6 +38,32 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 int fs_open(const char *pathname, int flags)
 {
 	//panic("Please implement fs_open at fs.c");
+	int index = 0;
+	// panic("Please implement fs_open at fs.c");
+
+	for (; index < NR_FILES; index++)
+	{
+		file_info fileInfo = file_table[index];
+		char *origin_str = fileInfo.name;
+		int i = 0;
+		for (; origin_str[i] != '\0' && pathname[i] != '\0'; i++)
+		{
+			if (origin_str[i] != pathname[i]) //we have one not match
+				break;
+		}
+		if (origin_str[i] == '\0' && pathname[i] == '\0')
+		{
+			// printf("index = %d\n",index);
+			Log("index = %d\n", index);
+			//open
+			files[index + 3].used = true;
+			files[index + 3].index = 0;
+			return index;
+		}
+	}
+
+	assert(0);
+	return -1;
 	return -1;
 }
 
