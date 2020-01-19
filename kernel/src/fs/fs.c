@@ -69,7 +69,21 @@ int fs_open(const char *pathname, int flags)
 size_t fs_read(int fd, void *buf, size_t len)
 {
 	assert(fd > 2);
-	panic("Please implement fs_read at fs.c");
+	//panic("Please implement fs_read at fs.c");
+	if (len == 0)
+		return 0;
+	file_info fileInfo = file_table[fd];
+	uint32_t file_size = fileInfo.size;
+	uint32_t disk_offset = fileInfo.disk_offset;
+	uint32_t index = files[fd + 3].index;
+	if (file_size < len + index) //The file is small
+		len = file_size - index;
+
+	ide_read(buf, disk_offset + index, len);
+	Log("len = %d\nfilesize = %x\n", len, file_size);
+	fs_close(fd);
+	files[fd + 3].index += len; //reset the index
+	return len;
 	return -1;
 }
 
@@ -100,6 +114,8 @@ off_t fs_lseek(int fd, off_t offset, int whence)
 
 int fs_close(int fd)
 {
-	panic("Please implement fs_close at fs.c");
+	//panic("Please implement fs_close at fs.c");
+	files[fd + 3].used = false;
+	files[fd + 3].index = 0;
 	return -1;
 }
