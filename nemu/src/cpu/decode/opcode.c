@@ -148,7 +148,7 @@ instr_func group_x87_de_entry[8] =
 
 /* 0xdf */
 instr_func group_x87_df_entry[8] =
-    {inv, inv, inv, inv, x87_fnstsw, x87_fucomip, inv, inv};
+    {inv, inv, inv, inv, x87_fnstsw, x87_fucomip, fucomip, inv};
 
 instr_func opcode_2_byte_entry[256] = {
     /* 0x00 - 0x03*/ inv, group_7, inv, inv,
