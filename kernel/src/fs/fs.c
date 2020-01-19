@@ -108,7 +108,21 @@ size_t fs_write(int fd, void *buf, size_t len)
 
 off_t fs_lseek(int fd, off_t offset, int whence)
 {
-	panic("Please implement fs_lseek at fs.c");
+	//panic("Please implement fs_lseek at fs.c");
+	uint32_t new_offset;
+	switch (whence) {
+		case 0://SEEK_SET
+			new_offset = offset;break;
+		case 1://SEEK_CUR
+			new_offset = files[fd+3].offset + offset;break;
+		case 2://SEEK_END
+			new_offset = file_table[fd].size + offset;break;
+		default:
+			panic("unknown whence %d", whence);
+	}
+    assert(new_offset <= file_table[fd].size);
+	files[fd+3].offset = new_offset;
+	return files[fd+3].offset;
 	return -1;
 }
 
