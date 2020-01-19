@@ -7,7 +7,24 @@
 
 int get_fps();
 
+#define BYTE_PIXEL_OFFSET(dst, x, y) (((dst)->pitch) * (y) + (x))
+#define BYTE_PIXEL_PTR(dst, x, y) ({ \
+    SDL_Surface *__dst = (dst); \
+    assert(__dst->pitch == __dst->w); \
+    (((char *) (__dst->pixels)) + BYTE_PIXEL_OFFSET(__dst, x, y)); \
+})
+
+#define get_left(rect) ((rect)->x)
+#define get_top(rect) ((rect)->y)
+#define get_right(rect) (get_left(rect) + (rect)->w) // macro not safe
+#define get_bottom(rect) (get_top(rect) + (rect)->h) // macro not safe
+
+#define max(a, b) ((a) > (b) ? (a) : (b)) // macro not safe
+#define min(a, b) ((a) < (b) ? (a) : (b)) // macro not safe
+
 typedef int SDL_bool;
+#define SDL_TRUE (1)
+#define SDL_FALSE (0)
 SDL_bool SDL_IntersectRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* result)
 {
     int left, right, top, bottom;
