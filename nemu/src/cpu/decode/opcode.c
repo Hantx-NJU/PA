@@ -1,5 +1,5 @@
 #include "cpu/instr.h"
-
+//0f 4e 46
 instr_func opcode_entry[256] = {
     /* 0x00 - 0x03*/ inv, add_r2rm_v, add_rm2r_b, add_rm2r_v,
     /* 0x04 - 0x07*/ inv, add_i2a_v, inv, inv,

@@ -73,7 +73,7 @@ bool process_keys(void (*key_press_callback)(int), void (*key_release_callback)(
 	 * Remember to enable interrupts before returning from the function.
 	 */
 
-	assert(0);
+	//assert(0);
 	sti();
 	return false;
 }
