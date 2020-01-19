@@ -81,7 +81,7 @@ size_t fs_read(int fd, void *buf, size_t len)
 
 	ide_read(buf, disk_offset + index, len);
 	Log("len = %d\nfilesize = %x\n", len, file_size);
-	int a = fs_close(fd);
+	//fs_close(fd);
 	files[fd + 3].index += len; //reset the index
 	return len;
 	return -1;
