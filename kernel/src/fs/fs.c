@@ -39,7 +39,6 @@ int fs_open(const char *pathname, int flags)
 {
 	//panic("Please implement fs_open at fs.c");
 	int index = 0;
-	// panic("Please implement fs_open at fs.c");
 
 	for (; index < NR_FILES; index++)
 	{
