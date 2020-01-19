@@ -22,7 +22,7 @@ void create_video_mapping()
 	uint32_t i;
 	for (i = 0xa0; i <= 0xaf; i++) {
 		table[i].val = make_pte(addr);
-		addr = addr + 0x1000;
+		addr += 0x1000;
 	}
 	pd->val = make_pde(va_to_pa(table));
 	//panic("please implement me");
