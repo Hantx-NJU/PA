@@ -24,7 +24,7 @@ void hw_mem_write(paddr_t paddr, size_t len, uint32_t data)
 	memcpy(hw_mem + paddr, &data, len);
 }
 
-/*uint32_t paddr_read(paddr_t paddr, size_t len)
+uint32_t paddr_read(paddr_t paddr, size_t len)
 {
 	uint32_t ret = 0;
 #ifdef CACHE_ENABLED
@@ -32,10 +32,9 @@ void hw_mem_write(paddr_t paddr, size_t len, uint32_t data)
 #else
 	int mapval = is_mmio(paddr);
 	if (mapval == -1)
-		ret = mmio_read((uint32_t)hw_mem + paddr, len, mapval);
-	else
 		ret = hw_mem_read(paddr, len);
-		
+	else
+		ret = mmio_read(paddr, len, mapval);
 #endif
 	return ret;
 }
@@ -49,10 +48,10 @@ void paddr_write(paddr_t paddr, size_t len, uint32_t data)
 	if (mapval == -1)
 	hw_mem_write(paddr, len, data);
 	else
-	mmio_write((uint32_t)hw_mem + paddr, len, data, mapval);
+	mmio_write(paddr, len, data, mapval);
 
 #endif
-}*/
+}/*
 uint32_t paddr_read(paddr_t paddr, size_t len) {
 	uint32_t ret = 0;
 	int mmio_id = is_mmio(paddr);
@@ -80,7 +79,7 @@ void paddr_write(paddr_t paddr, size_t len, uint32_t data) {
 	else
 		mmio_write(paddr, len, data, mmio_id);
 }
-
+*/
 uint32_t laddr_read(laddr_t laddr, size_t len)
 {
 	assert(len == 1 || len == 2 || len == 4);
