@@ -133,7 +133,7 @@ SDL_bool bret;
 	           BYTE_PIXEL_PTR(src, src_surface_rect.x, src_line),
 	           copy_width);
 	    assert(dst_line < dst->h);
-	    assert(src_line < src->h);
+	    //assert(src_line < src->h);
 	    assert(dst_surface_rect.x + copy_width <= dst->w);
 	    assert(src_surface_rect.x + copy_width <= src->w);
 	}
