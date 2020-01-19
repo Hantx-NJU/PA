@@ -38,8 +38,9 @@ static void init_sdl_window()
 
 	SDL_SetPalette(real_screen, SDL_LOGPAL | SDL_PHYSPAL, (void *)&palette, 0, 256);
 	SDL_SetPalette(screen, SDL_LOGPAL, (void *)&palette, 0, 256);
-#endif
 	SDL_WM_SetCaption("NEMU v3.2", NULL);
+#endif
+	//SDL_WM_SetCaption("NEMU v3.2", NULL);
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 }
 #endif
