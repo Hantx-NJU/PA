@@ -72,6 +72,7 @@ bool process_keys(void (*key_press_callback)(int), void (*key_release_callback)(
 	 * If no such key is found, the function return false.
 	 * Remember to enable interrupts before returning from the function.
 	 */
+	bool ret = false;
 	int i = 0;
 	while ((!ret) && (i<NR_KEYS)) {
 		if (key_state[i] == KEY_STATE_RELEASE) {
