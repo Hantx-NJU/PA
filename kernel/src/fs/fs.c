@@ -37,7 +37,7 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 
 int fs_open(const char *pathname, int flags)
 {
-	panic("Please implement fs_open at fs.c");
+	//panic("Please implement fs_open at fs.c");
 	return -1;
 }
 
