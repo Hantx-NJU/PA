@@ -32,9 +32,10 @@ void hw_mem_write(paddr_t paddr, size_t len, uint32_t data)
 #else
 	int mapval = is_mmio(paddr);
 	if (mapval == -1)
-		ret = hw_mem_read(paddr, len);
-	else
 		ret = mmio_read((uint32_t)hw_mem + paddr, len, mapval);
+	else
+		ret = hw_mem_read(paddr, len);
+		
 #endif
 	return ret;
 }
