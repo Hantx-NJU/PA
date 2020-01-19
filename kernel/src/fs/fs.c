@@ -38,31 +38,16 @@ void ide_write(uint8_t *, uint32_t, uint32_t);
 int fs_open(const char *pathname, int flags)
 {
 	//panic("Please implement fs_open at fs.c");
-	int index = 0;
+	int fd;
+    for (fd = 0; fd < NR_FILES; fd++)
+        if (strcmp(pathname, file_table[fd].name) == 0)
+            break;
 
-	for (; index < NR_FILES; index++)
-	{
-		file_info fileInfo = file_table[index];
-		char *origin_str = fileInfo.name;
-		int i = 0;
-		for (; origin_str[i] != '\0' && pathname[i] != '\0'; i++)
-		{
-			if (origin_str[i] != pathname[i]) //we have one not match
-				break;
-		}
-		if (origin_str[i] == '\0' && pathname[i] == '\0')
-		{
-			// printf("index = %d\n",index);
-			Log("index = %d\n", index);
-			//open
-			files[index + 3].used = true;
-			files[index + 3].index = 0;
-			return index;
-		}
-	}
-
-	assert(0);
-	return -1;
+    assert(!files[fd+3].used);
+    
+    files[fd+3].used = 1;
+    files[fd+3].offset = 0;
+	return fd;
 	return -1;
 }
 
@@ -70,21 +55,13 @@ size_t fs_read(int fd, void *buf, size_t len)
 {
 	assert(fd > 2);
 	//panic("Please implement fs_read at fs.c");
-	if (len == 0)
-		return 0;
-	file_info fileInfo = file_table[fd];
-	uint32_t file_size = fileInfo.size;
-	uint32_t disk_offset = fileInfo.disk_offset;
-	uint32_t index = files[fd + 3].index;
-	if (file_size < len + index) //The file is small
-		len = file_size - index;
-
-	ide_read(buf, disk_offset + index, len);
-	Log("len = %d\nfilesize = %x\n", len, file_size);
-	//fs_close(fd);
-	files[fd + 3].index += len; //reset the index
-	return len;
-	return -1;
+	 if (files[fd+3].offset + len > file_table[fd].size) {
+        len = file_table[fd].size - files[fd+3].offset;
+    }
+    unsigned raw_offset = file_table[fd].disk_offset + files[fd+3].offset;
+    ide_read(buf, raw_offset, len);
+    files[fd+3].offset += len;
+    return len;
 }
 
 size_t fs_write(int fd, void *buf, size_t len)
