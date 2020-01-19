@@ -7,6 +7,49 @@
 
 int get_fps();
 
+SDL_bool SDL_IntersectRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* result)
+{
+    int left, right, top, bottom;
+    left = max(get_left(A), get_left(B));
+    top = max(get_top(A), get_top(B));
+    right = min(get_right(A), get_right(B));
+    bottom = min(get_bottom(A), get_bottom(B));
+    
+    if (right > left && bottom > top) {
+        result->x = left;
+        result->y = top;
+        result->w = right - left;
+        result->h = bottom - top;
+        return SDL_TRUE;
+    } else {
+        return SDL_FALSE;
+    }
+}
+
+
+void GetSurfaceRect(SDL_Surface *surface, SDL_Rect *rect)
+{
+    rect->x = 0;
+    rect->y = 0;
+    rect->w = surface->w;
+    rect->h = surface->h;
+}
+
+void SDL_GetClipRect(SDL_Surface *surface, SDL_Rect *rect)
+{
+    //printf("x=%d y=%d ", (int) surface->clip_rect.x, (int) surface->clip_rect.y);
+    //printf("h=%d w=%d\n", (unsigned) surface->clip_rect.h, (unsigned) surface->clip_rect.w);
+    SDL_Rect *clip_rect = &surface->clip_rect;
+    if (clip_rect->x == 0 && clip_rect->y == 0 && clip_rect->h == 0 && clip_rect->w == 0) {
+        GetSurfaceRect(surface, rect);
+    } else {
+        *rect = *clip_rect;
+    }
+    
+    assert(rect->x >= 0 && rect->y >= 0);
+    assert(rect->x + rect->w <= surface->w);
+    assert(rect->y + rect->h <= surface->h);
+}
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 					 SDL_Surface *dst, SDL_Rect *dstrect)
 {
