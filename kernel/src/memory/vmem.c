@@ -20,7 +20,7 @@ void create_video_mapping()
 	PDE * pd = (PDE*)va_to_pa(get_updir());
 	uint32_t addr = VMEM_ADDR;
 	uint32_t i;
-	for (i = 0xa0; i <= 0xaf; i++) {
+	for (i = 0; i <= NR_PT; i++) {
 		table[i].val = make_pte(addr);
 		addr += 0x1000;
 	}
