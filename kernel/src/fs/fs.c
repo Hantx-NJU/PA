@@ -42,7 +42,6 @@ int fs_open(const char *pathname, int flags)
     for (fd = 0; fd < NR_FILES; fd++)
         if (strcmp(pathname, file_table[fd].name) == 0)
             break;
-
     
     files[fd+3].offset = 0;
 	files[fd+3].used = 1;
