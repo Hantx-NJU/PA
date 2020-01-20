@@ -53,7 +53,7 @@ size_t fs_read(int fd, void *buf, size_t len)
 	assert(fd > 2);
 	//panic("Please implement fs_read at fs.c");
     len = files[fd+3].offset + len > file_table[fd].size ? file_table[fd].size - files[fd+3].offset : len;
-	
+
     ide_read(buf, files[fd+3].offset + file_table[fd].disk_offset, len);
     files[fd+3].offset += len;
     return len;
@@ -84,13 +84,13 @@ off_t fs_lseek(int fd, off_t offset, int whence)
 	uint32_t new_offset;
 	switch (whence) {
 		case 0://SEEK_SET
-			new_offset = offset;break;
+			new_offset = offset;	break;
 		case 1://SEEK_CUR
-			new_offset = files[fd+3].offset + offset;break;
+			new_offset = files[fd+3].offset + offset;	break;
 		case 2://SEEK_END
-			new_offset = file_table[fd].size + offset;break;
+			new_offset = file_table[fd].size + offset;	break;
 		default:
-			panic("unknown whence %d", whence);
+			assert(0);
 	}
     assert(new_offset <= file_table[fd].size);
 	files[fd+3].offset = new_offset;
