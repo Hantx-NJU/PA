@@ -40,7 +40,7 @@ int fs_open(const char *pathname, int flags)
 	//panic("Please implement fs_open at fs.c");
 	int fd;
     for (fd = 0; fd < NR_FILES; fd++)
-        if (strcmp(pathname, file_table[fd].name) == 0)
+        if (pathname == file_table[fd].name)
             break;
     
     files[fd+3].offset = 0;
