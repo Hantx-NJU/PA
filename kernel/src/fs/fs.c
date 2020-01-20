@@ -42,13 +42,10 @@ int fs_open(const char *pathname, int flags)
     for (fd = 0; fd < NR_FILES; fd++)
         if (strcmp(pathname, file_table[fd].name) == 0)
             break;
-
-    assert(!files[fd+3].used);
     
-    files[fd+3].used = 1;
     files[fd+3].offset = 0;
+	files[fd+3].used = 1;
 	return fd;
-	return -1;
 }
 
 size_t fs_read(int fd, void *buf, size_t len)
