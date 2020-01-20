@@ -7,67 +7,7 @@
 
 int get_fps();
 
-#define BYTE_PIXEL_OFFSET(dst, x, y) (((dst)->pitch) * (y) + (x))
-#define BYTE_PIXEL_PTR(dst, x, y) ({ \
-    SDL_Surface *__dst = (dst); \
-    assert(__dst->pitch == __dst->w); \
-    (((char *) (__dst->pixels)) + BYTE_PIXEL_OFFSET(__dst, x, y)); \
-})
 
-#define get_left(rect) ((rect)->x)
-#define get_top(rect) ((rect)->y)
-#define get_right(rect) (get_left(rect) + (rect)->w) // macro not safe
-#define get_bottom(rect) (get_top(rect) + (rect)->h) // macro not safe
-
-#define max(a, b) ((a) > (b) ? (a) : (b)) // macro not safe
-#define min(a, b) ((a) < (b) ? (a) : (b)) // macro not safe
-
-typedef int SDL_bool;
-#define SDL_TRUE (1)
-#define SDL_FALSE (0)
-SDL_bool SDL_IntersectRect(const SDL_Rect* A, const SDL_Rect* B, SDL_Rect* result)
-{
-    int left, right, top, bottom;
-    left = max(get_left(A), get_left(B));
-    top = max(get_top(A), get_top(B));
-    right = min(get_right(A), get_right(B));
-    bottom = min(get_bottom(A), get_bottom(B));
-    
-    if (right > left && bottom > top) {
-        result->x = left;
-        result->y = top;
-        result->w = right - left;
-        result->h = bottom - top;
-        return SDL_TRUE;
-    } else {
-        return SDL_FALSE;
-    }
-}
-
-
-void GetSurfaceRect(SDL_Surface *surface, SDL_Rect *rect)
-{
-    rect->x = 0;
-    rect->y = 0;
-    rect->w = surface->w;
-    rect->h = surface->h;
-}
-
-void SDL_GetClipRect(SDL_Surface *surface, SDL_Rect *rect)
-{
-    //printf("x=%d y=%d ", (int) surface->clip_rect.x, (int) surface->clip_rect.y);
-    //printf("h=%d w=%d\n", (unsigned) surface->clip_rect.h, (unsigned) surface->clip_rect.w);
-    SDL_Rect *clip_rect = &surface->clip_rect;
-    if (clip_rect->x == 0 && clip_rect->y == 0 && clip_rect->h == 0 && clip_rect->w == 0) {
-        GetSurfaceRect(surface, rect);
-    } else {
-        *rect = *clip_rect;
-    }
-    
-    assert(rect->x >= 0 && rect->y >= 0);
-    assert(rect->x + rect->w <= surface->w);
-    assert(rect->y + rect->h <= surface->h);
-}
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 					 SDL_Surface *dst, SDL_Rect *dstrect)
 {
