@@ -103,5 +103,5 @@ int fs_close(int fd)
 	//panic("Please implement fs_close at fs.c");
 	files[fd + 3].used = 0;
 	files[fd + 3].index = 0;
-	return -1;
+	return 0;
 }
