@@ -7,7 +7,6 @@
 
 int get_fps();
 
-
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 					 SDL_Surface *dst, SDL_Rect *dstrect)
 {
@@ -31,53 +30,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect,
 	 * `dst' surface.
 	 */
 
-SDL_bool bret;
-	
-	// get src surface rect;
-	SDL_Rect src_surface_rect;
-	GetSurfaceRect(src, &src_surface_rect);
-	if (srcrect) {
-    	bret = SDL_IntersectRect(srcrect, &src_surface_rect, &src_surface_rect);
-        if (bret == SDL_FALSE) return;
-    }
-	
-	// get dst surface rect
-    SDL_Rect dst_surface_rect;
-    SDL_GetClipRect(dst, &dst_surface_rect);
-	if (dstrect) {
-	    SDL_Rect trect;
-    	trect.x = dstrect->x;
-	    trect.y = dstrect->y;
-	    trect.w = src_surface_rect.w;
-	    trect.h = src_surface_rect.h;
-	    bret = SDL_IntersectRect(&trect, &dst_surface_rect, &dst_surface_rect);
-        if (bret == SDL_FALSE) return;
-	}
-
-	
-	// calc height and width needed to copy
-	int copy_width = min(src_surface_rect.w, dst_surface_rect.w);
-	int copy_height = min(src_surface_rect.h, dst_surface_rect.h);
-	
-	// do real copy
-	int dst_line, src_line;
-	for (dst_line = get_top(&dst_surface_rect),
-	     src_line = get_top(&src_surface_rect);
-	     
-	        copy_height--;
-	        
-	            dst_line++,
-	            src_line++
-	    ) {
-	    memcpy(BYTE_PIXEL_PTR(dst, dst_surface_rect.x, dst_line), 
-	           BYTE_PIXEL_PTR(src, src_surface_rect.x, src_line),
-	           copy_width);
-	    assert(dst_line < dst->h);
-	    assert(src_line < src->h);
-	    assert(dst_surface_rect.x + copy_width <= dst->w);
-	    assert(src_surface_rect.x + copy_width <= src->w);
-	}
-	//assert(0);
+	assert(0);
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color)
@@ -123,8 +76,7 @@ void SDL_SetPalette(SDL_Surface *s, int flags, SDL_Color *colors,
 	if (s->flags & SDL_HWSURFACE)
 	{
 		/* TODO: Set the VGA palette by calling write_palette(). */
-		//assert(0);
-		write_palette(colors, ncolors);
+		assert(0);
 	}
 }
 
