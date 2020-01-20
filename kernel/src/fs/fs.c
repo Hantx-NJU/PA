@@ -90,9 +90,11 @@ off_t fs_lseek(int fd, off_t offset, int whence)
 		case 2://SEEK_END
 			a = file_table[fd].size + offset;	break;
 		default:
-			assert(0);
+			panic("unknown whence %d", whence);
 	}
-
+    assert(new_offset <= file_table[fd].size);
+	files[fd+3].offset = new_offset;
+	return files[fd+3].offset;
 	files[fd+3].offset = a;
 	return files[fd+3].offset;
 
