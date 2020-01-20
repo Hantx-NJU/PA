@@ -52,11 +52,9 @@ size_t fs_read(int fd, void *buf, size_t len)
 {
 	assert(fd > 2);
 	//panic("Please implement fs_read at fs.c");
-	 if (files[fd+3].offset + len > file_table[fd].size) {
-        len = file_table[fd].size - files[fd+3].offset;
-    }
-    unsigned raw_offset = file_table[fd].disk_offset + files[fd+3].offset;
-    ide_read(buf, raw_offset, len);
+    len = files[fd+3].offset + len > file_table[fd].size ? file_table[fd].size - files[fd+3].offset : len;
+    int temp = file_table[fd].disk_offset + files[fd+3].offset;
+    ide_read(buf, temp, len);
     files[fd+3].offset += len;
     return len;
 }
