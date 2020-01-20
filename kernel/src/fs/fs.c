@@ -83,11 +83,14 @@ off_t fs_lseek(int fd, off_t offset, int whence)
 	//panic("Please implement fs_lseek at fs.c");
 	off_t a;
 	switch (whence) {
-		case 0://SEEK_SET
+		//SEEK_SET
+		case 0:
 			a = offset;	break;
-		case 1://SEEK_CUR
+		//SEEK_CUR
+		case 1:
 			a = files[fd+3].offset + offset;	break;
-		case 2://SEEK_END
+		//SEEK_END
+		case 2:
 			a = file_table[fd].size + offset;	break;
 		default:
 			panic("Error whence %d", whence);
